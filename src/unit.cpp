@@ -11,8 +11,8 @@
 Unit::Unit()
 {
 	/* some style examples */
-	if (true)		/* spaces should be used for keywords ... */
+	if (true)			/* spaces should be used for keywords ... */
 	{
-		sleep(0);	/* ... but not functions */
+		sleep(0);		/* ... but not functions */
 	}
 };
