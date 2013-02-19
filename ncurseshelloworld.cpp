@@ -1,5 +1,7 @@
 #include <ncurses.h>
 
+/*TO COMPILE USE -lncurses FLAG*/
+
 /*Useful ncurses stuff:
 curs_set(int) -> 0=invisable,1=visable,2=very visable
 attron(A_DIM) -> half bright(doesn't work)
