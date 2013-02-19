@@ -14,7 +14,7 @@ int main(int argc, char **argv)
 	start_color();
 	noecho();
 	raw();
-	getmaxyx(stdscr,maxy,maxx);
+	getmaxyx(stdscr,maxy,maxx);//gets the size of the screen
 	if(!can_change_color())
 		printw("cant change color ");
 	init_pair(1, COLOR_BLACK, COLOR_CYAN);
@@ -22,12 +22,12 @@ int main(int argc, char **argv)
 	init_pair(3, COLOR_BLACK, COLOR_CYAN);
 	init_pair(4, COLOR_WHITE, COLOR_BLUE);
 	keypad(stdscr,TRUE);
-	attron(A_BOLD);
-	printw("bold test");
-	attroff(A_BOLD);
+	attron(A_BOLD);//add a attribute (bold)
+	printw("bold test");//print
+	attroff(A_BOLD);//remove a attribute
 	printw(" less bold");
-	mvprintw(1,0,"cursor test, press q to quit");
-	getyx(stdscr,y,x);
+	mvprintw(1,0,"cursor test, press q to quit");//move then print
+	getyx(stdscr,y,x);//get position of cursor
 	int ch = getch();
 	while(ch!= 'q')
 	{
@@ -66,10 +66,9 @@ int main(int argc, char **argv)
 				}
 				break;
 		}
-		refresh();
+		refresh();//refesh screen
 		ch = getch();
 	}
-	refresh();
 	endwin(); //end ncurses
 
 	return 0;
