@@ -1,13 +1,14 @@
-# Compiled Object files
-*.slo
-*.lo
+# object files
 *.o
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
+# binary files
+main
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
+# autotools stuff
+*.log
+.deps
+autom4te.cache
+config.status
+include/config.h
+include/stamp-h1
+Makefile
