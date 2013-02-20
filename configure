@@ -272,7 +272,7 @@ PACKAGE_STRING='main 0.0.1'
 PACKAGE_BUGREPORT=''
 
 ac_unique_file="src/main.cpp"
-ac_default_prefix=.
+ac_default_prefix=..
 # Factoring default headers for most tests.
 ac_includes_default="\
 #include <stdio.h>
