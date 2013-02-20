@@ -49,7 +49,7 @@ int main(int argc, char **argv)
 				move(y, x);
 			}
 			break;
-		case KE_RIGHT:
+		case KEY_RIGHT:
 		case 'd':
 			if (x < maxx - 1)
 			{
