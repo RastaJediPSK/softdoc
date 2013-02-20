@@ -3,4 +3,11 @@ Team Null Pointer
 Don't dereference us!
 ---------------------
 
-void *p = NULL;
+User Guide
+==========
+
+Developer Guide
+===============
+- If you make changes to configure.ac or any Makefile.am's, rerun 
+  ./autogen.sh and then proceed to ./configure && make (and
+  optionally make install) and then run ./main.
