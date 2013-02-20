@@ -10,7 +10,7 @@ AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([src/main.cpp])
 AC_CONFIG_HEADER([include/config.h])
 
-AC_PREFIX_DEFAULT(.)
+AC_PREFIX_DEFAULT(..)
 
 # Checks for programs.
 AC_PROG_CXX
