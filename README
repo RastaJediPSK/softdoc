@@ -10,4 +10,5 @@ Developer Guide
 ===============
 - If you make changes to configure.ac or any Makefile.am's, rerun 
   ./autogen.sh and then proceed to ./configure && make (and
-  optionally make install) and then run ./main.
+  optionally make install) and then run ./src/main (or bin/main if you ran make
+  install).
