@@ -21,11 +21,11 @@ Map::Map(int x, int y)
         {
             for(int j=0;j<scr_y; j++)
             {
-                if(i >= map_x || i >= map_y)
+                if(i >= x || j >= y)
                 {
-                    attron(COLOR_PAIR(13));
+                    attron(COLOR_PAIR(14));
                     mvaddch(j,i,' ');
-                    attroff(COLOR_PAIR(13));
+                    attroff(COLOR_PAIR(14));
                 }else{
                     if(map[i][j].unit == NULL)
                     {
