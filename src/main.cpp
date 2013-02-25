@@ -39,6 +39,9 @@ int main()
     init_pair(14, COLOR_BLACK, COLOR_BLACK);
     /*RESIZE FUNC*/
     //signal(SIGWINCH, /*i(void *)resizefunc(int)*/);
+    MAP *gamemap = new MAP(80,24);
+    getch();
+    delete gamemap;
 
 	return 0;
 }

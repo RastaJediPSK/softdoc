@@ -13,17 +13,26 @@ MAP::MAP(int x, int y)
             for(int j=0;j<y;j++)
             {
                 map[i][j].unit = NULL;
-                map[i][j].terrain = map[i][j].terrain % 12 + 1;//temp
+                map[i][j].terrain = map[i][j].terrain % 6 + 1;//temp
             }
         }
-        for(int i=0, i<scr_x && i<map_x; i++)
+        for(int i=0, i<scr_x; i++)
         {
-            for(int j=0;j<scr_y && j<map_y; j++)
+            for(int j=0;j<scr_y; j++)
             {
-                attron(COLOR_PAIR(map[i][j].terrain));
-                if(map[i][j] == NULL)
-                    mvaddch(i,j,' ');
-                attroff(COLOR_PAIR(map[i][j].terrain));
+                if(i >= map_x || i >= map_y)
+                {
+                    attron(COLOR_PAIR(13));
+                    mvaddch(j,i,' ');
+                    attroff(COLOR_PAIR(13));
+                }else{
+                    if(map[i][j].unit == NULL)
+                    {
+                        attron(COLOR_PAIR(map[i][j].terrain));
+                        mvaddch(j,i,' ');
+                        attroff(COLOR_PAIR(map[i][j].terrain));
+                    }
+                }
             }
         }
 }
@@ -32,4 +41,28 @@ MAP::~MAP()
 {
     for(int i=0;i<map_x;i++)
         delete [] map[i];
+}
+
+void MAP::redraw()
+{
+    getmaxyx(stdscr,scr_y,scr_x);
+    for(int i=0;i<scr_x;i++)
+    {
+        for(int j=0;j<scr_y;j++)
+        {
+            if(i+tile_x >= map_x || j+tile_y >= map_y)
+            {
+                attron(COLOR_PAIR(14));
+                mvaddch(j,i,' ');
+                attroff(COLOR_PAIR(14));
+            }else{
+                if(map[i+tile_x][j+tile_y].unit == NULL)
+                {
+                    attron(COLOR_PAIR(map[i+tile_x][j+tile_y].terrain));
+                    mvaddch(j,i,' ');
+                    attroff(COLOR_PAIR(map[i+tile_x][j+tile_y].terrain));
+                }
+            }
+        }
+    }
 }

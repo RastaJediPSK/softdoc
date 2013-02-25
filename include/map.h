@@ -19,6 +19,7 @@ class MAP
 
     MAP(int x, int y);
     ~MAP();
+    void redraw();
 };
 
 #endif
