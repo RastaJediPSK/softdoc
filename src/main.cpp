@@ -5,9 +5,9 @@
  * Description:
  */
 
-#include <ncurses>
+#include <ncurses.h>
 #include <iostream>
-#include <signal>
+#include <signal.h>
 #include "map.h"
 #include "unit.h"
 
@@ -39,9 +39,11 @@ int main()
     init_pair(14, COLOR_BLACK, COLOR_BLACK);
     /*RESIZE FUNC*/
     //signal(SIGWINCH, /*i(void *)resizefunc(int)*/);
-    MAP *gamemap = new MAP(80,24);
+    Map *gamemap = new Map(80,24);
     getch();
     delete gamemap;
 
+    /*end ncurses*/
+    endwin();
 	return 0;
 }
