@@ -1,5 +1,7 @@
 bin_PROGRAMS = main
 main_SOURCES = main.cpp unit.cpp map.cpp
-main_CXXFLAGS = -O2 -lncurses
-main_CXXFLAGS += -Wall -Weffc++
+# CXXFLAGS are flags to pass to the C++ compiler
+main_CXXFLAGS = -O2 -Wall -Weffc++
 #main_CXXFLAGS += -Wextra
+# LDFLAGS are passed to the linker
+main_LDFLAGS = -lncurses
