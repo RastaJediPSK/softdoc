@@ -10,7 +10,8 @@ Map::Map(int x, int y, int screen_x, int screen_y, Panel *panel_ptr) :
     scr_y(screen_y),
     pos_x(screen_x/2),
     pos_y(screen_y/2),
-    panel(panel_ptr)
+    panel(panel_ptr),
+    map_pad(NULL)
 {
     if(panel != NULL)
         scr_x -= panel->get_size();
@@ -24,32 +25,26 @@ Map::Map(int x, int y, int screen_x, int screen_y, Panel *panel_ptr) :
             map[i][j].terrain = (i+j) % 6 + 1;	//temp
         }
     }
-	for (int i = 0; i < scr_x; i++)
+    map_pad = newpad(y,x);
+    for(int j=0;j<y;j++)
     {
-        for(int j=0;j<scr_y; j++)
+        wmove(map_pad,j,0);
+        for(int i=0;i<x;i++)
         {
-            if (i >= x || j >= y)
-            {
-                attron(COLOR_PAIR(14));
-                mvaddch(j,i,' ');
-                attroff(COLOR_PAIR(14));
-            }
-            else
-            { if (map[i][j].unit == NULL)
-                            {
-                    attron(COLOR_PAIR(map[i][j].terrain));
-                    mvaddch(j,i,' ');
-                    attroff(COLOR_PAIR(map[i][j].terrain));
-                }
-            }
+            wattron(map_pad,COLOR_PAIR(map[i][j].terrain));
+            waddch(map_pad,' ');
+            wattroff(map_pad,COLOR_PAIR(map[i][j].terrain));
         }
     }
+    pnoutrefresh(map_pad,0,0,0,0,scr_y-1,scr_x-1);
+    doupdate();
 }
 
 Map::~Map()
 {
 	for(int i = 0; i < map_x; i++)
 		delete [] map[i];
+    delwin(map_pad);
 }
 
 void Map::redraw(int screen_x, int screen_y)
@@ -60,33 +55,11 @@ void Map::redraw(int screen_x, int screen_y)
         pos_x = scr_x;
     if(pos_y > scr_y)
         pos_y = scr_y;
-    curs_set(0);
-	for (int i = 0; i < scr_x; i++)
-	{
-		for (int j = 0; j < scr_y; j++)
-		{
-			if (i + tile_x >= map_x || j + tile_y >= map_y)
-			{
-				attron(COLOR_PAIR(14));
-				mvaddch(j,i,' ');
-				attroff(COLOR_PAIR(14));
-			}
-
-			else
-			{
-				if (map[i + tile_x][j + tile_y].unit == NULL)
-				{                
-					attron(COLOR_PAIR(map[i + tile_x][j + tile_y].terrain));
-					mvaddch(j,i,' ');
-					attroff(COLOR_PAIR(map[i + tile_x][j + tile_y].terrain));
-				}
-			}
-		}
-	}
+    pnoutrefresh(map_pad,tile_y,tile_x,0,0,scr_y-1,scr_x-1);
     if(panel != NULL)
         panel->resize(screen_x+panel->get_size(),screen_y,map[pos_x+tile_x][pos_y+tile_y].terrain,map[pos_x+tile_x][pos_y+tile_y].unit);
+    doupdate();
     move(pos_y,pos_x);
-    curs_set(1);
 }
 
 void Map::map_loop()

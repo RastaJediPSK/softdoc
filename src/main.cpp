@@ -5,7 +5,7 @@
  * Description:
  */
 
-#include <ncurses.h>
+#include <ncurses/curses.h>
 #include <iostream>
 #include <signal.h>
 #include "map.h"
@@ -18,6 +18,7 @@ int main()
     initscr();
     noecho();
     raw();
+    refresh();
     keypad(stdscr,TRUE);
     /*START COLORS*/
     start_color();

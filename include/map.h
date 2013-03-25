@@ -1,7 +1,7 @@
 #ifndef MAP_H_
 #define MAP_H_
 
-#include <ncurses.h>
+#include <ncurses/curses.h>
 #include "unit.h"
 #include "panel.h"
 
@@ -19,6 +19,7 @@ class Map
     int scr_x, scr_y;//total size of screen
     int pos_x, pos_y;//position of cursor on screen
     Panel *panel;//pointer to panel
+    WINDOW *map_pad;//pad to draw map on
 
     public:
     Map(int x, int y, int screen_x, int screen_y, Panel *panel_ptr = NULL);

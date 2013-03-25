@@ -1,7 +1,7 @@
 #ifndef PANEL_H
 #define PANEL_H
 
-#include <ncurses.h>
+#include <ncurses/curses.h>
 #include "unit.h"
 
 class Panel
