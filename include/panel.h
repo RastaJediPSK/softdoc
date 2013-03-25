@@ -12,6 +12,7 @@ class Panel
     int terrain_pos;//line with terrain info
     int unit_name_pos;//line with unit name
     int move_pos;//line with unit move info
+    WINDOW *panel_window;
 
     public:
     Panel(int screen_x, int screen_y, int panel_size);

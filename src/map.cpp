@@ -36,8 +36,7 @@ Map::Map(int x, int y, int screen_x, int screen_y, Panel *panel_ptr) :
             wattroff(map_pad,COLOR_PAIR(map[i][j].terrain));
         }
     }
-    pnoutrefresh(map_pad,0,0,0,0,scr_y-1,scr_x-1);
-    doupdate();
+    redraw(scr_x,scr_y);
 }
 
 Map::~Map()
@@ -91,7 +90,10 @@ void Map::map_loop()
                     pos_y--;
                     move(pos_y,pos_x);
                     if(panel != NULL)
+                    {
                         panel->update(map[pos_x+tile_x][pos_y+tile_y].terrain,map[pos_x+tile_x][pos_y+tile_y].unit);
+                        doupdate();
+                    }
                 }
                 break;
             case KEY_DOWN:
@@ -108,7 +110,10 @@ void Map::map_loop()
                     pos_y++;
                     move(pos_y,pos_x);
                     if(panel != NULL)
+                    {
                         panel->update(map[pos_x+tile_x][pos_y+tile_y].terrain,map[pos_x+tile_x][pos_y+tile_y].unit);
+                        doupdate();
+                    }
                 }
                 break;
             case KEY_LEFT:
@@ -125,7 +130,10 @@ void Map::map_loop()
                     pos_x--;
                     move(pos_y,pos_x);
                     if(panel != NULL)
+                    {
                         panel->update(map[pos_x+tile_x][pos_y+tile_y].terrain,map[pos_x+tile_x][pos_y+tile_y].unit);
+                        doupdate();
+                    }
                 }
                 break;
             case KEY_RIGHT:
@@ -142,7 +150,10 @@ void Map::map_loop()
                     pos_x++;
                     move(pos_y,pos_x);
                     if(panel != NULL)
+                    {
                         panel->update(map[pos_x+tile_x][pos_y+tile_y].terrain,map[pos_x+tile_x][pos_y+tile_y].unit);
+                        doupdate();
+                    }
                 }
                 break;
             default:

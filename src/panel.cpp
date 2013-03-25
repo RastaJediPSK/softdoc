@@ -7,49 +7,44 @@ Panel::Panel(int screen_x, int screen_y, int panel_size) :
     pos_x(screen_x-size+1),
     terrain_pos(1),
     unit_name_pos(screen_y/4),
-    move_pos(screen_y/4 + 1)
+    move_pos(screen_y/4 + 1),
+    panel_window(NULL)
 {
-    attron(COLOR_PAIR(15));
-    mvprintw(terrain_pos,pos_x,"Terrain: ");
-    mvprintw(unit_name_pos,pos_x,"Unit Name: ");
-    mvprintw(move_pos,pos_x,"Move Left: ");
-    attroff(COLOR_PAIR(15));
+    resize(scr_y,scr_x,0,NULL);
 }
 
 void Panel::update(int terrain, Unit *unit)
 {
-    int curx, cury, i;
+    int i;
 
-    getyx(stdscr,cury,curx);
-    move(terrain_pos,pos_x+9);
+    wmove(panel_window,terrain_pos,9);
     switch(terrain)
     {
         case 1:
-            addstr("Water");
+            waddstr(panel_window,"Water");
             break;
         case 2:
-            addstr("Grass");
+            waddstr(panel_window,"Grass");
             break;
         case 3:
-            addstr("Road");
+            waddstr(panel_window,"Road");
             break;
         case 4:
-            addstr("???");
+            waddstr(panel_window,"???");
             break;
         case 5:
-            addstr("Mountin");
+            waddstr(panel_window,"Mountin");
             break;
         case 6:
-            addstr("???");
+            waddstr(panel_window,"???");
             break;
         default:
             break;
     }
-    getyx(stdscr,terrain,i);
+    getyx(panel_window,terrain,i);
     for(;i<scr_x;i++)
-        addch(' ');
-
-    move(cury,curx);
+        waddch(panel_window,' ');
+    wnoutrefresh(panel_window);
 }
 
 void Panel::resize(int screen_x, int screen_y, int terrain, Unit *unit)
@@ -57,11 +52,11 @@ void Panel::resize(int screen_x, int screen_y, int terrain, Unit *unit)
     pos_x = screen_x-size+1;
     unit_name_pos = screen_y/4;
     move_pos = screen_y/4+1;
-    attron(COLOR_PAIR(15));
-    mvprintw(terrain_pos,pos_x,"Terrain: ");
-    mvprintw(unit_name_pos,pos_x,"Unit Name: ");
-    mvprintw(move_pos,pos_x,"Move Left: ");
-    attroff(COLOR_PAIR(15));
+    panel_window = newwin(scr_y,scr_x-size,0,pos_x);
+    wattron(panel_window,COLOR_PAIR(15));
+    mvwprintw(panel_window,terrain_pos,0,"Terrain: ");
+    mvwprintw(panel_window,unit_name_pos,0,"Unit Name: ");
+    mvwprintw(panel_window,move_pos,0,"Move Left: ");
     update(terrain,unit);
 }
 
