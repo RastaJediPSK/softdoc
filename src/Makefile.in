@@ -48,7 +48,7 @@ am__installdirs = "$(DESTDIR)$(bindir)"
 binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
 am_main_OBJECTS = main-main.$(OBJEXT) main-unit.$(OBJEXT) \
-	main-map.$(OBJEXT)
+	main-map.$(OBJEXT) main-panel.$(OBJEXT)
 main_OBJECTS = $(am_main_OBJECTS)
 main_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)/include
@@ -141,7 +141,7 @@ sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
-main_SOURCES = main.cpp unit.cpp map.cpp
+main_SOURCES = main.cpp unit.cpp map.cpp panel.cpp
 # CXXFLAGS are flags to pass to the C++ compiler
 main_CXXFLAGS = -O2 -Wall -Weffc++
 #main_CXXFLAGS += -Wextra
@@ -215,6 +215,7 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main-main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main-map.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main-panel.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main-unit.Po@am__quote@
 
 .cpp.o:
@@ -272,6 +273,20 @@ main-map.obj: map.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='map.cpp' object='main-map.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(main_CXXFLAGS) $(CXXFLAGS) -c -o main-map.obj `if test -f 'map.cpp'; then $(CYGPATH_W) 'map.cpp'; else $(CYGPATH_W) '$(srcdir)/map.cpp'; fi`
+
+main-panel.o: panel.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(main_CXXFLAGS) $(CXXFLAGS) -MT main-panel.o -MD -MP -MF "$(DEPDIR)/main-panel.Tpo" -c -o main-panel.o `test -f 'panel.cpp' || echo '$(srcdir)/'`panel.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/main-panel.Tpo" "$(DEPDIR)/main-panel.Po"; else rm -f "$(DEPDIR)/main-panel.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='panel.cpp' object='main-panel.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(main_CXXFLAGS) $(CXXFLAGS) -c -o main-panel.o `test -f 'panel.cpp' || echo '$(srcdir)/'`panel.cpp
+
+main-panel.obj: panel.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(main_CXXFLAGS) $(CXXFLAGS) -MT main-panel.obj -MD -MP -MF "$(DEPDIR)/main-panel.Tpo" -c -o main-panel.obj `if test -f 'panel.cpp'; then $(CYGPATH_W) 'panel.cpp'; else $(CYGPATH_W) '$(srcdir)/panel.cpp'; fi`; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/main-panel.Tpo" "$(DEPDIR)/main-panel.Po"; else rm -f "$(DEPDIR)/main-panel.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='panel.cpp' object='main-panel.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(main_CXXFLAGS) $(CXXFLAGS) -c -o main-panel.obj `if test -f 'panel.cpp'; then $(CYGPATH_W) 'panel.cpp'; else $(CYGPATH_W) '$(srcdir)/panel.cpp'; fi`
 uninstall-info-am:
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
