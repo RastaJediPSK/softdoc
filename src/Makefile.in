@@ -48,7 +48,8 @@ am__installdirs = "$(DESTDIR)$(bindir)"
 binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
 am_main_OBJECTS = main-main.$(OBJEXT) main-unit.$(OBJEXT) \
-	main-map.$(OBJEXT) main-panel.$(OBJEXT)
+	main-map.$(OBJEXT) main-panel.$(OBJEXT) main-game.$(OBJEXT) \
+	main-player.$(OBJEXT) main-menu.$(OBJEXT)
 main_OBJECTS = $(am_main_OBJECTS)
 main_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)/include
@@ -141,7 +142,7 @@ sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
-main_SOURCES = main.cpp unit.cpp map.cpp panel.cpp
+main_SOURCES = main.cpp unit.cpp map.cpp panel.cpp game.cpp player.cpp menu.cpp
 # CXXFLAGS are flags to pass to the C++ compiler
 main_CXXFLAGS = -O2 -Wall -Weffc++
 #main_CXXFLAGS += -Wextra
@@ -213,9 +214,12 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main-game.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main-main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main-map.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main-menu.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main-panel.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main-player.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main-unit.Po@am__quote@
 
 .cpp.o:
@@ -287,6 +291,48 @@ main-panel.obj: panel.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='panel.cpp' object='main-panel.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(main_CXXFLAGS) $(CXXFLAGS) -c -o main-panel.obj `if test -f 'panel.cpp'; then $(CYGPATH_W) 'panel.cpp'; else $(CYGPATH_W) '$(srcdir)/panel.cpp'; fi`
+
+main-game.o: game.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(main_CXXFLAGS) $(CXXFLAGS) -MT main-game.o -MD -MP -MF "$(DEPDIR)/main-game.Tpo" -c -o main-game.o `test -f 'game.cpp' || echo '$(srcdir)/'`game.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/main-game.Tpo" "$(DEPDIR)/main-game.Po"; else rm -f "$(DEPDIR)/main-game.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='game.cpp' object='main-game.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(main_CXXFLAGS) $(CXXFLAGS) -c -o main-game.o `test -f 'game.cpp' || echo '$(srcdir)/'`game.cpp
+
+main-game.obj: game.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(main_CXXFLAGS) $(CXXFLAGS) -MT main-game.obj -MD -MP -MF "$(DEPDIR)/main-game.Tpo" -c -o main-game.obj `if test -f 'game.cpp'; then $(CYGPATH_W) 'game.cpp'; else $(CYGPATH_W) '$(srcdir)/game.cpp'; fi`; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/main-game.Tpo" "$(DEPDIR)/main-game.Po"; else rm -f "$(DEPDIR)/main-game.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='game.cpp' object='main-game.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(main_CXXFLAGS) $(CXXFLAGS) -c -o main-game.obj `if test -f 'game.cpp'; then $(CYGPATH_W) 'game.cpp'; else $(CYGPATH_W) '$(srcdir)/game.cpp'; fi`
+
+main-player.o: player.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(main_CXXFLAGS) $(CXXFLAGS) -MT main-player.o -MD -MP -MF "$(DEPDIR)/main-player.Tpo" -c -o main-player.o `test -f 'player.cpp' || echo '$(srcdir)/'`player.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/main-player.Tpo" "$(DEPDIR)/main-player.Po"; else rm -f "$(DEPDIR)/main-player.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='player.cpp' object='main-player.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(main_CXXFLAGS) $(CXXFLAGS) -c -o main-player.o `test -f 'player.cpp' || echo '$(srcdir)/'`player.cpp
+
+main-player.obj: player.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(main_CXXFLAGS) $(CXXFLAGS) -MT main-player.obj -MD -MP -MF "$(DEPDIR)/main-player.Tpo" -c -o main-player.obj `if test -f 'player.cpp'; then $(CYGPATH_W) 'player.cpp'; else $(CYGPATH_W) '$(srcdir)/player.cpp'; fi`; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/main-player.Tpo" "$(DEPDIR)/main-player.Po"; else rm -f "$(DEPDIR)/main-player.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='player.cpp' object='main-player.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(main_CXXFLAGS) $(CXXFLAGS) -c -o main-player.obj `if test -f 'player.cpp'; then $(CYGPATH_W) 'player.cpp'; else $(CYGPATH_W) '$(srcdir)/player.cpp'; fi`
+
+main-menu.o: menu.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(main_CXXFLAGS) $(CXXFLAGS) -MT main-menu.o -MD -MP -MF "$(DEPDIR)/main-menu.Tpo" -c -o main-menu.o `test -f 'menu.cpp' || echo '$(srcdir)/'`menu.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/main-menu.Tpo" "$(DEPDIR)/main-menu.Po"; else rm -f "$(DEPDIR)/main-menu.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='menu.cpp' object='main-menu.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(main_CXXFLAGS) $(CXXFLAGS) -c -o main-menu.o `test -f 'menu.cpp' || echo '$(srcdir)/'`menu.cpp
+
+main-menu.obj: menu.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(main_CXXFLAGS) $(CXXFLAGS) -MT main-menu.obj -MD -MP -MF "$(DEPDIR)/main-menu.Tpo" -c -o main-menu.obj `if test -f 'menu.cpp'; then $(CYGPATH_W) 'menu.cpp'; else $(CYGPATH_W) '$(srcdir)/menu.cpp'; fi`; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/main-menu.Tpo" "$(DEPDIR)/main-menu.Po"; else rm -f "$(DEPDIR)/main-menu.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='menu.cpp' object='main-menu.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(main_CXXFLAGS) $(CXXFLAGS) -c -o main-menu.obj `if test -f 'menu.cpp'; then $(CYGPATH_W) 'menu.cpp'; else $(CYGPATH_W) '$(srcdir)/menu.cpp'; fi`
 uninstall-info-am:
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
