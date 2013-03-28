@@ -97,15 +97,15 @@ void Map::map_loop()
                 }
                 break;
             case KEY_DOWN:
+                if(tile_y+scr_y==map_y)
+                {
+                    //beep
+                    break;
+                }
                 if(pos_y>=scr_y-1)
                 {
-                    if(tile_y+scr_y==map_y)
-                    {
-                        //beep
-                    }else{
-                        tile_y++;
-                        redraw(scr_x,scr_y);
-                    }
+                    tile_y++;
+                    redraw(scr_x,scr_y);
                 }else{
                     pos_y++;
                     move(pos_y,pos_x);
@@ -137,15 +137,15 @@ void Map::map_loop()
                 }
                 break;
             case KEY_RIGHT:
+                if(tile_x+scr_x==map_x)
+                {
+                    //beep
+                    break;
+                }
                 if(pos_x>=scr_x-1)
                 {
-                    if(tile_x+scr_x==map_x)
-                    {
-                        //beep
-                    }else{
-                        tile_x++;
-                        redraw(scr_x,scr_y);
-                    }
+                    tile_x++;
+                    redraw(scr_x,scr_y);
                 }else{
                     pos_x++;
                     move(pos_y,pos_x);
