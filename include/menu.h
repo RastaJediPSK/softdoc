@@ -1,6 +1,6 @@
 /*
  * File:  menu.h
- * Authors:  Stephen Erikson, Michael Pomeranz, James Lenze III, Kelly DeBarr
+ * Authors:  Stephen Erikson, Michael Pomeranz, James Lenze, Kelly DeBarr
  * Date:  28 March 2013
  * Description:  Main Menu class definition
  */
