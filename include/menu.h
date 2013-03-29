@@ -16,11 +16,12 @@ class Menu
 public:
 	Menu();
 	~Menu();
-	void show();
+	void show();	/* display startup/pause menu on screen */
 	Game *new_game();
 	void continue_game();
 	void load_game(int save_num);
 	void save_game(int save_num);
+	void quit_game();
 };
 
 #endif

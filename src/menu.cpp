@@ -14,8 +14,7 @@ Menu::Menu() : game(0)
 
 Menu::~Menu()
 {
-	delete game;
-	game = 0;
+	this.quit_game();
 }
 
 void Menu::show()
@@ -30,12 +29,16 @@ void Menu::show()
 	else
 	{
 		// this is just a pause, we do have a game
+		// display quit game option
 	}
 }
 
 Game *Menu::new_game()
 {
-	return new Game();
+	/* first delete any possible game to avoid memory leaks */
+	this.quit_game();
+
+	return new Game;
 }
 
 void Menu::continue_game()
@@ -45,7 +48,7 @@ void Menu::continue_game()
 
 void Menu::load_game(int save_num)
 {
-	// check to see if save_num exists
+	// check to see if save save_num exists
 	
 	// load game
 }
@@ -53,4 +56,10 @@ void Menu::load_game(int save_num)
 void Menu::save_game(int save_num)
 {
 	// save game
+}
+
+void Menu::quit_game()
+{
+	delete this.game;	/* delete is no-op for nullptr */
+	this.game = 0;
 }
