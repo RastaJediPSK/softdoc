@@ -1,6 +1,6 @@
 /*
  * File:  menu.cpp
- * Authors:  Stephen Erikson, Michael Pomeranz, James Lenze, Kelly DeBarr
+ * Authors:  Stephen Erikson, Michael Pomeranz, James Lenze III, Kelly DeBarr
  * Date:  28 March 2013
  * Description:  Main Menu class implementation
  */
@@ -14,7 +14,7 @@ Menu::Menu() : game(0)
 
 Menu::~Menu()
 {
-	this.quit_game();
+	this->quit_game();
 }
 
 void Menu::show()
@@ -36,7 +36,7 @@ void Menu::show()
 Game *Menu::new_game()
 {
 	/* first delete any possible game to avoid memory leaks */
-	this.quit_game();
+	this->quit_game();
 
 	return new Game;
 }
@@ -60,6 +60,6 @@ void Menu::save_game(int save_num)
 
 void Menu::quit_game()
 {
-	delete this.game;	/* delete is no-op for nullptr */
-	this.game = 0;
+	delete this->game;	/* delete is no-op for nullptr */
+	this->game = 0;
 }
