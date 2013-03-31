@@ -8,12 +8,17 @@
 #ifndef PLAYER_H_
 #define PLAYER_H_
 
+#include <list>
+#include "unit.h"
+
 class Player
 {
-	float resources_;	// player's "cash"
+    int resources;
+    std::list<Unit *> units;
 
 public:
 	Player();	// ctor
+    void add_unit(Unit *unit);
 };
 
 #endif

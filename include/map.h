@@ -26,6 +26,7 @@ class Map
     ~Map();
     void redraw(int screen_x, int screen_y);
     void map_loop();
+    tile_pair *get_tile(int x, int y);
 };
 
 #endif
