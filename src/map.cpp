@@ -1,3 +1,5 @@
+#include <cstdlib>
+#include <iostream>
 #include "map.h"
 
 Map::Map(int x, int y, int screen_x, int screen_y, Panel *panel_ptr) :
@@ -22,9 +24,48 @@ Map::Map(int x, int y, int screen_x, int screen_y, Panel *panel_ptr) :
         for (int j = 0; j < y; j++)
         {
             map[i][j].unit = NULL;
-            map[i][j].terrain = (i+j) % 6 + 1;	//temp
+            //map[i][j].terrain = (i+j) % 6 + 1;	//temp
+			
+			//Terrain Generator
+			if ( j < i ){	//mirrors over diagonal
+				map[i][j].terrain = map[j][i].terrain;
+			}
+			else if ( ( i == 0 ) && ( j == 0 ) ){
+				map[i][j].terrain = std::rand() % 5 + 1;
+				if (map[i][j].terrain == 0 || map[i][j].terrain > 4){
+					map[i][j].terrain = 5;
+				}
+			}
+			else if ( i == 0 ){
+				map[i][j].terrain = std::rand() % 9;
+				if ( map[i][j].terrain > 4 ){
+					map[i][j].terrain = map[i][j-1].terrain;	//Match above tile
+				}
+			}
+			else if ( j == 0 ){
+				map[i][j].terrain = std::rand() % 9;
+				if ( map[i][j].terrain > 4 ){
+					map[i][j].terrain = map[i-1][j].terrain;	//Match left tile
+				}
+			}
+			else{
+				map[i][j].terrain = std::rand() % 13;
+				if ( map[i][j].terrain > 4 ){
+					if ( map[i][j].terrain % 2 == 1 ){	//Match above tile
+						map[i][j].terrain = map[i][j-1].terrain;
+					}
+					else{	//Match left tile
+						map[i][j].terrain = map[i-1][j].terrain;
+					}
+				} 
+			}
         }
     }
+	//Bases
+	map[ (int)(map_x - (map_x/10)) ][ (int)(map_y/10) ].terrain = 6;
+	map[ (int)(map_x/10) ][ (int)(map_y - map_y/10) ].terrain = 6;
+	//
+	
     map_pad = newpad(y,x);
     for(int j=0;j<y;j++)
     {
