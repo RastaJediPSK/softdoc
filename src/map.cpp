@@ -161,3 +161,10 @@ void Map::map_loop()
         }
     }
 }
+
+tile_pair *Map::get_tile(int x, int y)
+{
+    if(x >= map_x || y >= map_y)
+        return NULL;
+    return &map[x][y];
+}
