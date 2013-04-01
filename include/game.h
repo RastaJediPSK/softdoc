@@ -13,7 +13,6 @@
 
 class Game
 {
-	const int num_players = 2;
 	std::vector<Player> players;
 	
 public:

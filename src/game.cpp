@@ -9,6 +9,8 @@
 
 Game::Game()
 {
-	for (int i = 0; i < this->num_players; ++i)
+	const int num_players = 2;
+	/* Add num_players to the game */
+	for (int i = 0; i < num_players; ++i)
 		players.push_back(Player);
 }

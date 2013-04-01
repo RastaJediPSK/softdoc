@@ -1,63 +1,78 @@
+/*
+ * File:  map.cpp
+ * Authors:  Stephen Erikson, Michael Pomeranz, James Lenze, Kelly DeBarr
+ * Date:  24 February 2013
+ * Description:  Map class definition file
+ */
+
 #include <cstdlib>
 #include <iostream>
 #include "map.h"
 
 Map::Map(int x, int y, int screen_x, int screen_y, Panel *panel_ptr) :
-    map(NULL),
-    tile_x(0),
-    tile_y(0),
-    map_x(x),
-    map_y(y),
-    scr_x(screen_x),
-    scr_y(screen_y),
-    pos_x(screen_x/2),
-    pos_y(screen_y/2),
-    panel(panel_ptr),
-    map_pad(NULL)
+ 	map(),
+	tile_x(0),
+	tile_y(0),
+	map_x(x),
+	map_y(y),
+	scr_x(screen_x),
+	scr_y(screen_y),
+	pos_x(screen_x/2),
+	pos_y(screen_y/2),
+	panel(panel_ptr),
+	map_pad()
 {
-    if(panel != NULL)
-        scr_x -= panel->get_size();
-    map = new tile_pair * [x];
-    for (int i = 0; i < x; i++)
-    {
-        map[i] = new tile_pair [y];
-        for (int j = 0; j < y; j++)
-        {
-            map[i][j].unit = NULL;
-            //map[i][j].terrain = (i+j) % 6 + 1;	//temp
+	if (panel != NULL)
+	scr_x -= panel->get_size();
+	map = new tile_pair_t *[x];	
+
+	for (int i = 0; i < x; i++)
+	{
+		map[i] = new tile_pair_t[y];
+		//map[i].push_back
+
+		for (int j = 0; j < y; j++)
+		{
+			map[i][j].unit = NULL;
+			//map[i][j].terrain = (i+j) % 6 + 1;	// temp
 			
-			//Terrain Generator
-			if ( j < i ){	//mirrors over diagonal
+			// Terrain Generator
+
+			if (j < i)	// mirrors over diagonal
 				map[i][j].terrain = map[j][i].terrain;
-			}
-			else if ( ( i == 0 ) && ( j == 0 ) ){
+
+			else if (i == 0 && j == 0 )
+			{
 				map[i][j].terrain = std::rand() % 5 + 1;
-				if (map[i][j].terrain == 0 || map[i][j].terrain > 4){
+				if (map[i][j].terrain == 0 || map[i][j].terrain > 4)
 					map[i][j].terrain = 5;
-				}
 			}
-			else if ( i == 0 ){
+
+			else if (i == 0)
+			{
 				map[i][j].terrain = std::rand() % 9;
-				if ( map[i][j].terrain > 4 ){
-					map[i][j].terrain = map[i][j-1].terrain;	//Match above tile
-				}
+				if (map[i][j].terrain > 4)
+					map[i][j].terrain = map[i][j-1].terrain;	// Match above tile
 			}
-			else if ( j == 0 ){
+
+			else if (j == 0)
+			{
 				map[i][j].terrain = std::rand() % 9;
-				if ( map[i][j].terrain > 4 ){
-					map[i][j].terrain = map[i-1][j].terrain;	//Match left tile
-				}
+				if (map[i][j].terrain > 4)
+					map[i][j].terrain = map[i-1][j].terrain;	// Match left tile
 			}
-			else{
+			
+			else
+			{
 				map[i][j].terrain = std::rand() % 13;
-				if ( map[i][j].terrain > 4 ){
-					if ( map[i][j].terrain % 2 == 1 ){	//Match above tile
-						map[i][j].terrain = map[i][j-1].terrain;
-					}
-					else{	//Match left tile
-						map[i][j].terrain = map[i-1][j].terrain;
-					}
-				} 
+				if (map[i][j].terrain > 4)
+				{
+					if (map[i][j].terrain % 2 == 1)	// Match above tile
+						map[i][j].terrain = map[i][j - 1].terrain;
+
+					else	// Match left tile
+						map[i][j].terrain = map[i - 1][j].terrain;
+				}
 			}
         }
     }
@@ -203,7 +218,7 @@ void Map::map_loop()
     }
 }
 
-tile_pair *Map::get_tile(int x, int y)
+tile_pair_t *Map::get_tile(int x, int y)
 {
     if(x >= map_x || y >= map_y)
         return NULL;

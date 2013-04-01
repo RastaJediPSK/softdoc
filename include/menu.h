@@ -2,7 +2,7 @@
  * File:  menu.h
  * Authors:  Stephen Erikson, Michael Pomeranz, James Lenze, Kelly DeBarr
  * Date:  28 March 2013
- * Description:  Main Menu class definition
+ * Description:  Main Menu class declaration file
  */
 
 #ifndef MENU_H_

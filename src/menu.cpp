@@ -2,7 +2,7 @@
  * File:  menu.cpp
  * Authors:  Stephen Erikson, Michael Pomeranz, James Lenze III, Kelly DeBarr
  * Date:  28 March 2013
- * Description:  Main Menu class definition
+ * Description:  Main Menu class definition file
  */
 
 #include "menu.h"
