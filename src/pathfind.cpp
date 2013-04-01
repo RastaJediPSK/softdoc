@@ -32,7 +32,7 @@ int Pathfind::dist_est(int x0, int y0, int x, int y)
 int Pathfind::find_dist(int x, int y)
 {
     std::list<position> stack; //should be priority queue
-    tile_pair *ptr;
+    tile_pair_t *ptr;
     position temp;
 
     if(x<x_offset-1 || y<y_offset-1 || x>x_offset+2*MAX_PATH || y>y_offset+2*MAX_PATH)
