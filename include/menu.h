@@ -17,7 +17,7 @@ class Menu
 	Menu &operator=(const Menu &);	/* same with assignment operator */
 
 public:
-	Menu() : game(new_game()) { }
+	Menu() : game(0) { }
 	~Menu();
 	void show();	/* display startup/pause menu on screen */
 	Game *new_game();

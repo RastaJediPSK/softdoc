@@ -5,6 +5,7 @@
  * Description:  Main Menu class definition file
  */
 
+#include <iostream>
 #include "menu.h"
 
 Menu::~Menu()
@@ -15,6 +16,19 @@ Menu::~Menu()
 void Menu::show()
 {
 	// display menu
+	int choice;
+	std::cout << "Enter choice:" << std::endl
+		<< "[1]: New Game\n";
+	std::cin >> choice;
+
+	switch (choice)
+	{
+	case 1:
+		game = new_game();
+		break;
+	default:
+		break;
+	}
 	
 	if (game == 0)
 	{
@@ -33,7 +47,7 @@ Game *Menu::new_game()
 	/* first delete any possible game to avoid memory leaks */
 	quit_game();
 
-	return new Game;
+	return new Game();
 }
 
 void Menu::continue_game()
