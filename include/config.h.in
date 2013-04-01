@@ -3,6 +3,9 @@
 /* Define to 1 if you have the <inttypes.h> header file. */
 #undef HAVE_INTTYPES_H
 
+/* Define to 1 if you have the `ncurses' library (-lncurses). */
+#undef HAVE_LIBNCURSES
+
 /* Define to 1 if you have the <memory.h> header file. */
 #undef HAVE_MEMORY_H
 
@@ -51,8 +54,14 @@
 /* Define to the version of this package. */
 #undef PACKAGE_VERSION
 
+/* Define as the return type of signal handlers (`int' or `void'). */
+#undef RETSIGTYPE
+
 /* Define to 1 if you have the ANSI C header files. */
 #undef STDC_HEADERS
 
 /* Version number of package */
 #undef VERSION
+
+/* Define to empty if `const' does not conform to ANSI C. */
+#undef const
