@@ -2,7 +2,7 @@
  * File:  player.h
  * Authors:  Stephen Erikson, Michael Pomeranz, James Lenze, Kelly DeBarr
  * Date:  28 March 2013
- * Description:
+ * Description:  Player class declaration file
  */
 
 #ifndef PLAYER_H_
@@ -18,10 +18,6 @@ class Player
 
 public:
 	Player() : cash(0) { }
-	inline int get_cash() const { return cash; }
-	void set_cash(int);
-	int add_cash(int);
-	int sub_cash(int);
 	void add_unit(Unit *);
 	void del_unit(std::vector<Unit *>::iterator);
 };
