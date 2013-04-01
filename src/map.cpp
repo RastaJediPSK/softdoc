@@ -8,7 +8,7 @@
 #include <iostream>
 #include "map.h"
 
-Map::Map(int x, int y, int screen_x, int screen_y, Panel *panel_ptr) :
+Map::Map(int x, int y, int screen_x, int screen_y, Panel &panel) :
  	map(),
 	tile_x(0),
 	tile_y(0),
@@ -18,11 +18,10 @@ Map::Map(int x, int y, int screen_x, int screen_y, Panel *panel_ptr) :
 	scr_y(screen_y),
 	pos_x(screen_x/2),
 	pos_y(screen_y/2),
-	panel(panel_ptr),
+	panel(panel),
 	map_pad(0)
 {
-	if (panel != NULL)
-		scr_x -= panel->get_size();
+	scr_x -= panel.get_size();
 
 	using std::vector;
 	// reserve x map rows to avoid reallocation
@@ -116,10 +115,9 @@ void Map::redraw(int screen_x, int screen_y)
 	
 	pnoutrefresh(map_pad,tile_y,tile_x,0,0,scr_y-1,scr_x-1);
 
-	if (panel != NULL)
-		panel->resize(screen_x + panel->get_size(), screen_y,
-				map[pos_x + tile_x][pos_y + tile_y].terrain,
-				map[pos_x + tile_x][pos_y + tile_y].unit);
+	panel.resize(screen_x + panel.get_size(), screen_y,
+			map[pos_x + tile_x][pos_y + tile_y].terrain,
+			map[pos_x + tile_x][pos_y + tile_y].unit);
 	doupdate();
 	move(pos_y, pos_x);
 }
@@ -155,12 +153,10 @@ void Map::map_loop()
 			{
 				--pos_y;
 				move(pos_y, pos_x);
-				if (panel != NULL)
-				{
-					panel->update(map[pos_x + tile_x][pos_y + tile_y].terrain,
-							map[pos_x + tile_x][pos_y + tile_y].unit);
-					doupdate();
-				}
+				
+				panel.update(map[pos_x + tile_x][pos_y + tile_y].terrain,
+						map[pos_x + tile_x][pos_y + tile_y].unit);
+				doupdate();
 			}
 
 			break;
@@ -180,12 +176,9 @@ void Map::map_loop()
 			{
 				++pos_y;
 				move(pos_y, pos_x);
-				if (panel != NULL)
-				{
-					panel->update(map[pos_x + tile_x][pos_y + tile_y].terrain,
-							map[pos_x + tile_x][pos_y + tile_y].unit);
-					doupdate();
-				}
+				panel.update(map[pos_x + tile_x][pos_y + tile_y].terrain,
+						map[pos_x + tile_x][pos_y + tile_y].unit);
+				doupdate();
 			}
 
 			break;
@@ -205,12 +198,9 @@ void Map::map_loop()
 			{
 				--pos_x;
 				move(pos_y, pos_x);
-				if (panel != NULL)
-				{
-					panel->update(map[pos_x + tile_x][pos_y + tile_y].terrain,
-							map[pos_x + tile_x][pos_y + tile_y].unit);
-					doupdate();
-				}
+				panel.update(map[pos_x + tile_x][pos_y + tile_y].terrain,
+						map[pos_x + tile_x][pos_y + tile_y].unit);
+				doupdate();
 			}
 
 			break;
@@ -230,12 +220,9 @@ void Map::map_loop()
 			{
 				++pos_x;
 				move(pos_y, pos_x);
-				if (panel != NULL)
-				{
-					panel->update(map[pos_x + tile_x][pos_y + tile_y].terrain,
-							map[pos_x + tile_x][pos_y + tile_y].unit);
-					doupdate();
-				}
+				panel.update(map[pos_x + tile_x][pos_y + tile_y].terrain,
+						map[pos_x + tile_x][pos_y + tile_y].unit);
+				doupdate();
 			}
 
 			break;

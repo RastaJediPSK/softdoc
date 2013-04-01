@@ -19,13 +19,12 @@ public:
 	struct tile_pair_t;
 
 private:
-	//tile_pair_t **map;
 	std::vector<std::vector<tile_pair_t> > map;
 	int tile_x, tile_y;	// map x,y that maps to screen (0,0)
 	int map_x, map_y;	// total size of map
 	int scr_x, scr_y;	// total size of screen
 	int pos_x, pos_y;	// position of cursor on screen
-	Panel *panel;	// pointer to panel
+	Panel panel;
 	WINDOW *map_pad;	// pad to draw map on
 	
 	// Define blank copy ctor/assignment operator (for now)
@@ -42,7 +41,7 @@ public:
 		Unit *unit;
 	};
 
-	Map(int x, int y, int screen_x, int screen_y, Panel *panel_ptr);
+	Map(int x, int y, int screen_x, int screen_y, Panel &panel);
 	~Map();
 	void redraw(int screen_x, int screen_y);
 	void map_loop();
