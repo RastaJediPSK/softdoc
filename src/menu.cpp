@@ -7,11 +7,6 @@
 
 #include "menu.h"
 
-Menu::Menu() : game(0)
-{
-	game = new_game();
-}
-
 Menu::~Menu()
 {
 	this->quit_game();

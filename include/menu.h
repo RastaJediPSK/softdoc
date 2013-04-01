@@ -13,14 +13,17 @@
 class Menu
 {
 	Game *game;
+	Menu(const Menu &);	/* declaring copy ctor as private to forbid use of it */
+	Menu &operator=(const Menu &);	/* same with assignment operator */
+
 public:
-	Menu();
+	Menu() : game(new_game()) { }
 	~Menu();
 	void show();	/* display startup/pause menu on screen */
 	Game *new_game();
 	void continue_game();
-	void load_game(int save_num);
-	void save_game(int save_num);
+	void load_game(int);
+	void save_game(int);
 	void quit_game();
 };
 
