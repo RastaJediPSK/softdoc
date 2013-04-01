@@ -1,0 +1,33 @@
+#ifndef UNIT_TYPE_H
+#define UNIT_TYPE_H
+
+#define UNIT_NUMBER 1
+
+class UnitType
+{
+    int *terrain_cost;
+    int *unit_attack;
+    int unit_label;
+    int unit_vision;
+    int unit_move;
+    int unit_symbol;
+
+    public:
+    UnitType() : terrain_cost(NULL), unit_attack(NULL), unit_label(-1), unit_vision(0), unit_move(0), unit_symbol(0) {}
+    int *get_terrain_cost() { return terrain_cost; }
+    int *get_unit_attack() { return unit_attack; }
+    int get_unit_label() { return unit_label; }
+    int get_unit_vision() { return unit_vision; }
+    int get_unit_move() { return unit_move; }
+    int get_unit_symbol() { return unit_symbol; }
+};
+
+class Tank : public UnitType
+{
+    public:
+    Tank();
+    ~Tank();
+};
+
+#endif
+

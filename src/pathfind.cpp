@@ -59,9 +59,9 @@ int Pathfind::find_dist(int x, int y)
         ptr = map->get_tile(min_itr->x+x_offset+1,min_itr->y+y_offset);
         if(min_itr->x+1 < 2*MAX_PATH+1 && ptr) 
         {
-            if(path_map[min_itr->x+1][min_itr->y]==-1 || path_map[min_itr->x+1][min_itr->y] > path_map[min_itr->x][min_itr->y] + unit->terrain(ptr->terrain)) 
+            if(path_map[min_itr->x+1][min_itr->y]==-1 || path_map[min_itr->x+1][min_itr->y] > path_map[min_itr->x][min_itr->y] + unit->terrain_cost(ptr->terrain)) 
             {
-                path_map[min_itr->x+1][min_itr->y] = path_map[min_itr->x][min_itr->y] + unit->terrain(ptr->terrain);
+                path_map[min_itr->x+1][min_itr->y] = path_map[min_itr->x][min_itr->y] + unit->terrain_cost(ptr->terrain);
                 temp = *min_itr;
                 temp.x++;
                 stack.push_back(temp);
@@ -70,9 +70,9 @@ int Pathfind::find_dist(int x, int y)
         ptr = map->get_tile(min_itr->x+x_offset-1,min_itr->y+y_offset);
         if(min_itr->x-1 > -1 && ptr)
         {
-            if(path_map[min_itr->x-1][min_itr->y]==-1 || path_map[min_itr->x-1][min_itr->y] > path_map[min_itr->x][min_itr->y] + unit->terrain(ptr->terrain)) 
+            if(path_map[min_itr->x-1][min_itr->y]==-1 || path_map[min_itr->x-1][min_itr->y] > path_map[min_itr->x][min_itr->y] + unit->terrain_cost(ptr->terrain)) 
             {
-                path_map[min_itr->x-1][min_itr->y] = path_map[min_itr->x][min_itr->y] + unit->terrain(ptr->terrain);
+                path_map[min_itr->x-1][min_itr->y] = path_map[min_itr->x][min_itr->y] + unit->terrain_cost(ptr->terrain);
                 temp = *min_itr;
                 temp.x--;
                 stack.push_back(temp);
@@ -81,9 +81,9 @@ int Pathfind::find_dist(int x, int y)
         ptr = map->get_tile(min_itr->x+x_offset,min_itr->y+y_offset-1);
         if(min_itr->y-1 > -1 && ptr)
         {
-            if(path_map[min_itr->x][min_itr->y-1]==-1 || path_map[min_itr->x][min_itr->y-1] > path_map[min_itr->x][min_itr->y] + unit->terrain(ptr->terrain)) 
+            if(path_map[min_itr->x][min_itr->y-1]==-1 || path_map[min_itr->x][min_itr->y-1] > path_map[min_itr->x][min_itr->y] + unit->terrain_cost(ptr->terrain)) 
             {
-                path_map[min_itr->x][min_itr->y-1] = path_map[min_itr->x][min_itr->y] + unit->terrain(ptr->terrain);
+                path_map[min_itr->x][min_itr->y-1] = path_map[min_itr->x][min_itr->y] + unit->terrain_cost(ptr->terrain);
                 temp = *min_itr;
                 temp.y--;
                 stack.push_back(temp);
@@ -92,9 +92,9 @@ int Pathfind::find_dist(int x, int y)
         ptr = map->get_tile(min_itr->x+x_offset,min_itr->y+y_offset+1);
         if(min_itr->y+1 < 2*MAX_PATH+1 && ptr)
         {
-            if(path_map[min_itr->x][min_itr->y+1]==-1 || path_map[min_itr->x][min_itr->y+1] > path_map[min_itr->x][min_itr->y] + unit->terrain(ptr->terrain)) 
+            if(path_map[min_itr->x][min_itr->y+1]==-1 || path_map[min_itr->x][min_itr->y+1] > path_map[min_itr->x][min_itr->y] + unit->terrain_cost(ptr->terrain)) 
             {
-                path_map[min_itr->x][min_itr->y+1] = path_map[min_itr->x][min_itr->y] + unit->terrain(ptr->terrain);
+                path_map[min_itr->x][min_itr->y+1] = path_map[min_itr->x][min_itr->y] + unit->terrain_cost(ptr->terrain);
                 temp = *min_itr;
                 temp.y++;
                 stack.push_back(temp);

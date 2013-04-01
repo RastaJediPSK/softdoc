@@ -7,11 +7,12 @@
 
 #include "unit.h"
 
-void Unit::attack(Unit &enemy)
+Unit::Unit(UnitType *unit_type, Player *play) :
+    type(unit_type),
+    p(play)
+{}
+
+int Unit::terrain_cost(int terrain)
 {
-	int dmg_taken = 0;
-	int dmg_dealt = 0;
-	// dmg = something based on off and def of both units
-	health -= dmg_taken;
-	enemy.health -= dmg_dealt;
+    return type->get_terrain_cost[terrain-1];
 }

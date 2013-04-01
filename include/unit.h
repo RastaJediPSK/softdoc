@@ -8,29 +8,22 @@
 #ifndef UNIT_H_
 #define UNIT_H_
 
+#include <ncurses/curses.h>
+#include "unit_type.h"
+#include "player.h"
+
 class Unit
 {
-protected:
-	int health;
-	int off;
-	int def;
+    UnitType *type;
+    Player *p;
 
-public:
-	Unit(int off, int def) : health(100), off(off), def(def) { }
-	virtual ~Unit();
-	void attack(Unit &);	/* attack other units */
+    public:
+    Unit(UnitType *unit_type, Player *player);
+    int terrain_cost(int terrain);
+    int symbol() { return type->get_unit_symbol(); }
+    //other gameplay functions
 };
 
-class Infantry : Unit
-{
-public:
-	Infantry() : Unit(1, 1) { }
-};
 
-class Tank : Unit
-{
-public:
-	Tank() : Unit(2, 2) { }
-};
 
 #endif
