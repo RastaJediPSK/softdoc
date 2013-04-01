@@ -32,6 +32,9 @@ private:
 	Map(const Map &);
 	Map &operator=(const Map &);
 
+	// Define blank ctor to disallow use of default ctor
+	Map();
+
 public:
 	struct tile_pair_t
 	{
@@ -39,7 +42,7 @@ public:
 		Unit *unit;
 	};
 
-	Map(int x, int y, int screen_x, int screen_y, Panel *panel_ptr = NULL);
+	Map(int x, int y, int screen_x, int screen_y, Panel *panel_ptr);
 	~Map();
 	void redraw(int screen_x, int screen_y);
 	void map_loop();
