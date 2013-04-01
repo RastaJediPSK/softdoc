@@ -7,10 +7,10 @@
 
 #include "game.h"
 
-Game::Game()
+Game::Game() : players()
 {
 	const int num_players = 2;
 	/* Add num_players to the game */
 	for (int i = 0; i < num_players; ++i)
-		players.push_back(Player);
+		players.push_back(Player());
 }
