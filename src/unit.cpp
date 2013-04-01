@@ -5,14 +5,13 @@
  * Description:  Parent unit class implementation file.
  */
 
-#include <unistd.h>
 #include "unit.h"
 
-Unit::Unit()
+void Unit::attack(Unit &enemy)
 {
-	/* some style examples */
-	if (true)			/* spaces should be used for keywords ... */
-	{
-		sleep(0);		/* ... but not functions */
-	}
-};
+	int dmg_taken = 0;
+	int dmg_dealt = 0;
+	// dmg = something based on off and def of both units
+	health -= dmg_taken;
+	enemy.health -= dmg_dealt;
+}
