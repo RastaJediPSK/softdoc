@@ -5,7 +5,6 @@
  * Description:  Map class definition file
  */
 
-#include <cstdlib>
 #include <iostream>
 #include "map.h"
 
@@ -22,7 +21,7 @@ Map::Map(int x, int y, int screen_x, int screen_y, Panel *panel_ptr) :
 	panel(panel_ptr),
 	map_pad()
 {
-	if (panel != NULL)
+	if (panel != 0)
 	scr_x -= panel->get_size();
 	map = new tile_pair_t *[x];	
 
@@ -33,7 +32,7 @@ Map::Map(int x, int y, int screen_x, int screen_y, Panel *panel_ptr) :
 
 		for (int j = 0; j < y; j++)
 		{
-			map[i][j].unit = NULL;
+			map[i][j].unit = 0;
 			//map[i][j].terrain = (i+j) % 6 + 1;	// temp
 			
 			// Terrain Generator
@@ -111,7 +110,7 @@ void Map::redraw(int screen_x, int screen_y)
     if(pos_y > scr_y)
         pos_y = scr_y;
     pnoutrefresh(map_pad,tile_y,tile_x,0,0,scr_y-1,scr_x-1);
-    if(panel != NULL)
+    if(panel != 0)
         panel->resize(screen_x+panel->get_size(),screen_y,map[pos_x+tile_x][pos_y+tile_y].terrain,map[pos_x+tile_x][pos_y+tile_y].unit);
     doupdate();
     move(pos_y,pos_x);
@@ -145,7 +144,7 @@ void Map::map_loop()
                 }else{
                     pos_y--;
                     move(pos_y,pos_x);
-                    if(panel != NULL)
+                    if(panel != 0)
                     {
                         panel->update(map[pos_x+tile_x][pos_y+tile_y].terrain,map[pos_x+tile_x][pos_y+tile_y].unit);
                         doupdate();
@@ -165,7 +164,7 @@ void Map::map_loop()
                 }else{
                     pos_y++;
                     move(pos_y,pos_x);
-                    if(panel != NULL)
+                    if(panel != 0)
                     {
                         panel->update(map[pos_x+tile_x][pos_y+tile_y].terrain,map[pos_x+tile_x][pos_y+tile_y].unit);
                         doupdate();
@@ -185,7 +184,7 @@ void Map::map_loop()
                 }else{
                     pos_x--;
                     move(pos_y,pos_x);
-                    if(panel != NULL)
+                    if(panel != 0)
                     {
                         panel->update(map[pos_x+tile_x][pos_y+tile_y].terrain,map[pos_x+tile_x][pos_y+tile_y].unit);
                         doupdate();
@@ -205,7 +204,7 @@ void Map::map_loop()
                 }else{
                     pos_x++;
                     move(pos_y,pos_x);
-                    if(panel != NULL)
+                    if(panel != 0)
                     {
                         panel->update(map[pos_x+tile_x][pos_y+tile_y].terrain,map[pos_x+tile_x][pos_y+tile_y].unit);
                         doupdate();
@@ -221,6 +220,6 @@ void Map::map_loop()
 tile_pair_t *Map::get_tile(int x, int y)
 {
     if(x >= map_x || y >= map_y)
-        return NULL;
+        return 0;
     return &map[x][y];
 }
