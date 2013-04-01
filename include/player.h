@@ -17,7 +17,7 @@ class Player
 	std::vector<Unit *> units;
 
 public:
-	Player() : cash(0) { }
+	Player() : cash(0), units() { }
 	void add_unit(Unit *);
 	void del_unit(std::vector<Unit *>::iterator);
 };
