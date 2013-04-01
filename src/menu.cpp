@@ -9,7 +9,7 @@
 
 Menu::~Menu()
 {
-	this->quit_game();
+	quit_game();
 }
 
 void Menu::show()
@@ -31,7 +31,7 @@ void Menu::show()
 Game *Menu::new_game()
 {
 	/* first delete any possible game to avoid memory leaks */
-	this->quit_game();
+	quit_game();
 
 	return new Game;
 }
@@ -55,6 +55,6 @@ void Menu::save_game(int save_num)
 
 void Menu::quit_game()
 {
-	delete this->game;	/* delete is no-op for nullptr */
-	this->game = 0;
+	delete game;	/* delete is no-op for nullptr */
+	game = 0;
 }
