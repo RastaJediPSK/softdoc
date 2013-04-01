@@ -19,9 +19,6 @@ AC_PROG_INSTALL
 # FIXME: Replace `main' with a function in `-lncurses':
 AC_CHECK_LIB([ncurses], [main])
 
-# Checks for header files.
-AC_CHECK_HEADERS([unistd.h])
-
 # Checks for typedefs, structures, and compiler characteristics.
 AC_HEADER_STDBOOL
 AC_C_CONST
