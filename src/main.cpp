@@ -15,10 +15,6 @@
 
 int main()
 {
-	Menu menu;
-	menu.show();
-
-/*
 	// START NCURSES
 	initscr();
 	noecho();
@@ -46,19 +42,15 @@ int main()
 	init_pair(14, COLOR_BLACK, COLOR_BLACK);
 	// panel color
 	init_pair(15, COLOR_WHITE, COLOR_BLACK);
+    init_pair(16, COLOR_BLACK, COLOR_WHITE);
 	// RESIZE FUNC
 	//signal(SIGWINCH, );//i(void *)resizefunc(int));
-	int scr_x, scr_y;
-	getmaxyx(stdscr,scr_y,scr_x);
-	Panel *panel = new Panel(scr_x,scr_y,20);
-	Map *gamemap = new Map(200,200,scr_x,scr_y,panel);
-	gamemap->map_loop();
-	delete gamemap;
-	delete panel;
 	
+	Menu menu;
+	menu.show();
+
 	// end ncurses
 	endwin();
-*/
 
 	return 0;
 }

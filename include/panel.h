@@ -16,6 +16,7 @@ class Panel
 
     public:
     Panel(int screen_x, int screen_y, int panel_size);
+    ~Panel();
     void update(int terrain, Unit *unit);
     void resize(int screen_x, int screen_y, int terrain, Unit *unit);
     int get_size();

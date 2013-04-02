@@ -13,6 +13,11 @@ Panel::Panel(int screen_x, int screen_y, int panel_size) :
     resize(scr_y,scr_x,0,NULL);
 }
 
+Panel::~Panel()
+{
+    delwin(panel_window);
+}
+
 void Panel::update(int terrain, Unit *unit)
 {
     int i;
