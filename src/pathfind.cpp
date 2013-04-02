@@ -1,4 +1,5 @@
 #include "pathfind.h"
+#include "map.h"
 
 Pathfind::Pathfind(int start_x, int start_y, Unit *unit_ptr, Map *map_ptr) :
     path_map(NULL),
@@ -100,7 +101,7 @@ int Pathfind::find_dist(int x, int y)
                 stack.push_back(temp);
             }
         }
-        stack.remove(min_itr);
+        stack.erase(min_itr);
         if(path_map[x-x_offset][y-y_offset] != -1)
             return path_map[x-x_offset][y-y_offset];
     }

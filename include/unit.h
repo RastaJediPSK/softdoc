@@ -11,13 +11,15 @@
 #include <ncurses/curses.h>
 #include "unit_type.h"
 
+class Player; //prototype to avoid dependency
+
 class Unit
 {
     UnitType *type;
-    void *p;
+    Player *player;
 
     public:
-    Unit(UnitType *unit_type, void *player);
+    Unit(UnitType *unit_type, Player *play);
     int terrain_cost(int terrain);
     int symbol() { return type->get_unit_symbol(); }
     //other gameplay functions

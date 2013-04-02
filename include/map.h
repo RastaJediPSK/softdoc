@@ -13,11 +13,14 @@
 #include "unit.h"
 #include "panel.h"
 
+struct tile_pair_t
+{
+    int terrain;
+    Unit *unit;
+};
+
 class Map
 {
-public:
-	struct tile_pair_t;
-
 private:
 	std::vector<std::vector<tile_pair_t> > map;
 	int tile_x, tile_y;	// map x,y that maps to screen (0,0)
@@ -34,13 +37,8 @@ private:
 	// Define blank ctor to disallow use of default ctor
 	Map();
 
-public:
-	struct tile_pair_t
-	{
-		int terrain;
-		Unit *unit;
-	};
 
+public:
 	Map(int x, int y, int screen_x, int screen_y, Panel &panel);
 	~Map();
 	void redraw(int screen_x, int screen_y);

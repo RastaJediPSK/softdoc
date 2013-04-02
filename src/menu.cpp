@@ -17,13 +17,13 @@ void Menu::show()
 {
 	// display menu
 	int choice;
-	std::cout << "Enter choice:" << std::endl
-		<< "[1]: New Game\n";
-	std::cin >> choice;
+	std::cout << "Enter choice:" << std::endl;
+    std::cout	<< "[1]: New Game\n";
+    choice = getch();
 
 	switch (choice)
 	{
-	case 1:
+	case '1':
 		game = new_game();
 		break;
 	default:

@@ -232,7 +232,7 @@ void Map::map_loop()
 	}
 }
 
-Map::tile_pair_t *Map::get_tile(int x, int y)
+tile_pair_t *Map::get_tile(int x, int y)
 {
 	if (x >= map_x || y >= map_y)
 		return 0;

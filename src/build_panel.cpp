@@ -5,9 +5,10 @@ BuildPanel::BuildPanel(std::vector<UnitType *> &unit_types, Player *play, int sc
     win(NULL),
     pl(play),
     size(panel_size),
-    opt(0)
+    opt(0),
+    screen_y(scr_y)
 {
-    resize(scr_x,scr_y)
+    resize(scr_x,scr_y);
 }
 
 BuildPanel::~BuildPanel()
@@ -17,19 +18,19 @@ BuildPanel::~BuildPanel()
 
 void BuildPanel::resize(int scr_x, int scr_y)
 {
+    screen_y = scr_y;
     win = newwin(scr_y,scr_x-size,0,scr_x-size+1);
     wattron(win,COLOR_PAIR(15));
     werase(win);
-    for(int i=0;i<types.size();i++)
+    for(unsigned int i=0;i<types.size();i++)
     {
         if(opt==i)
         {
             wattroff(win,COLOR_PAIR(15));
             wattron(win,COLOR_PAIR(16));
         }
-        mvwprintw(win,4+2*i,0,types[i]->get_unit_name.c_str());
-        waddch(win,' ');
-        waddstr(win,atoi(type[i]->get_unit_cost()));
+        mvwprintw(win,4+2*i,0,types[i]->get_unit_name().c_str());
+        wprintw(win," %d",types[i]->get_unit_cost());
         if(opt==i)
         {
             wattroff(win,COLOR_PAIR(15));
@@ -51,6 +52,8 @@ void BuildPanel::resize(int scr_x, int scr_y)
 Unit *BuildPanel::use_panel()
 {
     int temp1, temp2;
+    Unit *temp_ptr = NULL;
+
     wnoutrefresh(win);
     doupdate();
     while(true)
@@ -61,14 +64,13 @@ Unit *BuildPanel::use_panel()
             case KEY_UP:
                 if(opt == types.size())
                 {
-                    mvwprintw(win,scr_y-2,0,"EXIT");
+                    mvwprintw(win,screen_y-2,0,"EXIT");
                     for(;temp2<size;temp2++)
                         waddch(win,' ');
                     opt = 0;
                 }else{
-                    mvwprintw(win,4+2*opt,0,types[opt]->get_unit_name.c_str());
-                    waddch(win,' ');
-                    waddstr(win,atoi(type[opt]->get_unit_cost()));
+                    mvwprintw(win,4+2*opt,0,types[opt]->get_unit_name().c_str());
+                    wprintw(win," %d",types[opt]->get_unit_cost());
                     getyx(win,temp1,temp2);
                     for(;temp2<size;temp2++)
                         waddch(win,' ');
@@ -78,13 +80,12 @@ Unit *BuildPanel::use_panel()
                 wattron(win,COLOR_PAIR(16));
                 if(opt == types.size())
                 {
-                    mvwprintw(win,scr_y-2,0,"EXIT");
+                    mvwprintw(win,screen_y-2,0,"EXIT");
                     for(;temp2<size;temp2++)
                         waddch(win,' ');
                 }else{
-                    mvwprintw(win,4+2*opt,0,types[opt]->get_unit_name.c_str());
-                    waddch(win,' ');
-                    waddstr(win,atoi(type[opt]->get_unit_cost()));
+                    mvwprintw(win,4+2*opt,0,types[opt]->get_unit_name().c_str());
+                    wprintw(win," %d",types[opt]->get_unit_cost());
                     getyx(win,temp1,temp2);
                     for(;temp2<size;temp2++)
                         waddch(win,' ');
@@ -95,14 +96,13 @@ Unit *BuildPanel::use_panel()
             case KEY_DOWN:
                 if(opt == types.size())
                 {
-                    mvwprintw(win,scr_y-2,0,"EXIT");
+                    mvwprintw(win,screen_y-2,0,"EXIT");
                     for(;temp2<size;temp2++)
                         waddch(win,' ');
                     opt--;
                 }else{
-                    mvwprintw(win,4+2*opt,0,types[opt]->get_unit_name.c_str());
-                    waddch(win,' ');
-                    waddstr(win,atoi(type[opt]->get_unit_cost()));
+                    mvwprintw(win,4+2*opt,0,types[opt]->get_unit_name().c_str());
+                    wprintw(win," %d",types[opt]->get_unit_cost());
                     getyx(win,temp1,temp2);
                     for(;temp2<size;temp2++)
                         waddch(win,' ');
@@ -117,13 +117,12 @@ Unit *BuildPanel::use_panel()
                 wattron(win,COLOR_PAIR(16));
                 if(opt == types.size())
                 {
-                    mvwprintw(win,scr_y-2,0,"EXIT");
+                    mvwprintw(win,screen_y-2,0,"EXIT");
                     for(;temp2<size;temp2++)
                         waddch(win,' ');
                 }else{
-                    mvwprintw(win,4+2*opt,0,types[opt]->get_unit_name.c_str());
-                    waddch(win,' ');
-                    waddstr(win,atoi(type[opt]->get_unit_cost()));
+                    mvwprintw(win,4+2*opt,0,types[opt]->get_unit_name().c_str());
+                    wprintw(win," %d",types[opt]->get_unit_cost());
                     getyx(win,temp1,temp2);
                     for(;temp2<size;temp2++)
                         waddch(win,' ');
@@ -134,7 +133,7 @@ Unit *BuildPanel::use_panel()
             case 'z':
                 if(opt==types.size())
                     return NULL;
-                Unit *temp_ptr = Unit(types.opt,pl);
+                temp_ptr = new Unit(types[opt],pl);
                 return temp_ptr;
                 break;
             default:

@@ -6,10 +6,11 @@
  */
 
 #include "unit.h"
+#include "player.h"
 
-Unit::Unit(UnitType *unit_type, void *play) :
+Unit::Unit(UnitType *unit_type, Player *play) :
     type(unit_type),
-    p(play)
+    player(play)
 {}
 
 int Unit::terrain_cost(int terrain)

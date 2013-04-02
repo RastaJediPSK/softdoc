@@ -22,6 +22,7 @@ class BuildPanel
 	Player *pl;
     int size;
     int opt;
+    int screen_y;
 
 public:
 	BuildPanel(std::vector<UnitType *> &unit_types, Player *play, int scr_x, int scr_y, int panel_size);

@@ -2,10 +2,11 @@
 #define PATHFIND_H
 
 #include <list>
-#include "map.h"
 #include "unit.h"
 
 #define MAX_PATH 10
+
+class Map; //prototype
 
 struct position
 {
