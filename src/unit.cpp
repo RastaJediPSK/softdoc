@@ -7,12 +7,12 @@
 
 #include "unit.h"
 
-Unit::Unit(UnitType *unit_type, Player *play) :
+Unit::Unit(UnitType *unit_type, void *play) :
     type(unit_type),
     p(play)
 {}
 
 int Unit::terrain_cost(int terrain)
 {
-    return type->get_terrain_cost[terrain-1];
+    return type->get_terrain_cost()[terrain-1];
 }

@@ -10,15 +10,14 @@
 
 #include <ncurses/curses.h>
 #include "unit_type.h"
-#include "player.h"
 
 class Unit
 {
     UnitType *type;
-    Player *p;
+    void *p;
 
     public:
-    Unit(UnitType *unit_type, Player *player);
+    Unit(UnitType *unit_type, void *player);
     int terrain_cost(int terrain);
     int symbol() { return type->get_unit_symbol(); }
     //other gameplay functions

@@ -59,6 +59,7 @@ void Panel::resize(int screen_x, int screen_y, int terrain, Unit *unit)
     move_pos = screen_y/4+1;
     panel_window = newwin(scr_y,scr_x-size,0,pos_x);
     wattron(panel_window,COLOR_PAIR(15));
+    werase(panel_window);
     mvwprintw(panel_window,terrain_pos,0,"Terrain: ");
     mvwprintw(panel_window,unit_name_pos,0,"Unit Name: ");
     mvwprintw(panel_window,move_pos,0,"Move Left: ");

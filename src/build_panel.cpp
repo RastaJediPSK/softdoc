@@ -19,6 +19,7 @@ void BuildPanel::resize(int scr_x, int scr_y)
 {
     win = newwin(scr_y,scr_x-size,0,scr_x-size+1);
     wattron(win,COLOR_PAIR(15));
+    werase(win);
     for(int i=0;i<types.size();i++)
     {
         if(opt==i)

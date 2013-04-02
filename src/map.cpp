@@ -83,6 +83,7 @@ Map::Map(int x, int y, int screen_x, int screen_y, Panel &panel) :
 	map[(int)(map_x/10) ][(int)(map_y - map_y/10)].terrain = 6;
 
 	map_pad = newpad(y, x);
+    wclear(map_pad);
 	
 	for (int j = 0; j < y; ++j)
 	{
@@ -94,7 +95,6 @@ Map::Map(int x, int y, int screen_x, int screen_y, Panel &panel) :
 			wattroff(map_pad, COLOR_PAIR(map[i][j].terrain));
 		}
 	}
-
 	redraw(scr_x, scr_y);
 }
 
