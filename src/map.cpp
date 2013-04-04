@@ -41,10 +41,13 @@ Map::Map(int x, int y, int screen_x, int screen_y, Panel &panel) :
 			map[i].push_back(tile_pair_t());	// add column to row
 
 			map[i][j].unit = 0;
-			//map[i][j].terrain = (i+j) % 6 + 1;	// temp
+			map[i][j].terrain = 2;	// initialize all as grass
+			if ( j == i ){
+				map[i][j].terrain = 3;
+			}
 			
-			// Terrain Generator
-			if (j < i)	// mirrors over diagonal
+			// Terrain Randomizer
+			/*if (j < i)	// mirrors over diagonal
 				map[i][j].terrain = map[j][i].terrain;
 			else if (i == 0 && j == 0 )
 			{
@@ -74,10 +77,26 @@ Map::Map(int x, int y, int screen_x, int screen_y, Panel &panel) :
 					else	// Match left tile
 						map[i][j].terrain = map[i-1][j].terrain;
 				}
-			}
+			}*/
 		}
 	}
 
+	//Terrain Procedural Generator
+	//Mountains
+	for( int n = 0; n < map_x/10; n++){
+		int origin_x = (int) (map_x * ( std::rand() / (RAND_MAX + 1.0)));
+		int origin_y = (int) (map_y * ( std::rand() / (RAND_MAX + 1.0)));
+		int mount_size = ( (int) ((map_x/20) *(std::rand() / (RAND_MAX + 1.0) ) )) + 3;
+		for(int j = -mount_size; j < mount_size + 1; j++){
+			for(int i = abs(j) - mount_size; i < -abs(j) + mount_size + 1; i++){
+				if ( (i + origin_x >= 0) && (i + origin_x < map_x) && (j + origin_y >= 0) && (j + origin_y  < map_y) ){
+					map[i + origin_x][j + origin_y].terrain = 4;
+				}
+			}
+		}
+	}
+	
+	
 	// Bases
 	map[(int)(map_x - (map_x/10))][(int)(map_y/10)].terrain = 6;
 	map[(int)(map_x/10) ][(int)(map_y - map_y/10)].terrain = 6;
