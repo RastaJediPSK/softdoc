@@ -5,6 +5,7 @@
  * Description:  Map class definition file
  */
 
+#include <cstdlib>
 #include <iostream>
 #include "map.h"
 
