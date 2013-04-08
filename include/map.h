@@ -13,6 +13,8 @@
 #include "unit.h"
 #include "panel.h"
 
+/* Why do you want this in the public namespace? I think it should be part of
+   the Map class since that is the only thing that uses it. -- Steve */
 struct tile_pair_t
 {
     int terrain;
