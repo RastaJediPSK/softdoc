@@ -17,9 +17,9 @@ void Menu::show()
 {
 	// display menu
 	int choice;
-	std::cout << "Enter choice:" << std::endl;
-    std::cout	<< "[1]: New Game\n";
-    choice = getch();
+	std::cout << "Enter choice:\r\n";
+	std::cout << "[1]: New Game\r\n" << std::flush;
+	choice = getch();
 
 	switch (choice)
 	{
