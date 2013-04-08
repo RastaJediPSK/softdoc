@@ -29,6 +29,10 @@ Map::Map(int x, int y, int screen_x, int screen_y, Panel &panel) :
 	vector<vector<tile_pair_t> >::size_type sz = x;
 	map.reserve(sz);
 
+	srand(time(NULL));
+	int center_x = map_x/2;
+	int center_y = map_y/2;
+	
 	for (int i = 0; i < x; ++i)
 	{
 		map.push_back(vector<tile_pair_t>());	// add a row to map
@@ -84,6 +88,8 @@ Map::Map(int x, int y, int screen_x, int screen_y, Panel &panel) :
 
 	//Terrain Procedural Generator
 	//Mountains
+	//Places randomly sized mountains (diamonds) in random locations.
+	//More and larger mountains for larger maps
 	for( int n = 0; n < map_x/10; n++){
 		int origin_x = (int) (map_x * ( std::rand() / (RAND_MAX + 1.0)));
 		int origin_y = (int) (map_y * ( std::rand() / (RAND_MAX + 1.0)));
@@ -97,11 +103,115 @@ Map::Map(int x, int y, int screen_x, int screen_y, Panel &panel) :
 		}
 	}
 	
+	//Rivers
+	//Picks a side and a direction. River will originate from that side
+	//and head in that direction. Will have random width limited by map size.
+	for(int n = 0; n < map_x/10; n++){
+		int side = (int) (2 * ( std::rand() / (RAND_MAX + 1.0)));
+		int dir = (int) (2 * ( std::rand() / (RAND_MAX + 1.0)));
+		//int width = (int) ((map_x/50) * ( std::rand() / (RAND_MAX + 1.0))) + 1;
+		if (side == 1){ //originate from left side
+			int pos = (int) (map_y * ( std::rand() / (RAND_MAX + 1.0)));
+			if (dir == 1){ //head up-right
+				for (int i = 0; i < map_x; i++){
+					if ( pos - i < 0 ){
+						break;
+					}
+					if ( pos - i >= 1 ){
+						map[i][pos - i - 1].terrain = 1;
+					}
+					map[i][pos - i].terrain = 1;
+				}
+			}
+			else{ //head down-right
+				for (int i = 0; i < map_x; i++){
+					if ( pos + i >= map_y ){
+						break;
+					}
+					if ( pos + i + 1 < map_y ){
+						map[i][pos - i - 1].terrain = 1;
+					}
+					map[i][pos + i].terrain = 1;
+				}
+			}
+		}
+		else { //originate from bottom side
+			int pos = (int) (map_x * ( std::rand() / (RAND_MAX + 1.0)));
+			if (dir == 1){ //head up-left
+				for (int i = 0; i < map_y; i++){
+					if ( pos - i < 0 ){
+						break;
+					}
+					if ( map_y - i - 2 >= 0 ){
+						map[pos - i][map_y - i - 2].terrain = 1;
+					}
+					map[pos - i][map_y -1 - i].terrain = 1;
+				}
+			}
+			else{ //head up-right
+				for (int i = 0; i < map_y; i++){
+					if ( pos + i <= map_x ){
+						break;
+					}
+					if ( map_y - i - 2 >= 0 ){
+						map[pos + i][map_y - i - 2 ].terrain = 1;
+					}
+					map[pos + i][map_y -1 - i].terrain = 1;
+				}
+			}
+		}
+	}
+	
 	
 	// Bases
 	map[(int)(map_x - (map_x/10))][(int)(map_y/10)].terrain = 6;
 	map[(int)(map_x/10) ][(int)(map_y - map_y/10)].terrain = 6;
-
+	
+	// Roads
+	//Will go from base 1 to center, going only in cardinal directions.
+	int n = (map_x/10);
+	int	m = (map_y - map_y/10);
+	while( n+1 <= center_x || m+1 >= center_y ){
+		if ( n+1 > center_x ){	//moved as right as possible
+			m--;
+			map[n][m].terrain = 3;
+		}
+		else if ( m+1 < center_y ){	//moved as up as possible
+			n++;
+			map[n][m].terrain = 3;
+		}
+		else{	//pick either up or right
+			int rand = (int) (2 * ( std::rand() / (RAND_MAX + 1.0)));
+			if (rand == 1){ //up
+				m--;
+				map[n][m].terrain = 3;
+			}
+			else{ //right
+				n++;
+				map[n][m].terrain = 3;
+			}
+		}
+	}
+	
+	
+	// Reflect map over diagonal (\) and flip
+	//0-0 1-0 2-0 3-0 4-0		0-0 3-4 2-4 1-4 0-4
+	//0-1 1-1 2-1 3-1 4-1		0-1 1-1 
+	//0-2 1-2 2-2 3-2 4-2		0-2 1-2 2-2 
+	//0-3 1-3 2-3 3-3 4-3		0-3 1-3 2-3 3-3
+	//0-4 1-4 2-4 3-4 4-4		0-4 1-4 2-4 3-4 4-4
+	for (int i = 0; i < map_x; ++i){
+		for (int j = 0; j < map_y; ++j){
+			if ( i > j ){
+				//Reflects and flips
+				//map[i][j].terrain = map[center_x + (center_x-i) ][center_y + (center_y-j)].terrain;
+				
+				//Only reflects
+				map[i][j].terrain = map[j][i].terrain;
+			}
+		}
+	}
+	
 	map_pad = newpad(y, x);
     wclear(map_pad);
 	
