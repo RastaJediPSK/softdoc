@@ -35,13 +35,13 @@ void Panel::update(int terrain, Unit *unit)
             waddstr(panel_window,"Road");
             break;
         case 4:
-            waddstr(panel_window,"Mountin");
+            waddstr(panel_window,"Mountain");
             break;
         case 5:
             waddstr(panel_window,"Building");
             break;
         case 6:
-            waddstr(panel_window,"???");
+            waddstr(panel_window,"Base");
             break;
         default:
             break;

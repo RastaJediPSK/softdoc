@@ -47,61 +47,11 @@ Map::Map(int x, int y, int screen_x, int screen_y, Panel &panel) :
 
 			map[i][j].unit = 0;
 			map[i][j].terrain = 2;	// initialize all as grass
-			if ( j == i ){
-				map[i][j].terrain = 3;
-			}
-			
-			// Terrain Randomizer
-			/*if (j < i)	// mirrors over diagonal
-				map[i][j].terrain = map[j][i].terrain;
-			else if (i == 0 && j == 0 )
-			{
-				map[i][j].terrain = std::rand() % 5 + 1;
-				if (map[i][j].terrain == 0 || map[i][j].terrain > 4)
-					map[i][j].terrain = 5;
-			}
-			else if (i == 0)
-			{
-				map[i][j].terrain = std::rand() % 9;
-				if (map[i][j].terrain > 4)
-					map[i][j].terrain = map[i][j-1].terrain;	// Match above tile
-			}
-			else if (j == 0)
-			{
-				map[i][j].terrain = std::rand() % 9;
-				if (map[i][j].terrain > 4)
-					map[i][j].terrain = map[i-1][j].terrain;	// Match left tile
-			}
-			else
-			{
-				map[i][j].terrain = std::rand() % 13;
-				if (map[i][j].terrain > 4)
-				{
-					if (map[i][j].terrain % 2 == 1)		// Match above tile
-						map[i][j].terrain = map[i][j-1].terrain;
-					else	// Match left tile
-						map[i][j].terrain = map[i-1][j].terrain;
-				}
-			}*/
-		}
-	}
 
-	//Terrain Procedural Generator
-	//Mountains
-	//Places randomly sized mountains (diamonds) in random locations.
-	//More and larger mountains for larger maps
-	for( int n = 0; n < map_x/10; n++){
-		int origin_x = (int) (map_x * ( std::rand() / (RAND_MAX + 1.0)));
-		int origin_y = (int) (map_y * ( std::rand() / (RAND_MAX + 1.0)));
-		int mount_size = ( (int) ((map_x/20) *(std::rand() / (RAND_MAX + 1.0) ) )) + 3;
-		for(int j = -mount_size; j < mount_size + 1; j++){
-			for(int i = abs(j) - mount_size; i < -abs(j) + mount_size + 1; i++){
-				if ( (i + origin_x >= 0) && (i + origin_x < map_x) && (j + origin_y >= 0) && (j + origin_y  < map_y) ){
-					map[i + origin_x][j + origin_y].terrain = 4;
-				}
-			}
 		}
 	}
+	
+	//Terrain Procedural Generator
 	
 	//Rivers
 	//Picks a side and a direction. River will originate from that side
@@ -162,6 +112,22 @@ Map::Map(int x, int y, int screen_x, int screen_y, Panel &panel) :
 		}
 	}
 	
+	//Mountains
+	//Places randomly sized mountains (diamonds) in random locations.
+	//More and larger mountains for larger maps
+	for( int n = 0; n < map_x/10; n++){
+		int origin_x = (int) (map_x * ( std::rand() / (RAND_MAX + 1.0)));
+		int origin_y = (int) (map_y * ( std::rand() / (RAND_MAX + 1.0)));
+		int mount_size = ( (int) ((map_x/20) *(std::rand() / (RAND_MAX + 1.0) ) )) + 3;
+		for(int j = -mount_size; j < mount_size + 1; j++){
+			for(int i = abs(j) - mount_size; i < -abs(j) + mount_size + 1; i++){
+				if ( (i + origin_x >= 0) && (i + origin_x < map_x) && (j + origin_y >= 0) && (j + origin_y  < map_y) ){
+					map[i + origin_x][j + origin_y].terrain = 4;
+				}
+			}
+		}
+	}
+	
 	
 	// Bases
 	map[(int)(map_x - (map_x/10))][(int)(map_y/10)].terrain = 6;
@@ -191,6 +157,22 @@ Map::Map(int x, int y, int screen_x, int screen_y, Panel &panel) :
 				map[n][m].terrain = 3;
 			}
 		}
+	}
+	
+	//Other Buildings
+	//Will be randomly distributed, one per 50x50 quadrant
+	n = 0;
+	while ( n < map_x /50){
+		m = 0;
+		while ( m < map_y / 50){
+			int rand_x = (int) (50 * ( std::rand() / (RAND_MAX + 1.0)));
+			int rand_y = (int) (50 * ( std::rand() / (RAND_MAX + 1.0)));
+			if (map[(n*50)+rand_x][(m*50)+rand_y].terrain != 6){
+				map[(n*50)+rand_x][(m*50)+rand_y].terrain = 5;
+				m++;
+			}
+		}
+		n++;
 	}
 	
 	
