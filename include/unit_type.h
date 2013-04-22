@@ -1,7 +1,7 @@
 #ifndef UNIT_TYPE_H
 #define UNIT_TYPE_H
 
-#define UNIT_NUMBER 1
+#define UNIT_NUMBER 4
 
 #include <string>
 
@@ -37,5 +37,25 @@ class Tank : public UnitType
     ~Tank();
 };
 
+class Rock : public UnitType
+{
+    public:
+    Rock();
+    ~Rock();
+};
+
+class Paper : public UnitType
+{
+    public:
+    Paper();
+    ~Paper();
+};
+
+class Scissors :public UnitType
+{
+    public:
+    Scissors();
+    ~Scissors();
+};
 #endif
 

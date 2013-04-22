@@ -22,6 +22,12 @@ Game::Game() : players(), types()
 
     Tank *t = new Tank();
     types.push_back(t);
+    Rock *rock = new Rock();
+    types.push_back(rock);
+    Paper *paper = new Paper();
+    types.push_back(paper);
+    Scissors *scissors = new Scissors();
+    types.push_back(scissors);
 	int scr_x, scr_y;
 	getmaxyx(stdscr, scr_y, scr_x);
 	//Panel *panel = new Panel(scr_x, scr_y, 20);
