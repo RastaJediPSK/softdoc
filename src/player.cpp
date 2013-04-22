@@ -17,3 +17,9 @@ void Player::del_unit(std::list<Unit *>::iterator it)
 {
 	this->units.erase(it);
 }
+
+void Player::reset_units()
+{
+    for(std::list<Unit *>::iterator itr=units.begin();itr!=units.end();itr++)
+        (*itr)->set_used(false);
+}

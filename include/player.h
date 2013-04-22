@@ -21,6 +21,7 @@ public:
     int get_id() { return id; }
     std::list<Unit *>::iterator add_unit(Unit *);
 	void del_unit(std::list<Unit *>::iterator);
+    void reset_units();
 };
 
 #endif

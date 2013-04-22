@@ -15,7 +15,7 @@ Tank::Tank()
     unit_attack[0] = 4;
     unit_attack[1] = 6;
     unit_vision = 5;
-    unit_move = 7;
+    unit_move = 20;
     unit_symbol = 'T';
 }
 

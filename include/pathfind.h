@@ -4,7 +4,7 @@
 #include <list>
 #include "unit.h"
 
-#define MAX_PATH 10
+#define MAX_PATH 20
 
 class Map; //prototype
 

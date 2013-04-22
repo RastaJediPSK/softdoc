@@ -36,6 +36,9 @@ private:
 	Panel panel;
 	WINDOW *map_pad;	// pad to draw map on
     std::vector<UnitType *> types;
+    Unit *selected;
+    Pathfind *pathfind;
+    int path_length;
 	
 	// Define blank copy ctor/assignment operator (for now)
 	Map(const Map &);
@@ -43,6 +46,9 @@ private:
 
 	// Define blank ctor to disallow use of default ctor
 	Map();
+
+    void deselect();
+    
 
 
 public:

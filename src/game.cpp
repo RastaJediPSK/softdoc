@@ -16,7 +16,7 @@ Game::Game() : players(), types()
 	// Add num_players to the game
 	for (int i = 0; i < num_players; ++i)
     {
-        Player *p = new Player(i+1);
+        Player *p = new Player(i);
 		players.push_back(p);
     }
 
@@ -27,18 +27,26 @@ Game::Game() : players(), types()
 	//Panel *panel = new Panel(scr_x, scr_y, 20);
 	Panel panel(scr_x, scr_y, 20);
 	//Map *gamemap = new Map(200, 200, scr_x, scr_y, panel);
-	Map map(100, 100, scr_x, scr_y, panel,types);
+	Map map(100, 100, scr_x-20, scr_y, panel,types);
 	//gamemap->map_loop();
     while(true)
     {
+        players[0]->reset_units();
         map.map_loop(players[0]);
+        clearok(stdscr,true);
+        refresh();
         int ch = getch();
         if(ch == 'q')
             break;
+        map.redraw(scr_x-20,scr_y);
+        players[1]->reset_units();
         map.map_loop(players[1]);
+        clearok(stdscr,true);
+        refresh();
         ch = getch();
         if(ch == 'q')
             break;
+        map.redraw(scr_x-20,scr_y);
     }
 }
 

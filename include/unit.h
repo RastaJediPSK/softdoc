@@ -38,6 +38,7 @@ class Unit
     void move(int x, int y);
     int get_x() { return mapx; }
     int get_y() { return mapy; }
+    Player *get_player() { return player; }
     //other gameplay functions
 };
 
