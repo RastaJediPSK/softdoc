@@ -49,7 +49,9 @@ binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
 am_main_OBJECTS = main-main.$(OBJEXT) main-unit.$(OBJEXT) \
 	main-map.$(OBJEXT) main-panel.$(OBJEXT) main-game.$(OBJEXT) \
-	main-player.$(OBJEXT) main-menu.$(OBJEXT)
+	main-player.$(OBJEXT) main-menu.$(OBJEXT) \
+	main-build_panel.$(OBJEXT) main-pathfind.$(OBJEXT) \
+	main-unit_type.$(OBJEXT)
 main_OBJECTS = $(am_main_OBJECTS)
 main_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)/include
@@ -142,7 +144,7 @@ sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
-main_SOURCES = main.cpp unit.cpp map.cpp panel.cpp game.cpp player.cpp menu.cpp
+main_SOURCES = main.cpp unit.cpp map.cpp panel.cpp game.cpp player.cpp menu.cpp build_panel.cpp pathfind.cpp unit_type.cpp
 # CXXFLAGS are flags to pass to the C++ compiler
 main_CXXFLAGS = -O2 -Wall -Weffc++
 #main_CXXFLAGS += -Wextra
@@ -214,13 +216,16 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main-build_panel.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main-game.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main-main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main-map.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main-menu.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main-panel.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main-pathfind.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main-player.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main-unit.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main-unit_type.Po@am__quote@
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	if $(CXXCOMPILE) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" -c -o $@ $<; \
@@ -333,6 +338,48 @@ main-menu.obj: menu.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='menu.cpp' object='main-menu.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(main_CXXFLAGS) $(CXXFLAGS) -c -o main-menu.obj `if test -f 'menu.cpp'; then $(CYGPATH_W) 'menu.cpp'; else $(CYGPATH_W) '$(srcdir)/menu.cpp'; fi`
+
+main-build_panel.o: build_panel.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(main_CXXFLAGS) $(CXXFLAGS) -MT main-build_panel.o -MD -MP -MF "$(DEPDIR)/main-build_panel.Tpo" -c -o main-build_panel.o `test -f 'build_panel.cpp' || echo '$(srcdir)/'`build_panel.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/main-build_panel.Tpo" "$(DEPDIR)/main-build_panel.Po"; else rm -f "$(DEPDIR)/main-build_panel.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='build_panel.cpp' object='main-build_panel.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(main_CXXFLAGS) $(CXXFLAGS) -c -o main-build_panel.o `test -f 'build_panel.cpp' || echo '$(srcdir)/'`build_panel.cpp
+
+main-build_panel.obj: build_panel.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(main_CXXFLAGS) $(CXXFLAGS) -MT main-build_panel.obj -MD -MP -MF "$(DEPDIR)/main-build_panel.Tpo" -c -o main-build_panel.obj `if test -f 'build_panel.cpp'; then $(CYGPATH_W) 'build_panel.cpp'; else $(CYGPATH_W) '$(srcdir)/build_panel.cpp'; fi`; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/main-build_panel.Tpo" "$(DEPDIR)/main-build_panel.Po"; else rm -f "$(DEPDIR)/main-build_panel.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='build_panel.cpp' object='main-build_panel.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(main_CXXFLAGS) $(CXXFLAGS) -c -o main-build_panel.obj `if test -f 'build_panel.cpp'; then $(CYGPATH_W) 'build_panel.cpp'; else $(CYGPATH_W) '$(srcdir)/build_panel.cpp'; fi`
+
+main-pathfind.o: pathfind.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(main_CXXFLAGS) $(CXXFLAGS) -MT main-pathfind.o -MD -MP -MF "$(DEPDIR)/main-pathfind.Tpo" -c -o main-pathfind.o `test -f 'pathfind.cpp' || echo '$(srcdir)/'`pathfind.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/main-pathfind.Tpo" "$(DEPDIR)/main-pathfind.Po"; else rm -f "$(DEPDIR)/main-pathfind.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='pathfind.cpp' object='main-pathfind.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(main_CXXFLAGS) $(CXXFLAGS) -c -o main-pathfind.o `test -f 'pathfind.cpp' || echo '$(srcdir)/'`pathfind.cpp
+
+main-pathfind.obj: pathfind.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(main_CXXFLAGS) $(CXXFLAGS) -MT main-pathfind.obj -MD -MP -MF "$(DEPDIR)/main-pathfind.Tpo" -c -o main-pathfind.obj `if test -f 'pathfind.cpp'; then $(CYGPATH_W) 'pathfind.cpp'; else $(CYGPATH_W) '$(srcdir)/pathfind.cpp'; fi`; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/main-pathfind.Tpo" "$(DEPDIR)/main-pathfind.Po"; else rm -f "$(DEPDIR)/main-pathfind.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='pathfind.cpp' object='main-pathfind.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(main_CXXFLAGS) $(CXXFLAGS) -c -o main-pathfind.obj `if test -f 'pathfind.cpp'; then $(CYGPATH_W) 'pathfind.cpp'; else $(CYGPATH_W) '$(srcdir)/pathfind.cpp'; fi`
+
+main-unit_type.o: unit_type.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(main_CXXFLAGS) $(CXXFLAGS) -MT main-unit_type.o -MD -MP -MF "$(DEPDIR)/main-unit_type.Tpo" -c -o main-unit_type.o `test -f 'unit_type.cpp' || echo '$(srcdir)/'`unit_type.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/main-unit_type.Tpo" "$(DEPDIR)/main-unit_type.Po"; else rm -f "$(DEPDIR)/main-unit_type.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='unit_type.cpp' object='main-unit_type.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(main_CXXFLAGS) $(CXXFLAGS) -c -o main-unit_type.o `test -f 'unit_type.cpp' || echo '$(srcdir)/'`unit_type.cpp
+
+main-unit_type.obj: unit_type.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(main_CXXFLAGS) $(CXXFLAGS) -MT main-unit_type.obj -MD -MP -MF "$(DEPDIR)/main-unit_type.Tpo" -c -o main-unit_type.obj `if test -f 'unit_type.cpp'; then $(CYGPATH_W) 'unit_type.cpp'; else $(CYGPATH_W) '$(srcdir)/unit_type.cpp'; fi`; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/main-unit_type.Tpo" "$(DEPDIR)/main-unit_type.Po"; else rm -f "$(DEPDIR)/main-unit_type.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='unit_type.cpp' object='main-unit_type.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(main_CXXFLAGS) $(CXXFLAGS) -c -o main-unit_type.obj `if test -f 'unit_type.cpp'; then $(CYGPATH_W) 'unit_type.cpp'; else $(CYGPATH_W) '$(srcdir)/unit_type.cpp'; fi`
 uninstall-info-am:
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
