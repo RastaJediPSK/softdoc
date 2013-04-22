@@ -10,10 +10,12 @@
 
 #include <vector>
 #include "player.h"
+#include "unit_type.h"
 
 class Game
 {
-	std::vector<Player> players;
+	std::vector<Player *> players;
+    std::vector<UnitType *> types;
 	
 public:
 	Game();

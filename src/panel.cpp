@@ -8,7 +8,8 @@ Panel::Panel(int screen_x, int screen_y, int panel_size) :
     terrain_pos(1),
     unit_name_pos(screen_y/4),
     move_pos(screen_y/4 + 1),
-    panel_window(NULL)
+    panel_window(NULL),
+    selected(NULL)
 {
     resize(scr_y,scr_x,0,NULL);
 }
@@ -49,6 +50,15 @@ void Panel::update(int terrain, Unit *unit)
     getyx(panel_window,terrain,i);
     for(;i<scr_x;i++)
         waddch(panel_window,' ');
+    wmove(panel_window,unit_name_pos,11);
+    if(unit != NULL)
+    {
+        waddstr(panel_window,unit->get_name().c_str());
+    }else{
+        getyx(panel_window,terrain,i);
+        for(;i<scr_x;i++)
+            waddch(panel_window,' ');
+    }
     wnoutrefresh(panel_window);
 }
 

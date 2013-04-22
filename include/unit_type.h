@@ -7,6 +7,7 @@
 
 class UnitType
 {
+    protected:
     int *terrain_cost;
     int *unit_attack;
     int unit_label;

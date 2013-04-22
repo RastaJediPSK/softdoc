@@ -19,9 +19,10 @@ BuildPanel::~BuildPanel()
 void BuildPanel::resize(int scr_x, int scr_y)
 {
     screen_y = scr_y;
-    win = newwin(scr_y,scr_x-size,0,scr_x-size+1);
+    win = newwin(scr_y-1,scr_x-size,0,scr_x-size+1);
     wattron(win,COLOR_PAIR(15));
     werase(win);
+    clearok(win,true);
     for(unsigned int i=0;i<types.size();i++)
     {
         if(opt==i)
@@ -30,7 +31,7 @@ void BuildPanel::resize(int scr_x, int scr_y)
             wattron(win,COLOR_PAIR(16));
         }
         mvwprintw(win,4+2*i,0,types[i]->get_unit_name().c_str());
-        wprintw(win," %d",types[i]->get_unit_cost());
+        //wprintw(win," %d",types[i]->get_unit_cost());
         if(opt==i)
         {
             wattroff(win,COLOR_PAIR(15));
@@ -49,7 +50,7 @@ void BuildPanel::resize(int scr_x, int scr_y)
     }
 }
 
-Unit *BuildPanel::use_panel()
+Unit *BuildPanel::use_panel(int x, int y)
 {
     int temp1, temp2;
     Unit *temp_ptr = NULL;
@@ -70,10 +71,10 @@ Unit *BuildPanel::use_panel()
                     opt = 0;
                 }else{
                     mvwprintw(win,4+2*opt,0,types[opt]->get_unit_name().c_str());
-                    wprintw(win," %d",types[opt]->get_unit_cost());
-                    getyx(win,temp1,temp2);
-                    for(;temp2<size;temp2++)
-                        waddch(win,' ');
+                  //  wprintw(win," %d",types[opt]->get_unit_cost());
+                    //getyx(win,temp1,temp2);
+                    //for(;temp2<size;temp2++)
+                     //   waddch(win,' ');
                     opt++;
                 }
                 wattroff(win,COLOR_PAIR(15));
@@ -86,9 +87,10 @@ Unit *BuildPanel::use_panel()
                 }else{
                     mvwprintw(win,4+2*opt,0,types[opt]->get_unit_name().c_str());
                     wprintw(win," %d",types[opt]->get_unit_cost());
-                    getyx(win,temp1,temp2);
+                    /*getyx(win,temp1,temp2);
                     for(;temp2<size;temp2++)
                         waddch(win,' ');
+                        */
                 }
                 wattroff(win,COLOR_PAIR(16));
                 wattron(win,COLOR_PAIR(15));
@@ -102,10 +104,10 @@ Unit *BuildPanel::use_panel()
                     opt--;
                 }else{
                     mvwprintw(win,4+2*opt,0,types[opt]->get_unit_name().c_str());
-                    wprintw(win," %d",types[opt]->get_unit_cost());
-                    getyx(win,temp1,temp2);
-                    for(;temp2<size;temp2++)
-                        waddch(win,' ');
+                   // wprintw(win," %d",types[opt]->get_unit_cost());
+                   // getyx(win,temp1,temp2);
+                   // for(;temp2<size;temp2++)
+                   //     waddch(win,' ');
                     if(opt==0)
                     {
                         opt = types.size();
@@ -122,10 +124,10 @@ Unit *BuildPanel::use_panel()
                         waddch(win,' ');
                 }else{
                     mvwprintw(win,4+2*opt,0,types[opt]->get_unit_name().c_str());
-                    wprintw(win," %d",types[opt]->get_unit_cost());
-                    getyx(win,temp1,temp2);
-                    for(;temp2<size;temp2++)
-                        waddch(win,' ');
+                    //wprintw(win," %d",types[opt]->get_unit_cost());
+                    //getyx(win,temp1,temp2);
+                    //for(;temp2<size;temp2++)
+                     ////   waddch(win,' ');
                 }
                 wattroff(win,COLOR_PAIR(16));
                 wattron(win,COLOR_PAIR(15));
@@ -133,12 +135,14 @@ Unit *BuildPanel::use_panel()
             case 'z':
                 if(opt==types.size())
                     return NULL;
-                temp_ptr = new Unit(types[opt],pl);
+                temp_ptr = new Unit(types[opt],pl,x,y);
                 return temp_ptr;
                 break;
             default:
                 break;
         }
+        wnoutrefresh(win);
+        doupdate();
     }
     return NULL;
 }

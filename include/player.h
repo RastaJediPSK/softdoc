@@ -8,18 +8,19 @@
 #ifndef PLAYER_H_
 #define PLAYER_H_
 
-#include <vector>
+#include <list>
 #include "unit.h"
 
 class Player
 {
-	int cash;
-	std::vector<Unit *> units;
+    int id;
+	std::list<Unit *> units;
 
 public:
-	Player() : cash(0), units() { }
-	void add_unit(Unit *);
-	void del_unit(std::vector<Unit *>::iterator);
+	Player(int i) : id(i), units() { }
+    int get_id() { return id; }
+    std::list<Unit *>::iterator add_unit(Unit *);
+	void del_unit(std::list<Unit *>::iterator);
 };
 
 #endif

@@ -11,7 +11,11 @@
 #include <ncurses/curses.h>
 #include <vector>
 #include "unit.h"
+#include "unit_type.h"
 #include "panel.h"
+#include "build_panel.h"
+#include "player.h"
+#include "pathfind.h"
 
 struct tile_pair_t
 {
@@ -29,6 +33,7 @@ private:
 	int pos_x, pos_y;	// position of cursor on screen
 	Panel panel;
 	WINDOW *map_pad;	// pad to draw map on
+    std::vector<UnitType *> types;
 	
 	// Define blank copy ctor/assignment operator (for now)
 	Map(const Map &);
@@ -39,10 +44,10 @@ private:
 
 
 public:
-	Map(int x, int y, int screen_x, int screen_y, Panel &panel);
+	Map(int x, int y, int screen_x, int screen_y, Panel &panel, std::vector<UnitType *> &type);
 	~Map();
 	void redraw(int screen_x, int screen_y);
-	void map_loop();
+	void map_loop(Player *player);
 	tile_pair_t *get_tile(int x, int y);
 };
 
