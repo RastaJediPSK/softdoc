@@ -9,7 +9,7 @@
 #include <iostream>
 #include "map.h"
 
-Map::Map(int x, int y, int screen_x, int screen_y, Panel &panel) :
+Map::Map(int x, int y, int screen_x, int screen_y, Panel &panel, std::vector<UnitType *> &type) :
  	map(),
 	tile_x(0),
 	tile_y(0),
@@ -20,7 +20,8 @@ Map::Map(int x, int y, int screen_x, int screen_y, Panel &panel) :
 	pos_x(screen_x/2),
 	pos_y(screen_y/2),
 	panel(panel),
-	map_pad(0)
+	map_pad(0),
+    types(type)
 {
 	scr_x -= panel.get_size();
 
@@ -234,7 +235,7 @@ void Map::redraw(int screen_x, int screen_y)
 	move(pos_y, pos_x);
 }
 
-void Map::map_loop()
+void Map::map_loop(Player *player)
 {
 	int ch;
 	bool quit = true;
@@ -258,7 +259,6 @@ void Map::map_loop()
 					(void)0;	// no-op
 				else
 					--tile_y;
-
 				redraw(scr_x, scr_y);
 			}
 			else
@@ -270,29 +270,27 @@ void Map::map_loop()
 						map[pos_x + tile_x][pos_y + tile_y].unit);
 				doupdate();
 			}
-
 			break;
 		case KEY_DOWN:
-			if (tile_y + scr_y == map_y)
-			{
-				// beep
-				break;
-			}
-
 			if (pos_y >= scr_y - 1)
 			{
+                if (tile_y + scr_y >= map_y)
+                {
+                    break;
+                }
 				++tile_y;
 				redraw(scr_x, scr_y);
 			}
 			else
 			{
+                if(tile_y + pos_y + 1 >= map_y)
+                    break;
 				++pos_y;
 				move(pos_y, pos_x);
 				panel.update(map[pos_x + tile_x][pos_y + tile_y].terrain,
 						map[pos_x + tile_x][pos_y + tile_y].unit);
 				doupdate();
 			}
-
 			break;
 		case KEY_LEFT:
 			if (pos_x == 0)
@@ -314,30 +312,47 @@ void Map::map_loop()
 						map[pos_x + tile_x][pos_y + tile_y].unit);
 				doupdate();
 			}
-
 			break;
 		case KEY_RIGHT:
-			if (tile_x + scr_x == map_x)
-			{
-				// beep
-				break;
-			}
-			
 			if (pos_x >= scr_x - 1)
 			{
+                if (tile_x + scr_x >= map_x)
+                {
+                    break;
+                }
 				++tile_x;
 				redraw(scr_x, scr_y);
 			}
 			else
 			{
+                if(tile_x+pos_x+1 >= map_x)
+                    break;
 				++pos_x;
 				move(pos_y, pos_x);
 				panel.update(map[pos_x + tile_x][pos_y + tile_y].terrain,
 						map[pos_x + tile_x][pos_y + tile_y].unit);
 				doupdate();
 			}
-
 			break;
+        case 'z':
+            if(map[pos_x][pos_y].terrain == 2 && map[pos_x][pos_y].unit == NULL)
+            {
+                BuildPanel *bp;
+                bp = new BuildPanel(types,player,scr_x,scr_y,panel.get_size());
+                map[pos_x+tile_x][pos_y+tile_y].unit = bp->use_panel(pos_x+tile_x,pos_y+tile_y);
+                delete bp;
+                panel.resize(scr_x,scr_y,map[pos_x+tile_x][pos_y+tile_y].terrain,map[pos_x+tile_x][pos_y+tile_y].unit);
+                if(map[pos_x+tile_x][pos_y+tile_y].unit)
+                {
+                    wattron(map_pad,COLOR_PAIR(map[pos_x+tile_x][pos_y+tile_y].terrain));
+                    mvwaddch(map_pad,pos_y+tile_y,pos_x+tile_x,map[pos_x+tile_x][pos_y+tile_y].unit->symbol());
+                    wattroff(map_pad,COLOR_PAIR(map[pos_x+tile_x][pos_y+tile_y].terrain));
+	                pnoutrefresh(map_pad,tile_y,tile_x,0,0,scr_y-1,scr_x-1);
+                }
+				move(pos_y, pos_x);
+                doupdate();
+            }
+            break;    
 		default:
 			break;
 		}

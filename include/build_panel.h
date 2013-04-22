@@ -28,7 +28,7 @@ public:
 	BuildPanel(std::vector<UnitType *> &unit_types, Player *play, int scr_x, int scr_y, int panel_size);
     ~BuildPanel();
     void resize(int scr_x, int scr_y);
-	Unit *use_panel();
+	Unit *use_panel(int x, int y);
 };
 
 #endif

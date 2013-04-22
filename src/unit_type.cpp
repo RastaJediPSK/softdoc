@@ -2,23 +2,26 @@
 
 Tank::Tank()
 {
-    unit_type = 0;
-    unit_terrain = new int [6];
-    unit_attack = new int [UNIT_NUMBER];
-    unit_terrain[0] = 100;
-    unit_terrain[1] = 2;
-    unit_terrain[2] = 1;
-    unit_terrain[3] = 10;
-    unit_terrain[4] = 2;
-    unit_terrain[5] = 1;
-    unit_attack[0] = 1;
+    name = "Tank";
+    unit_label = 0;
+    terrain_cost = new int [6];
+    unit_attack = new int [UNIT_NUMBER*2];
+    terrain_cost[0] = 100;
+    terrain_cost[1] = 2;
+    terrain_cost[2] = 1;
+    terrain_cost[3] = 10;
+    terrain_cost[4] = 2;
+    terrain_cost[5] = 1;
+    unit_attack[0] = 4;
+    unit_attack[1] = 6;
     unit_vision = 5;
     unit_move = 7;
+    unit_symbol = 'T';
 }
 
 Tank::~Tank()
 {
-    delete [] unit_terrain;
+    delete [] terrain_cost;
     delete [] unit_attack;
 }
     
