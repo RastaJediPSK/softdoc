@@ -7,7 +7,7 @@
 
 class UnitType
 {
-    protected:
+protected:
     int *terrain_cost;
     int *unit_attack;
     int unit_label;
@@ -17,9 +17,9 @@ class UnitType
     std::string name;
     int unit_cost;
 
-
-    public:
+public:
     UnitType() : terrain_cost(NULL), unit_attack(NULL), unit_label(-1), unit_vision(0), unit_move(0), unit_symbol(0), name(""), unit_cost(0) {}
+    virtual ~UnitType() { }
     int *get_terrain_cost() { return terrain_cost; }
     int *get_unit_attack() { return unit_attack; }
     int get_unit_label() { return unit_label; }
