@@ -5,6 +5,8 @@
 
 #include <string>
 
+//Parent class to unit type classes that act as
+//a flyweight to store data about different unit types
 class UnitType
 {
 protected:
@@ -16,6 +18,10 @@ protected:
     int unit_symbol;
     std::string name;
     int unit_cost;
+    
+    //unused constructors to stop warnings
+    UnitType(const UnitType &u);
+    void operator=(const UnitType &u);
 
 public:
     UnitType() : terrain_cost(NULL), unit_attack(NULL), unit_label(-1), unit_vision(0), unit_move(0), unit_symbol(0), name(""), unit_cost(0) {}
@@ -30,6 +36,7 @@ public:
     int get_unit_cost() { return unit_cost; }
 };
 
+//Tank unit data class
 class Tank : public UnitType
 {
     public:
@@ -37,6 +44,7 @@ class Tank : public UnitType
     ~Tank();
 };
 
+//Rock unit data class
 class Rock : public UnitType
 {
     public:
@@ -44,6 +52,7 @@ class Rock : public UnitType
     ~Rock();
 };
 
+//Paper unit data class
 class Paper : public UnitType
 {
     public:
@@ -51,6 +60,7 @@ class Paper : public UnitType
     ~Paper();
 };
 
+//Scissors unit data class
 class Scissors :public UnitType
 {
     public:
@@ -58,4 +68,3 @@ class Scissors :public UnitType
     ~Scissors();
 };
 #endif
-

@@ -17,14 +17,15 @@
 #include "player.h"
 #include "pathfind.h"
 
-/* Why do you want this in the public namespace? I think it should be part of
-   the Map class since that is the only thing that uses it. -- Steve */
+//Holds data for each tile on the map
 struct tile_pair_t
 {
     int terrain;
     Unit *unit;
 };
 
+//main map class, handels displaying the map,
+//the cursor and interacting with units
 class Map
 {
 private:

@@ -1,5 +1,6 @@
 #include "build_panel.h"
 
+//Constructor for BuildPanel Class
 BuildPanel::BuildPanel(std::vector<UnitType *> &unit_types, Player *play, int scr_x, int scr_y, int panel_size) :
     types(unit_types),
     win(NULL),
@@ -11,14 +12,19 @@ BuildPanel::BuildPanel(std::vector<UnitType *> &unit_types, Player *play, int sc
     resize(scr_x,scr_y);
 }
 
+//Deconstuctor for BuildPanel
 BuildPanel::~BuildPanel()
 {
     delwin(win);
 }
 
+//creates and writes a new window for the panel
+//used to initially create the window and to resize it
 void BuildPanel::resize(int scr_x, int scr_y)
 {
     screen_y = scr_y;
+    if(win != NULL)
+        delwin(win);
     win = newwin(scr_y-1,scr_x-size,0,scr_x-size+1);
     wattron(win,COLOR_PAIR(15));
     werase(win);
@@ -50,9 +56,12 @@ void BuildPanel::resize(int scr_x, int scr_y)
     }
 }
 
+//Abstract Factory that takes control of input to
+//allow the user to select a unit to create
+//the unit is then created and a pointer is returned
+//otherwise NULL is returned
 Unit *BuildPanel::use_panel(int x, int y)
 {
-    int temp1, temp2;
     Unit *temp_ptr = NULL;
 
     wnoutrefresh(win);
@@ -62,19 +71,13 @@ Unit *BuildPanel::use_panel(int x, int y)
         int ch = getch();
         switch(ch)
         {
-            case KEY_UP:
+            case KEY_DOWN:
                 if(opt == types.size())
                 {
                     mvwprintw(win,screen_y-2,0,"EXIT");
-                    for(;temp2<size;temp2++)
-                        waddch(win,' ');
                     opt = 0;
                 }else{
                     mvwprintw(win,4+2*opt,0,types[opt]->get_unit_name().c_str());
-                  //  wprintw(win," %d",types[opt]->get_unit_cost());
-                    //getyx(win,temp1,temp2);
-                    //for(;temp2<size;temp2++)
-                     //   waddch(win,' ');
                     opt++;
                 }
                 wattroff(win,COLOR_PAIR(15));
@@ -82,32 +85,19 @@ Unit *BuildPanel::use_panel(int x, int y)
                 if(opt == types.size())
                 {
                     mvwprintw(win,screen_y-2,0,"EXIT");
-                    for(;temp2<size;temp2++)
-                        waddch(win,' ');
                 }else{
                     mvwprintw(win,4+2*opt,0,types[opt]->get_unit_name().c_str());
-                    wprintw(win," %d",types[opt]->get_unit_cost());
-                    /*getyx(win,temp1,temp2);
-                    for(;temp2<size;temp2++)
-                        waddch(win,' ');
-                        */
                 }
                 wattroff(win,COLOR_PAIR(16));
                 wattron(win,COLOR_PAIR(15));
                 break;
-            case KEY_DOWN:
+            case KEY_UP:
                 if(opt == types.size())
                 {
                     mvwprintw(win,screen_y-2,0,"EXIT");
-                    for(;temp2<size;temp2++)
-                        waddch(win,' ');
                     opt--;
                 }else{
                     mvwprintw(win,4+2*opt,0,types[opt]->get_unit_name().c_str());
-                   // wprintw(win," %d",types[opt]->get_unit_cost());
-                   // getyx(win,temp1,temp2);
-                   // for(;temp2<size;temp2++)
-                   //     waddch(win,' ');
                     if(opt==0)
                     {
                         opt = types.size();
@@ -120,14 +110,8 @@ Unit *BuildPanel::use_panel(int x, int y)
                 if(opt == types.size())
                 {
                     mvwprintw(win,screen_y-2,0,"EXIT");
-                    for(;temp2<size;temp2++)
-                        waddch(win,' ');
                 }else{
                     mvwprintw(win,4+2*opt,0,types[opt]->get_unit_name().c_str());
-                    //wprintw(win," %d",types[opt]->get_unit_cost());
-                    //getyx(win,temp1,temp2);
-                    //for(;temp2<size;temp2++)
-                     ////   waddch(win,' ');
                 }
                 wattroff(win,COLOR_PAIR(16));
                 wattron(win,COLOR_PAIR(15));

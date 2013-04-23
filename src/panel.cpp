@@ -1,5 +1,6 @@
 #include "panel.h"
 
+//Panel constructor
 Panel::Panel(int screen_x, int screen_y, int panel_size) :
     scr_x(screen_x),
     scr_y(screen_y),
@@ -14,11 +15,13 @@ Panel::Panel(int screen_x, int screen_y, int panel_size) :
     resize(scr_y,scr_x,0,NULL,NULL,-1);
 }
 
+//Panel deconstructor, deletes the panel window
 Panel::~Panel()
 {
     delwin(panel_window);
 }
 
+//updates the data displayed on the panel
 void Panel::update(int terrain, Unit *unit, Unit *selected, int path_length)
 {
     int i;
@@ -84,6 +87,7 @@ void Panel::update(int terrain, Unit *unit, Unit *selected, int path_length)
     wnoutrefresh(panel_window);
 }
 
+//redraws and resizes the entire panel
 void Panel::resize(int screen_x, int screen_y, int terrain, Unit *unit, Unit *selected, int path)
 {
     pos_x = screen_x-size+1;
@@ -99,6 +103,7 @@ void Panel::resize(int screen_x, int screen_y, int terrain, Unit *unit, Unit *se
     update(terrain,unit,selected,path);
 }
 
+//returns the width of the panel
 int Panel::get_size()
 {
     return size;

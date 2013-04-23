@@ -1,5 +1,6 @@
 #include "unit_type.h"
 
+//Tank constructor, sets all data for the class
 Tank::Tank()
 {
     name = "Tank";
@@ -25,12 +26,14 @@ Tank::Tank()
     unit_symbol = 'T';
 }
 
+//Tank deconstuctor
 Tank::~Tank()
 {
     delete [] terrain_cost;
     delete [] unit_attack;
 }
     
+//Rock constructor, creates data for rock unit
 Rock::Rock()
 {
     name = "Rock";
@@ -56,6 +59,7 @@ Rock::Rock()
     unit_symbol = 'R';
 }
 
+//Rock deconstructor
 Rock::~Rock()
 {
     delete [] terrain_cost;
@@ -63,6 +67,7 @@ Rock::~Rock()
 }
 
 
+//Paper constructor, sets data for paper unit
 Paper::Paper()
 {
     name = "Paper";
@@ -88,12 +93,14 @@ Paper::Paper()
     unit_symbol = 'P';
 }
 
+//Paper deconstuctor
 Paper::~Paper()
 {
     delete [] terrain_cost;
     delete [] unit_attack;
 }
 
+//Scissors constructor, creates data for the scissors unit
 Scissors::Scissors()
 {
     name = "Scissors";
@@ -119,6 +126,7 @@ Scissors::Scissors()
     unit_symbol = 'S';
 }
 
+//Scissors deconstructor
 Scissors::~Scissors()
 {
     delete [] terrain_cost;

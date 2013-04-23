@@ -11,6 +11,7 @@
 #include <list>
 #include "unit.h"
 
+//Player class, holds data for each player
 class Player
 {
     int id;

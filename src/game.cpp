@@ -10,6 +10,9 @@
 #include "panel.h"
 #include "map.h"
 
+//Constructs the game object
+//created all of the needed objects to start the game
+//and contains the main game loop
 Game::Game() : players(), types()
 {
 	const int num_players = 2;
@@ -33,7 +36,7 @@ Game::Game() : players(), types()
 	//Panel *panel = new Panel(scr_x, scr_y, 20);
 	Panel panel(scr_x, scr_y, 20);
 	//Map *gamemap = new Map(200, 200, scr_x, scr_y, panel);
-	Map map(100, 100, scr_x-20, scr_y, panel,types);
+	Map map(200, 200, scr_x-20, scr_y, panel,types);
 	//gamemap->map_loop();
     while(true)
     {
@@ -56,10 +59,11 @@ Game::Game() : players(), types()
     }
 }
 
+//deconstructor for game, deletes players and unit types
 Game::~Game()
 {
-    for(int i=0;i<players.size();i++)
+    for(unsigned int i=0;i<players.size();i++)
         delete players[i];
-    for(int i=0;i<types.size();i++)
+    for(unsigned int i=0;i<types.size();i++)
         delete types[i];
 }

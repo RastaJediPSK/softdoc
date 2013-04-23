@@ -16,6 +16,7 @@
 
 class Player; //prototype to avoid dependency
 
+//Class for each individual unit object
 class Unit
 {
     UnitType *type;
@@ -23,6 +24,10 @@ class Unit
     bool used;
     std::list<Unit *>::iterator place;
     int mapx,mapy;
+
+    //unused constructors to stop warnings
+    Unit(const Unit &u);
+    void operator=(const Unit &u);
 
     public:
     Unit(UnitType *unit_type, Player *play, int x, int y);
@@ -39,7 +44,6 @@ class Unit
     int get_x() { return mapx; }
     int get_y() { return mapy; }
     Player *get_player() { return player; }
-    //other gameplay functions
 };
 
 
