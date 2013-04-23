@@ -399,6 +399,7 @@ void Map::map_loop(Player *player)
                 {
                     if(map[pos_x+tile_x][pos_y+tile_y].terrain == 2)
                     {
+                        //open the buildpanel to constuct a new unit
                         BuildPanel *bp;
                         bp = new BuildPanel(types,player,scr_x,scr_y,panel.get_size());
                         map[pos_x+tile_x][pos_y+tile_y].unit = bp->use_panel(pos_x+tile_x,pos_y+tile_y);
@@ -418,6 +419,7 @@ void Map::map_loop(Player *player)
                     Unit *hovered_unit = map[pos_x+tile_x][pos_y+tile_y].unit;
                     if(hovered_unit->get_player() == player && !hovered_unit->get_used())
                     {
+                        //select the unit
                         selected = hovered_unit;
                         pathfind = new Pathfind(pos_x+tile_x,pos_y+tile_y,selected,this);
                         panel.update(map[pos_x + tile_x][pos_y + tile_y].terrain,
@@ -431,6 +433,7 @@ void Map::map_loop(Player *player)
                 {
                     if(hovered_unit == NULL)
                     {
+                        //Move the unit
                         map[pos_x+tile_x][pos_y+tile_y].unit = selected;
                         map[selected->get_x()][selected->get_y()].unit = NULL;
                         wattron(map_pad,COLOR_PAIR(map[pos_x+tile_x][pos_y+tile_y].terrain+6*map[pos_x+tile_x][pos_y+tile_y].unit->get_player()->get_id()));
@@ -446,10 +449,11 @@ void Map::map_loop(Player *player)
                     }else{
                         if(hovered_unit->get_player() != player)
                         {
+                            //Unit combat
                             int result = selected->attack(hovered_unit->get_label());
                             switch(result)
                             {
-                                case 0:
+                                case 0: //Win
                                     delete map[pos_x+tile_x][pos_y+tile_y].unit;
                                     map[pos_x+tile_x][pos_y+tile_y].unit = selected;
                                     map[selected->get_x()][selected->get_y()].unit = NULL;
@@ -463,7 +467,7 @@ void Map::map_loop(Player *player)
                                     selected->move(pos_x+tile_x,pos_y+tile_y);
                                     selected->set_used(true);
                                     break;
-                                case 1:
+                                case 1: //Tie
                                     delete map[pos_x+tile_x][pos_y+tile_y].unit;
                                     map[pos_x+tile_x][pos_y+tile_y].unit = NULL;
                                     map[selected->get_x()][selected->get_y()].unit = NULL;
@@ -476,7 +480,7 @@ void Map::map_loop(Player *player)
                                     pnoutrefresh(map_pad,tile_y,tile_x,0,0,scr_y-1,scr_x-1);
                                     delete selected;
                                     break;
-                                case 2:
+                                case 2: //Lose
                                     map[selected->get_x()][selected->get_y()].unit = NULL;
                                     wattron(map_pad,COLOR_PAIR(map[selected->get_x()][selected->get_y()].terrain));
                                     mvwaddch(map_pad,selected->get_y(),selected->get_x(),' ');
