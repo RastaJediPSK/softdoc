@@ -15,14 +15,19 @@
 #include "unit.h"
 #include "unit_type.h"
 
+//Class used to create a menu to build new units
 class BuildPanel
 {
     std::vector<UnitType *> types;
 	WINDOW *win;
 	Player *pl;
     int size;
-    int opt;
+    unsigned int opt;
     int screen_y;
+
+    //unsued constructors (added to prevent warnings)
+    BuildPanel(const BuildPanel &b); 
+    void operator=(const BuildPanel &b);
 
 public:
 	BuildPanel(std::vector<UnitType *> &unit_types, Player *play, int scr_x, int scr_y, int panel_size);

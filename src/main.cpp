@@ -13,6 +13,7 @@
 #include "panel.h"
 #include "unit.h"
 
+//Main function, starts Ncurses and the menu
 int main()
 {
 	// START NCURSES

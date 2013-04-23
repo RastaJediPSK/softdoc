@@ -4,6 +4,7 @@
 #include <ncurses/curses.h>
 #include "unit.h"
 
+//Class that creates an information panel on the screen
 class Panel
 {
     int scr_x, scr_y;//total size of screen
@@ -14,6 +15,9 @@ class Panel
     int move_pos;//line with unit move info
     int selected_unit_pos;
     WINDOW *panel_window;
+
+    //unsued constructors to stop warnings
+    void operator=(const Panel &p);
 
     public:
     Panel(int screen_x, int screen_y, int panel_size);

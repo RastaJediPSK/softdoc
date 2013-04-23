@@ -1,6 +1,8 @@
 #include "pathfind.h"
 #include "map.h"
 
+//Pathfind constructor, creates the pathmap to hold calculations used
+//for finding shortest distances
 Pathfind::Pathfind(int start_x, int start_y, Unit *unit_ptr, Map *map_ptr) :
     path_map(NULL),
     x_offset(start_x-MAX_PATH),
@@ -15,6 +17,7 @@ Pathfind::Pathfind(int start_x, int start_y, Unit *unit_ptr, Map *map_ptr) :
     }
 }
 
+//Pathfind deconstructor, deletes the pathmap
 Pathfind::~Pathfind()
 {
     for(int i = 0;i<2*MAX_PATH+1;i++)
@@ -22,6 +25,8 @@ Pathfind::~Pathfind()
     delete[] path_map;
 }
 
+//estimates the distance from (x0,y0) -> (x,y)
+//allways <= actual distance
 int Pathfind::dist_est(int x0, int y0, int x, int y)
 {
     int temp = x0 - x_offset - x + y0 - y_offset - y;
@@ -30,6 +35,7 @@ int Pathfind::dist_est(int x0, int y0, int x, int y)
     return temp;
 }
 
+//Finds the shortest path to (x,y) and returns its distance
 int Pathfind::find_dist(int x, int y)
 {
     std::list<position> stack; //should be priority queue

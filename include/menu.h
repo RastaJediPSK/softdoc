@@ -10,6 +10,7 @@
 
 #include "game.h"
 
+//Menu class, creates the game and provides a starting interface
 class Menu
 {
 	Game *game;

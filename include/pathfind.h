@@ -8,12 +8,15 @@
 
 class Map; //prototype
 
+//struct used to store data for pathfind
 struct position
 {
     int x;
     int y;
 };
 
+//Class to calculate the minimum distance to a
+//tile, used to calculate unit movement
 class Pathfind
 {
     int **path_map;
@@ -23,6 +26,10 @@ class Pathfind
     Map *map;
 
     int dist_est(int x0, int y0, int x, int y);
+
+    //unused operators to stop warnings
+    Pathfind(const Pathfind &p);
+    void operator=(const Pathfind &p);
 
     public:
     Pathfind(int start_x, int start_y, Unit *unit_ptr, Map *map_ptr);

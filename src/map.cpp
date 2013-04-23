@@ -9,6 +9,7 @@
 #include <iostream>
 #include "map.h"
 
+//Map constructor, generates, draws and displays the map
 Map::Map(int x, int y, int screen_x, int screen_y, Panel &panel, std::vector<UnitType *> &type) :
  	map(),
 	tile_x(0),
@@ -213,11 +214,13 @@ Map::Map(int x, int y, int screen_x, int screen_y, Panel &panel, std::vector<Uni
 	redraw(scr_x, scr_y);
 }
 
+//Map deconstuctor, deletes map window
 Map::~Map()
 {
 	delwin(map_pad);
 }
 
+//redraws the map with a new size
 void Map::redraw(int screen_x, int screen_y)
 {
 	scr_x = screen_x;
@@ -237,6 +240,9 @@ void Map::redraw(int screen_x, int screen_y)
 	move(pos_y, pos_x);
 }
 
+//main loop for a players turn
+//controls the cursor and allows for 
+//interacting with units on the map
 void Map::map_loop(Player *player)
 {
 	int ch;
@@ -498,6 +504,7 @@ void Map::map_loop(Player *player)
 	}
 }
 
+//returns the tile at a specific (x,y)
 tile_pair_t *Map::get_tile(int x, int y)
 {
 	if (x >= map_x || y >= map_y)
@@ -505,6 +512,7 @@ tile_pair_t *Map::get_tile(int x, int y)
 	return &map[x][y];
 }
 
+//clears the selected unit and all related data
 void Map::deselect()
 {
     selected = NULL;
