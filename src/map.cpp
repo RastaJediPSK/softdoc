@@ -226,10 +226,14 @@ void Map::redraw(int screen_x, int screen_y)
 	scr_x = screen_x;
 	scr_y = screen_y;
 	/* Check map bounds */
-	if (pos_x > scr_x)
-		pos_x = scr_x;
-	if (pos_y > scr_y)
-		pos_y = scr_y;
+	if (pos_x > scr_x-1)
+		pos_x = scr_x-1;
+	if (pos_y > scr_y-1)
+		pos_y = scr_y-1;
+    if(pos_x > map_x-1)
+        pos_x = map_x-1;
+    if(pos_y > map_y-1)
+        pos_y = map_y-1;
 	
 	pnoutrefresh(map_pad,tile_y,tile_x,0,0,scr_y-1,scr_x-1);
 
