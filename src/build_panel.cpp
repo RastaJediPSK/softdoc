@@ -123,6 +123,7 @@ Unit *BuildPanel::use_panel(int x, int y)
                     return NULL;
                 }
                 temp_ptr = new Unit(types[opt],pl,x,y);
+                temp_ptr->set_used(true);
                 curs_set(1);
                 return temp_ptr;
                 break;

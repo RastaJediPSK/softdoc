@@ -57,10 +57,18 @@ void Panel::update(int terrain, Unit *unit, Unit *selected, int path_length)
     if(unit != NULL)
     {
         waddstr(panel_window,unit->get_name().c_str());
+        wmove(panel_window,unit_name_pos+2,9);
+        if(unit->get_used())
+        {
+            waddstr(panel_window,"No ");
+        }else{
+            waddstr(panel_window,"Yes");
+        }
     }else{
         getyx(panel_window,terrain,i);
         for(;i<scr_x;i++)
             waddch(panel_window,' ');
+        mvwprintw(panel_window,unit_name_pos+2,9,"   ");
     }
     wmove(panel_window,selected_unit_pos,11);
     if(selected != NULL)
@@ -98,6 +106,7 @@ void Panel::resize(int screen_x, int screen_y, int terrain, Unit *unit, Unit *se
     werase(panel_window);
     mvwprintw(panel_window,terrain_pos,0,"Terrain: ");
     mvwprintw(panel_window,unit_name_pos,0,"Unit Name: ");
+    mvwprintw(panel_window,unit_name_pos+2,0,"Can Use: ");
     mvwprintw(panel_window,move_pos,0,"Move Here: ");
     mvwprintw(panel_window,selected_unit_pos,0,"Held Unit: ");
     update(terrain,unit,selected,path);
