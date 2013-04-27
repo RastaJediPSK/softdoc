@@ -36,7 +36,7 @@ Game::Game() : players(), types()
 	//Panel *panel = new Panel(scr_x, scr_y, 20);
 	Panel panel(scr_x, scr_y, 20);
 	//Map *gamemap = new Map(200, 200, scr_x, scr_y, panel);
-	Map map(200, 200, scr_x-20, scr_y, panel,types);
+	Map map(70, 70, scr_x-20, scr_y, panel,types);
 	//gamemap->map_loop();
     while(true)
     {

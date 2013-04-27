@@ -401,10 +401,10 @@ void Map::map_loop(Player *player)
                     {
                         //open the buildpanel to constuct a new unit
                         BuildPanel *bp;
-                        bp = new BuildPanel(types,player,scr_x,scr_y,panel.get_size());
+                        bp = new BuildPanel(types,player,scr_x+panel.get_size(),scr_y,panel.get_size());
                         map[pos_x+tile_x][pos_y+tile_y].unit = bp->use_panel(pos_x+tile_x,pos_y+tile_y);
                         delete bp;
-                        panel.resize(scr_x,scr_y,map[pos_x+tile_x][pos_y+tile_y].terrain,map[pos_x+tile_x][pos_y+tile_y].unit,selected,path_length);
+                        panel.resize(scr_x+panel.get_size(),scr_y,map[pos_x+tile_x][pos_y+tile_y].terrain,map[pos_x+tile_x][pos_y+tile_y].unit,selected,path_length);
                         if(map[pos_x+tile_x][pos_y+tile_y].unit)
                         {
                             wattron(map_pad,COLOR_PAIR(map[pos_x+tile_x][pos_y+tile_y].terrain+6*map[pos_x+tile_x][pos_y+tile_y].unit->get_player()->get_id()));

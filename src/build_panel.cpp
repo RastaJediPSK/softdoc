@@ -37,11 +37,10 @@ void BuildPanel::resize(int scr_x, int scr_y)
             wattron(win,COLOR_PAIR(16));
         }
         mvwprintw(win,4+2*i,0,types[i]->get_unit_name().c_str());
-        //wprintw(win," %d",types[i]->get_unit_cost());
         if(opt==i)
         {
-            wattroff(win,COLOR_PAIR(15));
-            wattron(win,COLOR_PAIR(16));
+            wattroff(win,COLOR_PAIR(16));
+            wattron(win,COLOR_PAIR(15));
         }
     }
     if(opt == types.size())
@@ -56,7 +55,7 @@ void BuildPanel::resize(int scr_x, int scr_y)
     }
 }
 
-//Abstract Factory that takes control of input to
+//Factory that takes control of input to
 //allow the user to select a unit to create
 //the unit is then created and a pointer is returned
 //otherwise NULL is returned
@@ -64,6 +63,7 @@ Unit *BuildPanel::use_panel(int x, int y)
 {
     Unit *temp_ptr = NULL;
 
+    curs_set(0);
     wnoutrefresh(win);
     doupdate();
     while(true)
@@ -118,8 +118,12 @@ Unit *BuildPanel::use_panel(int x, int y)
                 break;
             case 'z':
                 if(opt==types.size())
+                {
+                    curs_set(1);
                     return NULL;
+                }
                 temp_ptr = new Unit(types[opt],pl,x,y);
+                curs_set(1);
                 return temp_ptr;
                 break;
             default:
@@ -128,5 +132,6 @@ Unit *BuildPanel::use_panel(int x, int y)
         wnoutrefresh(win);
         doupdate();
     }
+    curs_set(1);
     return NULL;
 }
