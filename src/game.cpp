@@ -5,7 +5,7 @@
  * Description:  Game class definition file
  */
 
-#include <ncurses/curses.h>
+#include <curses.h>
 #include "game.h"
 #include "panel.h"
 #include "map.h"
