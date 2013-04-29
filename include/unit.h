@@ -10,7 +10,7 @@
 
 #include <string>
 #include <list>
-#include <ncurses/curses.h>
+#include <curses.h>
 #include <cstdlib>
 #include "unit_type.h"
 

@@ -1,7 +1,7 @@
 #ifndef PANEL_H
 #define PANEL_H
 
-#include <ncurses/curses.h>
+#include <curses.h>
 #include "unit.h"
 
 //Class that creates an information panel on the screen

@@ -8,7 +8,7 @@
 #ifndef MAP_H_
 #define MAP_H_
 
-#include <ncurses/curses.h>
+#include <curses.h>
 #include <vector>
 #include "unit.h"
 #include "unit_type.h"

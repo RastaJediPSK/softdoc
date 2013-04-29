@@ -8,7 +8,7 @@
 #ifndef BUILD_PANEL_H_
 #define BUILD_PANEL_H_
 
-#include <ncurses/curses.h>
+#include <curses.h>
 #include <vector>
 #include <cstdlib>
 #include "player.h"
