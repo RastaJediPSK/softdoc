@@ -510,6 +510,7 @@ void Map::map_loop(Player *player)
 			break;
 		}
 	}
+    deselect();
 }
 
 //returns the tile at a specific (x,y)
@@ -517,6 +518,8 @@ tile_pair_t *Map::get_tile(int x, int y)
 {
 	if (x >= map_x || y >= map_y)
 		return 0;
+    if(x < 0 || y < 0)
+        return 0;
 	return &map[x][y];
 }
 
