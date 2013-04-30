@@ -43,7 +43,10 @@ int main()
 	init_pair(14, COLOR_BLACK, COLOR_BLACK);
 	// panel color
 	init_pair(15, COLOR_WHITE, COLOR_BLACK);
-    init_pair(16, COLOR_BLACK, COLOR_WHITE);
+	init_pair(16, COLOR_BLACK, COLOR_WHITE);
+	// Player switching screen colors
+	init_pair(17, COLOR_GREEN, COLOR_BLACK);
+	init_pair(18, COLOR_RED, COLOR_BLACK);
 	// RESIZE FUNC
 	//signal(SIGWINCH, );//i(void *)resizefunc(int));
 	
