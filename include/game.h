@@ -1,12 +1,12 @@
 /*
  * File:  game.h
- * Authors:  Stephen Erikson, Michael Pomeranz, James Lenze, Kelly DeBarr
+ * Authors:  Stephen Erikson, Michael Pomeranz, Kelly DeBarr
  * Date:  28 March 2013
  * Description:  Game class declaration file
  */
 
-#ifndef GAME_H_
-#define GAME_H_
+#ifndef GAME_H
+#define GAME_H
 
 #include <vector>
 #include "player.h"
@@ -15,11 +15,12 @@
 class Game
 {
 	std::vector<Player *> players;
-    std::vector<UnitType *> types;
+	std::vector<UnitType *> types;
 	
 public:
 	Game();
 	~Game();
+	bool end_turn(bool player);
 };
 
-#endif
+#endif	/* GAME_H */

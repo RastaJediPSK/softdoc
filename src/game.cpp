@@ -1,12 +1,15 @@
 /*
  * File:  game.cpp
- * Authors:  Stephen Erikson, Michael Pomeranz, James Lenze, Kelly DeBarr
+ * Authors:  Stephen Erikson, Michael Pomeranz, Kelly DeBarr
  * Date:  28 March 2013
  * Description:  Game class definition file
  */
 
-#include <curses.h>
 #include "game.h"
+
+#include <sstream>
+#include <string>
+#include <curses.h>
 #include "panel.h"
 #include "map.h"
 
@@ -18,10 +21,10 @@ Game::Game() : players(), types()
 	const int num_players = 2;
 	// Add num_players to the game
 	for (int i = 0; i < num_players; ++i)
-    {
-        Player *p = new Player(i);
+	{
+		Player *p = new Player(i);
 		players.push_back(p);
-    }
+	}
 
     Tank *t = new Tank();
     types.push_back(t);
@@ -38,24 +41,35 @@ Game::Game() : players(), types()
 	//Map *gamemap = new Map(200, 200, scr_x, scr_y, panel);
 	Map map(70, 70, scr_x-20, scr_y, panel,types);
 	//gamemap->map_loop();
-    while(true)
+
+    while (true)
     {
+	// Player 1's turn
         players[0]->reset_units();
         map.map_loop(players[0]);
         clearok(stdscr,true);
         refresh();
-        int ch = getch();
-        if(ch == 'q')
+
+	// End of Player 1's turn.
+	// Show player switching window
+	bool quit = end_turn(0);
+	if (quit)
             break;
-        map.redraw(scr_x-20,scr_y);
+
+	// Player 2's turn
+        map.redraw(scr_x-20, scr_y);
         players[1]->reset_units();
         map.map_loop(players[1]);
         clearok(stdscr,true);
         refresh();
-        ch = getch();
-        if(ch == 'q')
+
+	// Switch to player 1
+	quit = end_turn(1);
+	if (quit)
             break;
-        map.redraw(scr_x-20,scr_y);
+
+	// Redraw screen for Player 1
+        map.redraw(scr_x-20, scr_y);
     }
 }
 
@@ -66,4 +80,47 @@ Game::~Game()
         delete players[i];
     for(unsigned int i=0;i<types.size();i++)
         delete types[i];
+}
+
+// Returns true if 'q' was pressed (quit game)
+bool Game::end_turn(bool player)
+{
+	WINDOW *switch_win = newwin(0, 0, 0, 0);
+
+	std::stringstream ss;
+	ss << "End of Player " << player + 1 << "'s turn.\n";
+
+	std::string s = ss.str();
+	wmove(switch_win, LINES/2 - 1, (COLS - s.length())/2);
+	
+	// Print "End of "
+	size_t pos = s.find("Player");
+	std::string subs = s.substr(0, pos);
+	wprintw(switch_win, subs.c_str());
+
+	// Print "Player n's" in color and bold
+	// Player 1: green, 2: red
+	wattron(switch_win, COLOR_PAIR(17 + player) | A_BOLD);
+	size_t pos2 = s.find("turn") - 1;
+	subs = s.substr(pos, pos2 - pos);
+	wprintw(switch_win, subs.c_str());
+
+	// Print " turn.\n" normal.
+	wattroff(switch_win, COLOR_PAIR(17 + player) | A_BOLD);
+	subs = s.substr(pos2);
+	wprintw(switch_win, subs.c_str());
+
+	s = "Press q to quit, press any other key to continue...\n";
+	mvwprintw(switch_win, LINES/2 + 1, (COLS - s.length())/2, s.c_str());
+
+	// Get a character
+	int c = wgetch(switch_win);
+	
+	// Clear player switching window & close it
+	wclear(switch_win);
+	wrefresh(switch_win);
+	delwin(switch_win);
+
+	// Was 'q' pressed?
+	return (c == 'q')? true : false;
 }
