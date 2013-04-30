@@ -54,6 +54,7 @@ public:
 	~Map();
 	void redraw(int screen_x, int screen_y);
 	void map_loop(Player *player);
+	void createRoad(int orig_x, int orig_y, int dest_x, int dest_y);
 	tile_pair_t *get_tile(int x, int y);
 };
 
