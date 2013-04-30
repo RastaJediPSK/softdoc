@@ -88,7 +88,7 @@ bool Game::end_turn(bool player)
 	WINDOW *switch_win = newwin(0, 0, 0, 0);
 
 	std::stringstream ss;
-	ss << "End of Player " << player + 1 << "'s turn.\n";
+	ss << "End of Player " << player + 1 << "'s turn.";
 
 	std::string s = ss.str();
 	wmove(switch_win, LINES/2 - 1, (COLS - s.length())/2);
@@ -105,12 +105,12 @@ bool Game::end_turn(bool player)
 	subs = s.substr(pos, pos2 - pos);
 	wprintw(switch_win, subs.c_str());
 
-	// Print " turn.\n" normal.
+	// Print " turn." normal.
 	wattroff(switch_win, COLOR_PAIR(17 + player) | A_BOLD);
 	subs = s.substr(pos2);
 	wprintw(switch_win, subs.c_str());
 
-	s = "Press q to quit, press any other key to continue...\n";
+	s = "Press q to quit, press any other key to continue...";
 	mvwprintw(switch_win, LINES/2 + 1, (COLS - s.length())/2, s.c_str());
 
 	// Get a character
