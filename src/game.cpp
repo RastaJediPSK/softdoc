@@ -87,13 +87,11 @@ bool Game::end_turn(bool player)
 {
 	WINDOW *switch_win = newwin(0, 0, 0, 0);
 
+	// Print "End of "
 	std::stringstream ss;
 	ss << "End of Player " << player + 1 << "'s turn.";
-
 	std::string s = ss.str();
-	wmove(switch_win, LINES/2 - 1, (COLS - s.length())/2);
-	
-	// Print "End of "
+	wmove(switch_win, LINES/2 - 6, (COLS - s.length())/2);
 	size_t pos = s.find("Player");
 	std::string subs = s.substr(0, pos);
 	wprintw(switch_win, subs.c_str());
@@ -111,7 +109,7 @@ bool Game::end_turn(bool player)
 	wprintw(switch_win, subs.c_str());
 
 	s = "Press q to quit, press any other key to continue...";
-	mvwprintw(switch_win, LINES/2 + 1, (COLS - s.length())/2, s.c_str());
+	mvwprintw(switch_win, LINES/2 - 3, (COLS - s.length())/2, s.c_str());
 
 	// Get a character
 	int c = wgetch(switch_win);
