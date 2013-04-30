@@ -5,17 +5,17 @@
  * Description:  Map class declaration file
  */
 
-#ifndef MAP_H_
-#define MAP_H_
+#ifndef MAP_H
+#define MAP_H
 
-#include <curses.h>
 #include <vector>
+#include <curses.h>
+#include "build_panel.h"
+#include "panel.h"
+#include "pathfind.h"
+#include "player.h"
 #include "unit.h"
 #include "unit_type.h"
-#include "panel.h"
-#include "build_panel.h"
-#include "player.h"
-#include "pathfind.h"
 
 //Holds data for each tile on the map
 struct tile_pair_t
@@ -28,7 +28,6 @@ struct tile_pair_t
 //the cursor and interacting with units
 class Map
 {
-private:
 	std::vector<std::vector<tile_pair_t> > map;
 	int tile_x, tile_y;	// map x,y that maps to screen (0,0)
 	int map_x, map_y;	// total size of map
@@ -36,10 +35,10 @@ private:
 	int pos_x, pos_y;	// position of cursor on screen
 	Panel panel;
 	WINDOW *map_pad;	// pad to draw map on
-    std::vector<UnitType *> types;
-    Unit *selected;
-    Pathfind *pathfind;
-    int path_length;
+	std::vector<UnitType *> &types;
+	Unit *selected;
+	Pathfind *pathfind;
+	int path_length;
 	
 	// Define blank copy ctor/assignment operator (for now)
 	Map(const Map &);
@@ -49,8 +48,6 @@ private:
 	Map();
 
     void deselect();
-    
-
 
 public:
 	Map(int x, int y, int screen_x, int screen_y, Panel &panel, std::vector<UnitType *> &type);
