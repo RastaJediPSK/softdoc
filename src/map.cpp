@@ -195,7 +195,7 @@ Map::Map(int x, int y, int screen_x, int screen_y, Panel &panel, std::vector<Uni
 	int p2_base_y = (map_y/10);
 	int p1_base_x = (map_x/10) ;
 	int p1_base_y = (map_y - map_y/10);
-	map[p2_base_x][p2_base_y].terrain = 6;
+	map[p2_base_x][p2_base_y].terrain = 5;
 	map[p1_base_x][p1_base_y].terrain = 6;
 	
 	// Road between main bases
@@ -209,7 +209,7 @@ Map::Map(int x, int y, int screen_x, int screen_y, Panel &panel, std::vector<Uni
 		int rand_x = (int) (map_x * ( std::rand() / (RAND_MAX + 1.0)));
 		int rand_y = (int) (map_y * ( std::rand() / (RAND_MAX + 1.0)));
 		if (rand_x < rand_y && map[rand_x][rand_y].terrain != 6 && map[rand_x][rand_y].terrain != 5){
-			map[rand_x][rand_y].terrain = 5;
+			map[rand_x][rand_y].terrain = 6;
 			n--;
 			
 			//build road from p1 base to this building
