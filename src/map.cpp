@@ -435,7 +435,7 @@ void Map::map_loop(Player *player)
             {
                 if(map[pos_x+tile_x][pos_y+tile_y].unit == NULL)
                 {
-                    if(map[pos_x+tile_x][pos_y+tile_y].terrain == 2)
+                    if(map[pos_x+tile_x][pos_y+tile_y].terrain == 6-player->get_id())
                     {
                         //open the buildpanel to constuct a new unit
                         BuildPanel *bp;
