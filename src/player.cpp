@@ -27,3 +27,12 @@ void Player::reset_units()
     for(std::list<Unit *>::iterator itr=units.begin();itr!=units.end();itr++)
         (*itr)->set_used(false);
 }
+
+//adds the location of a base to the list
+void Player::add_base(int x, int y)
+{
+    Location temp;
+    temp.x = x;
+    temp.y = y;
+    bases.push_back(temp);
+}

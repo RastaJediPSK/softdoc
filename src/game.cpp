@@ -19,6 +19,7 @@
 Game::Game() : players(), types()
 {
 	const int num_players = 2;
+    bool quit = false;
 	// Add num_players to the game
 	for (int i = 0; i < num_players; ++i)
 	{
@@ -44,32 +45,63 @@ Game::Game() : players(), types()
 
     while (true)
     {
-	// Player 1's turn
+	    // Player 1's turn
         players[0]->reset_units();
         map.map_loop(players[0]);
         clearok(stdscr,true);
         refresh();
 
-	// End of Player 1's turn.
-	// Show player switching window
-	bool quit = end_turn(0);
-	if (quit)
+        // End of Player 1's turn.
+        // Check if Player 1 won.
+        int num_bases = players[0]->get_bases().size();
+        for(int i = 0;i<num_bases;i++)
+        {
+            Location base = players[0]->get_bases()[i];
+            Unit *unit_ptr = map.get_tile(base.x,base.y)->unit;
+            if(unit_ptr && unit_ptr->get_player() != players[0])
+            {
+                quit = true;
+                break;
+            }
+        }
+        if(quit)
             break;
 
-	// Player 2's turn
+        // Show player switching window
+        quit = end_turn(0);
+        if (quit)
+                break;
+
+        // Player 2's turn
         map.redraw(scr_x-20, scr_y);
         players[1]->reset_units();
         map.map_loop(players[1]);
         clearok(stdscr,true);
         refresh();
 
-	// Switch to player 1
-	quit = end_turn(1);
-	if (quit)
+        // End of Player 2's turn.
+        // Check if Player 1 won.
+        num_bases = players[1]->get_bases().size();
+        for(int i = 0;i<num_bases;i++)
+        {
+            Location base = players[1]->get_bases()[i];
+            Unit *unit_ptr = map.get_tile(base.x,base.y)->unit;
+            if(unit_ptr && unit_ptr->get_player() != players[1])
+            {
+                quit = true;
+                break;
+            }
+        }
+        if(quit)
             break;
 
-	// Redraw screen for Player 1
-        map.redraw(scr_x-20, scr_y);
+        // Switch to player 1
+        quit = end_turn(1);
+        if (quit)
+                break;
+
+        // Redraw screen for Player 1
+            map.redraw(scr_x-20, scr_y);
     }
 }
 
