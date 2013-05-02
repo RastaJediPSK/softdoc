@@ -50,7 +50,7 @@ class Map
     void deselect();
 
 public:
-	Map(int x, int y, int screen_x, int screen_y, Panel &panel, std::vector<UnitType *> &type);
+	Map(int x, int y, int screen_x, int screen_y, Panel &panel, std::vector<UnitType *> &type, Player *p1, Player *p2);
 	~Map();
 	void redraw(int screen_x, int screen_y);
 	void map_loop(Player *player);

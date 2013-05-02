@@ -10,7 +10,7 @@
 #include "map.h"
 
 //Map constructor, generates, draws and displays the map
-Map::Map(int x, int y, int screen_x, int screen_y, Panel &panel, std::vector<UnitType *> &type) :
+Map::Map(int x, int y, int screen_x, int screen_y, Panel &panel, std::vector<UnitType *> &type, Player *p1, Player *p2) :
  	map(),
 	tile_x(0),
 	tile_y(0),
@@ -196,7 +196,9 @@ Map::Map(int x, int y, int screen_x, int screen_y, Panel &panel, std::vector<Uni
 	int p1_base_x = (map_x/10) ;
 	int p1_base_y = (map_y - map_y/10);
 	map[p2_base_x][p2_base_y].terrain = 5;
+	p2->add_base(p2_base_x, p2_base_y);
 	map[p1_base_x][p1_base_y].terrain = 6;
+	p1->add_base(p1_base_x, p1_base_y);
 	
 	// Road between main bases
 	createRoad(p1_base_x, p1_base_y, p2_base_x, p2_base_y);
@@ -210,6 +212,7 @@ Map::Map(int x, int y, int screen_x, int screen_y, Panel &panel, std::vector<Uni
 		int rand_y = (int) (map_y * ( std::rand() / (RAND_MAX + 1.0)));
 		if (rand_x < rand_y && map[rand_x][rand_y].terrain != 6 && map[rand_x][rand_y].terrain != 5){
 			map[rand_x][rand_y].terrain = 6;
+			p1->add_base(rand_x, rand_y);
 			n--;
 			
 			//build road from p1 base to this building
@@ -223,6 +226,7 @@ Map::Map(int x, int y, int screen_x, int screen_y, Panel &panel, std::vector<Uni
 		int rand_y = (int) (map_y * ( std::rand() / (RAND_MAX + 1.0)));
 		if (rand_x > rand_y && map[rand_x][rand_y].terrain != 6 && map[rand_x][rand_y].terrain != 5){
 			map[rand_x][rand_y].terrain = 5;
+			p2->add_base(rand_x, rand_y);
 			n--;
 			
 			//build road from p2 base to this building
