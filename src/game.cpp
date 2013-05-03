@@ -53,18 +53,16 @@ Game::Game() : players(), types()
 
         // End of Player 1's turn.
         // Check if Player 1 won.
-        int num_bases = players[0]->get_bases().size();
+        int num_bases = players[1]->get_bases().size();
+        int taken_bases = 0;
         for(int i = 0;i<num_bases;i++)
         {
-            Location base = players[0]->get_bases()[i];
+            Location base = players[1]->get_bases()[i];
             Unit *unit_ptr = map.get_tile(base.x,base.y)->unit;
-            if(unit_ptr && unit_ptr->get_player() != players[0])
-            {
-                quit = true;
-                break;
-            }
+            if(unit_ptr && unit_ptr->get_player() != players[1])
+                taken_bases++;
         }
-        if(quit)
+        if(taken_bases == num_bases)
             break;
 
         // Show player switching window
@@ -81,18 +79,16 @@ Game::Game() : players(), types()
 
         // End of Player 2's turn.
         // Check if Player 1 won.
-        num_bases = players[1]->get_bases().size();
+        num_bases = players[0]->get_bases().size();
+        taken_bases = 0;
         for(int i = 0;i<num_bases;i++)
         {
-            Location base = players[1]->get_bases()[i];
+            Location base = players[0]->get_bases()[i];
             Unit *unit_ptr = map.get_tile(base.x,base.y)->unit;
-            if(unit_ptr && unit_ptr->get_player() != players[1])
-            {
-                quit = true;
-                break;
-            }
+            if(unit_ptr && unit_ptr->get_player() != players[0])
+                taken_bases++;
         }
-        if(quit)
+        if(taken_bases == num_bases)
             break;
 
         // Switch to player 1
