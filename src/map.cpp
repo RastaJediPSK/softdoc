@@ -316,18 +316,18 @@ void Map::redraw(int screen_x, int screen_y)
 	move(pos_y, pos_x);
 }
 
-//main loop for a players turn
-//controls the cursor and allows for 
-//interacting with units on the map
+/*
+ * Main loop for a players turn.
+ * Controls the cursor and allows for interacting with units on the map.
+ */
 void Map::map_loop(Player *player)
 {
-	int ch;
 	bool quit = true;
 	move(pos_y, pos_x);
 
 	while (quit)
 	{
-		ch = getch();
+		int ch = getch();
 		switch (ch)	// may want to add a wait time to redraws
 		{
 		case 'q':
@@ -338,7 +338,6 @@ void Map::map_loop(Player *player)
 			if (pos_y == 0)
 			{
 				if (tile_y == 0)
-					// beep
 					(void)0;	// no-op
 				else
 					--tile_y;
