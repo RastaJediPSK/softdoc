@@ -57,7 +57,7 @@ Map::Map(int x, int y, int screen_x, int screen_y, Panel *panel, std::vector<Uni
 	}
 	
 	/* Terrain procedural generator */
-	std::srand(std::time(NULL));
+	std::srand(std::time(0));
 	using std::rand;
 	using std::abs;
 
@@ -277,7 +277,7 @@ Map::Map(int x, int y, int screen_x, int screen_y, Panel *panel, std::vector<Uni
 		for (int i = 0; i < x; ++i)
 		{
 			wattron(map_pad, COLOR_PAIR(map[i][j].terrain));
-			waddch(map_pad,' ');
+			waddch(map_pad, ' ');
 			wattroff(map_pad, COLOR_PAIR(map[i][j].terrain));
 		}
 	}
@@ -293,17 +293,17 @@ Map::~Map()
 /* Redraws the map with a new size. */
 void Map::redraw(int screen_x, int screen_y)
 {
+	// Check map bounds
 	scr_x = screen_x;
 	scr_y = screen_y;
-	/* Check map bounds */
-	if (pos_x > scr_x-1)
-		pos_x = scr_x-1;
-	if (pos_y > scr_y-1)
-		pos_y = scr_y-1;
-    if (pos_x > map_x-1)
-        pos_x = map_x-1;
-    if (pos_y > map_y-1)
-        pos_y = map_y-1;
+	if (pos_x > scr_x - 1)
+		pos_x = scr_x -1;
+	if (pos_y > scr_y - 1)
+		pos_y = scr_y - 1;
+	if (pos_x > map_x - 1)
+		pos_x = map_x - 1;
+	if (pos_y > map_y - 1)
+		pos_y = map_y - 1;
 	
 	pnoutrefresh(map_pad, tile_y, tile_x, 0, 0, scr_y - 1, scr_x - 1);
 
@@ -337,276 +337,275 @@ void Map::map_loop(Player *player)
 		case KEY_UP:
 			if (pos_y == 0)
 			{
-				if (tile_y == 0)
-					(void)0;	// no-op
-				else
+				if (tile_y != 0)
 					--tile_y;
-                if (pathfind == NULL)
-                {
-                    path_length = -1;
-                }else {
-                    path_length = pathfind->find_dist(pos_x+tile_x,pos_y+tile_y);
-                }
+
+				if (pathfind == 0)
+					path_length = -1;
+				else
+					path_length = pathfind->find_dist(pos_x + tile_x, pos_y + tile_y);
 				redraw(scr_x, scr_y);
 			}
 			else
 			{
 				--pos_y;
-                if (pathfind == NULL)
-                {
-                    path_length = -1;
-                }else {
-                    path_length = pathfind->find_dist(pos_x+tile_x,pos_y+tile_y);
-                }
+				if (pathfind == 0)
+					path_length = -1;
+				else
+					path_length = pathfind->find_dist(pos_x + tile_x, pos_y + tile_y);
 				move(pos_y, pos_x);
 				
 				panel->update(map[pos_x + tile_x][pos_y + tile_y].terrain,
-						map[pos_x + tile_x][pos_y + tile_y].unit,selected,path_length);
+						map[pos_x + tile_x][pos_y + tile_y].unit,
+						selected,
+						path_length);
 				doupdate();
 			}
 			break;
 		case KEY_DOWN:
 			if (pos_y >= scr_y - 1)
 			{
-                if (tile_y + scr_y >= map_y)
-                {
-                    break;
-                }
+				if (tile_y + scr_y >= map_y)
+					break;
 				++tile_y;
-                if (pathfind == NULL)
-                {
-                    path_length = -1;
-                }else {
-                    path_length = pathfind->find_dist(pos_x+tile_x,pos_y+tile_y);
-                }
+
+				if (pathfind == 0)
+					path_length = -1;
+				else
+					path_length = pathfind->find_dist(pos_x + tile_x, pos_y + tile_y);
 				redraw(scr_x, scr_y);
 			}
 			else
 			{
-                if (tile_y + pos_y + 1 >= map_y)
-                    break;
+				if (tile_y + pos_y + 1 >= map_y)
+					break;
 				++pos_y;
-                if (pathfind == NULL)
-                {
-                    path_length = -1;
-                }else {
-                    path_length = pathfind->find_dist(pos_x+tile_x,pos_y+tile_y);
-                }
+
+				if (pathfind == 0)
+					path_length = -1;
+				else
+					path_length = pathfind->find_dist(pos_x + tile_x, pos_y + tile_y);
 				move(pos_y, pos_x);
 				panel->update(map[pos_x + tile_x][pos_y + tile_y].terrain,
 						map[pos_x + tile_x][pos_y + tile_y].unit,
-                        selected,path_length);
+						selected,
+						path_length);
 				doupdate();
 			}
 			break;
 		case KEY_LEFT:
 			if (pos_x == 0)
 			{
-				if (tile_x == 0)
-					// beep
-					(void)0;	// no-op
-				else
+				if (tile_x != 0)
 				{
 					--tile_x;
-                    if (pathfind == NULL)
-                    {
-                        path_length = -1;
-                    }else {
-                        path_length = pathfind->find_dist(pos_x+tile_x,pos_y+tile_y);
-                    }
-					redraw(scr_x, scr_y);
+
+					if (pathfind == 0)
+						path_length = -1;
+					else
+						path_length = pathfind->find_dist(pos_x + tile_x, pos_y + tile_y);
 				}
+				redraw(scr_x, scr_y);
 			}
 			else
 			{
 				--pos_x;
-                if (pathfind == NULL)
-                {
-                    path_length = -1;
-                }else {
-                    path_length = pathfind->find_dist(pos_x+tile_x,pos_y+tile_y);
-                }
+
+				if (pathfind == 0)
+					path_length = -1;
+				else
+					path_length = pathfind->find_dist(pos_x + tile_x, pos_y + tile_y);
 				move(pos_y, pos_x);
 				panel->update(map[pos_x + tile_x][pos_y + tile_y].terrain,
 						map[pos_x + tile_x][pos_y + tile_y].unit,
-                        selected,path_length);
+						selected,
+						path_length);
 				doupdate();
 			}
 			break;
 		case KEY_RIGHT:
 			if (pos_x >= scr_x - 1)
 			{
-                if (tile_x + scr_x >= map_x)
-                {
-                    break;
-                }
+				if (tile_x + scr_x >= map_x)
+					break;
 				++tile_x;
-                if (pathfind == NULL)
-                {
-                    path_length = -1;
-                }else {
-                    path_length = pathfind->find_dist(pos_x+tile_x,pos_y+tile_y);
-                }
+
+				if (pathfind == 0)
+					path_length = -1;
+				else
+					path_length = pathfind->find_dist(pos_x + tile_x, pos_y + tile_y);
 				redraw(scr_x, scr_y);
 			}
 			else
 			{
-                if (tile_x+pos_x+1 >= map_x)
-                    break;
+				if (tile_x+pos_x+1 >= map_x)
+					break;
 				++pos_x;
-                if (pathfind == NULL)
-                {
-                    path_length = -1;
-                }else {
-                    path_length = pathfind->find_dist(pos_x+tile_x,pos_y+tile_y);
-                }
+
+				if (pathfind == 0)
+					path_length = -1;
+				else
+					path_length = pathfind->find_dist(pos_x + tile_x, pos_y + tile_y);
 				move(pos_y, pos_x);
 				panel->update(map[pos_x + tile_x][pos_y + tile_y].terrain,
 						map[pos_x + tile_x][pos_y + tile_y].unit,
-                        selected,path_length);
+						selected,
+						path_length);
 				doupdate();
 			}
 			break;
-        case 'z':
-            if (selected == NULL)
-            {
-                if (map[pos_x+tile_x][pos_y+tile_y].unit == NULL)
-                {
-                    if (map[pos_x+tile_x][pos_y+tile_y].terrain == 6-player->get_id())
-                    {
-                        //open the buildpanel to constuct a new unit
-                        BuildPanel *bp;
-                        bp = new BuildPanel(types,player,scr_x+panel->get_size(),scr_y,panel->get_size());
-                        map[pos_x+tile_x][pos_y+tile_y].unit = bp->use_panel(pos_x+tile_x,pos_y+tile_y);
-                        delete bp;
-                        panel->resize(scr_x+panel->get_size(),scr_y,map[pos_x+tile_x][pos_y+tile_y].terrain,map[pos_x+tile_x][pos_y+tile_y].unit,selected,path_length);
-                        if (map[pos_x+tile_x][pos_y+tile_y].unit)
-                        {
-                            wattron(map_pad,COLOR_PAIR(map[pos_x+tile_x][pos_y+tile_y].terrain+6*map[pos_x+tile_x][pos_y+tile_y].unit->get_player()->get_id()));
-                            mvwaddch(map_pad,pos_y+tile_y,pos_x+tile_x,map[pos_x+tile_x][pos_y+tile_y].unit->symbol());
-                            wattroff(map_pad,COLOR_PAIR(map[pos_x+tile_x][pos_y+tile_y].terrain)+6*map[pos_x+tile_x][pos_y+tile_y].unit->get_player()->get_id());
-                            pnoutrefresh(map_pad,tile_y,tile_x,0,0,scr_y-1,scr_x-1);
-                        }
-                        move(pos_y, pos_x);
-                        doupdate();
-                    }
-                }else {
-                    Unit *hovered_unit = map[pos_x+tile_x][pos_y+tile_y].unit;
-                    if (hovered_unit->get_player() == player && !hovered_unit->get_used())
-                    {
-                        //select the unit
-                        selected = hovered_unit;
-                        pathfind = new Pathfind(pos_x+tile_x,pos_y+tile_y,selected,this);
-                        panel->update(map[pos_x + tile_x][pos_y + tile_y].terrain,
-                                map[pos_x + tile_x][pos_y + tile_y].unit,
-                                selected,path_length);
-                    }
-                }
-            }else {
-                Unit *hovered_unit = map[pos_x+tile_x][pos_y+tile_y].unit;
-                if (path_length != -1 && path_length <= selected->get_move())
-                {
-                    if (hovered_unit == NULL)
-                    {
-                        //Move the unit
-                        map[pos_x+tile_x][pos_y+tile_y].unit = selected;
-                        map[selected->get_x()][selected->get_y()].unit = NULL;
-                        wattron(map_pad,COLOR_PAIR(map[pos_x+tile_x][pos_y+tile_y].terrain+6*map[pos_x+tile_x][pos_y+tile_y].unit->get_player()->get_id()));
-                        mvwaddch(map_pad,pos_y+tile_y,pos_x+tile_x,map[pos_x+tile_x][pos_y+tile_y].unit->symbol());
-                        wattroff(map_pad,COLOR_PAIR(map[pos_x+tile_x][pos_y+tile_y].terrain+6*map[pos_x+tile_x][pos_y+tile_y].unit->get_player()->get_id()));
-                        wattron(map_pad,COLOR_PAIR(map[selected->get_x()][selected->get_y()].terrain));
-                        mvwaddch(map_pad,selected->get_y(),selected->get_x(),' ');
-                        wattroff(map_pad,COLOR_PAIR(map[selected->get_x()][selected->get_y()].terrain));
-                        pnoutrefresh(map_pad,tile_y,tile_x,0,0,scr_y-1,scr_x-1);
-                        selected->move(pos_x+tile_x,pos_y+tile_y);
-                        selected->set_used(true);
-                        deselect();
-                    }else {
-                        if (hovered_unit->get_player() != player)
-                        {
-                            //Unit combat
-                            int result = selected->attack(hovered_unit->get_label());
-                            switch(result)
-                            {
-                                case 0: //Win
-                                    delete map[pos_x+tile_x][pos_y+tile_y].unit;
-                                    map[pos_x+tile_x][pos_y+tile_y].unit = selected;
-                                    map[selected->get_x()][selected->get_y()].unit = NULL;
-                                    wattron(map_pad,COLOR_PAIR(map[pos_x+tile_x][pos_y+tile_y].terrain+6*map[pos_x+tile_x][pos_y+tile_y].unit->get_player()->get_id()));
-                                    mvwaddch(map_pad,pos_y+tile_y,pos_x+tile_x,map[pos_x+tile_x][pos_y+tile_y].unit->symbol());
-                                    wattroff(map_pad,COLOR_PAIR(map[pos_x+tile_x][pos_y+tile_y].terrain+6*map[pos_x+tile_x][pos_y+tile_y].unit->get_player()->get_id()));
-                                    wattron(map_pad,COLOR_PAIR(map[selected->get_x()][selected->get_y()].terrain));
-                                    mvwaddch(map_pad,selected->get_y(),selected->get_x(),' ');
-                                    wattroff(map_pad,COLOR_PAIR(map[selected->get_x()][selected->get_y()].terrain));
-                                    pnoutrefresh(map_pad,tile_y,tile_x,0,0,scr_y-1,scr_x-1);
-                                    selected->move(pos_x+tile_x,pos_y+tile_y);
-                                    selected->set_used(true);
-                                    break;
-                                case 1: //Tie
-                                    delete map[pos_x+tile_x][pos_y+tile_y].unit;
-                                    map[pos_x+tile_x][pos_y+tile_y].unit = NULL;
-                                    map[selected->get_x()][selected->get_y()].unit = NULL;
-                                    wattron(map_pad,COLOR_PAIR(map[pos_x+tile_x][pos_y+tile_y].terrain));
-                                    mvwaddch(map_pad,pos_y+tile_y,pos_x+tile_x,' ');
-                                    wattroff(map_pad,COLOR_PAIR(map[pos_x+tile_x][pos_y+tile_y].terrain));
-                                    wattron(map_pad,COLOR_PAIR(map[selected->get_x()][selected->get_y()].terrain));
-                                    mvwaddch(map_pad,selected->get_y(),selected->get_x(),' ');
-                                    wattroff(map_pad,COLOR_PAIR(map[selected->get_x()][selected->get_y()].terrain));
-                                    pnoutrefresh(map_pad,tile_y,tile_x,0,0,scr_y-1,scr_x-1);
-                                    delete selected;
-                                    break;
-                                case 2: //Lose
-                                    map[selected->get_x()][selected->get_y()].unit = NULL;
-                                    wattron(map_pad,COLOR_PAIR(map[selected->get_x()][selected->get_y()].terrain));
-                                    mvwaddch(map_pad,selected->get_y(),selected->get_x(),' ');
-                                    wattroff(map_pad,COLOR_PAIR(map[selected->get_x()][selected->get_y()].terrain));
-                                    pnoutrefresh(map_pad,tile_y,tile_x,0,0,scr_y-1,scr_x-1);
-                                    delete selected;
-                                    break;
-                                default:
-                                    break;
-                            }
-                            deselect();
-                        }
-                    }
-                    move(pos_y, pos_x);
-                    doupdate();
-                }
-            }
+		case 'z':
+			if (selected == 0)
+			{
+				if (map[pos_x + tile_x][pos_y + tile_y].unit == 0)
+				{
+					if (map[pos_x + tile_x][pos_y + tile_y].terrain == 6 - player->get_id())
+					{
+						// Open the buildpanel to constuct a new unit
+						BuildPanel *bp;
+						bp = new BuildPanel(types, player, scr_x + panel->get_size(), scr_y,panel->get_size());
+						map[pos_x + tile_x][pos_y + tile_y].unit = bp->use_panel(pos_x + tile_x, pos_y + tile_y);
+						delete bp;
 
-            break;    
-        case 'x':
-            deselect();
-		default:
+						panel->resize(scr_x + panel->get_size(), scr_y, map[pos_x + tile_x][pos_y + tile_y].terrain,
+								map[pos_x + tile_x][pos_y + tile_y].unit,
+								selected,
+								path_length);
+						if (map[pos_x + tile_x][pos_y + tile_y].unit)
+						{
+							wattron(map_pad, COLOR_PAIR(map[pos_x + tile_x][pos_y + tile_y].terrain + 6 * map[pos_x + tile_x][pos_y + tile_y].unit->get_player()->get_id()));
+							mvwaddch(map_pad, pos_y + tile_y, pos_x + tile_x, map[pos_x + tile_x][pos_y + tile_y].unit->symbol());
+							wattroff(map_pad, COLOR_PAIR(map[pos_x + tile_x][pos_y + tile_y].terrain) + 6 * map[pos_x + tile_x][pos_y + tile_y].unit->get_player()->get_id());
+							pnoutrefresh(map_pad, tile_y, tile_x, 0, 0, scr_y - 1, scr_x - 1);
+						}
+						move(pos_y, pos_x);
+						doupdate();
+					}
+				}
+				else
+				{
+					Unit *hovered_unit = map[pos_x + tile_x][pos_y + tile_y].unit;
+					if (hovered_unit->get_player() == player && !hovered_unit->get_used())
+					{
+						// Select the unit
+						selected = hovered_unit;
+						pathfind = new Pathfind(pos_x + tile_x, pos_y + tile_y, selected, this);
+						panel->update(map[pos_x + tile_x][pos_y + tile_y].terrain,
+								map[pos_x + tile_x][pos_y + tile_y].unit,
+								selected,
+								path_length);
+					}
+				}
+			}
+			else
+			{
+				Unit *hovered_unit = map[pos_x + tile_x][pos_y + tile_y].unit;
+				if (path_length != -1 && path_length <= selected->get_move())
+				{
+					if (hovered_unit == 0)
+					{
+						// Move the unit
+						map[pos_x + tile_x][pos_y + tile_y].unit = selected;
+						map[selected->get_x()][selected->get_y()].unit = 0;
+						wattron(map_pad, COLOR_PAIR(map[pos_x + tile_x][pos_y + tile_y].terrain + 6 * map[pos_x + tile_x][pos_y + tile_y].unit->get_player()->get_id()));
+						mvwaddch(map_pad, pos_y + tile_y, pos_x + tile_x, map[pos_x + tile_x][pos_y + tile_y].unit->symbol());
+						wattroff(map_pad, COLOR_PAIR(map[pos_x + tile_x][pos_y + tile_y].terrain + 6 * map[pos_x + tile_x][pos_y + tile_y].unit->get_player()->get_id()));
+						wattron(map_pad, COLOR_PAIR(map[selected->get_x()][selected->get_y()].terrain));
+						mvwaddch(map_pad, selected->get_y(), selected->get_x(), ' ');
+						wattroff(map_pad, COLOR_PAIR(map[selected->get_x()][selected->get_y()].terrain));
+						pnoutrefresh(map_pad, tile_y, tile_x, 0, 0, scr_y - 1, scr_x - 1);
+						selected->move(pos_x + tile_x, pos_y + tile_y);
+						selected->set_used(true);
+						deselect();
+					}
+					else
+					{
+						if (hovered_unit->get_player() != player)
+						{
+							// Unit combat
+							int result = selected->attack(hovered_unit->get_label());
+							switch (result)
+							{
+							// Win
+							case 0:
+								delete map[pos_x + tile_x][pos_y + tile_y].unit;
+								map[pos_x + tile_x][pos_y + tile_y].unit = selected;
+								map[selected->get_x()][selected->get_y()].unit = 0;
+								wattron(map_pad, COLOR_PAIR(map[pos_x + tile_x][pos_y + tile_y].terrain+6*map[pos_x + tile_x][pos_y + tile_y].unit->get_player()->get_id()));
+								mvwaddch(map_pad, pos_y + tile_y, pos_x + tile_x, map[pos_x + tile_x][pos_y + tile_y].unit->symbol());
+								wattroff(map_pad, COLOR_PAIR(map[pos_x + tile_x][pos_y + tile_y].terrain + 6 * map[pos_x + tile_x][pos_y + tile_y].unit->get_player()->get_id()));
+								wattron(map_pad, COLOR_PAIR(map[selected->get_x()][selected->get_y()].terrain));
+								mvwaddch(map_pad, selected->get_y(), selected->get_x(), ' ');
+								wattroff(map_pad, COLOR_PAIR(map[selected->get_x()][selected->get_y()].terrain));
+								pnoutrefresh(map_pad, tile_y, tile_x, 0, 0, scr_y - 1, scr_x - 1);
+								selected->move(pos_x + tile_x, pos_y + tile_y);
+								selected->set_used(true);
+								break;
+							// Tie
+							case 1:
+								delete map[pos_x + tile_x][pos_y + tile_y].unit;
+								map[pos_x + tile_x][pos_y + tile_y].unit = 0;
+								map[selected->get_x()][selected->get_y()].unit = 0;
+								wattron(map_pad, COLOR_PAIR(map[pos_x + tile_x][pos_y + tile_y].terrain));
+								mvwaddch(map_pad, pos_y + tile_y, pos_x + tile_x, ' ');
+								wattroff(map_pad, COLOR_PAIR(map[pos_x + tile_x][pos_y + tile_y].terrain));
+								wattron(map_pad, COLOR_PAIR(map[selected->get_x()][selected->get_y()].terrain));
+								mvwaddch(map_pad, selected->get_y(), selected->get_x(), ' ');
+								wattroff(map_pad, COLOR_PAIR(map[selected->get_x()][selected->get_y()].terrain));
+								pnoutrefresh(map_pad, tile_y, tile_x, 0, 0, scr_y - 1, scr_x - 1);
+								delete selected;
+								break;
+							// Lose
+							case 2:
+								map[selected->get_x()][selected->get_y()].unit = 0;
+								wattron(map_pad, COLOR_PAIR(map[selected->get_x()][selected->get_y()].terrain));
+								mvwaddch(map_pad, selected->get_y(), selected->get_x(), ' ');
+								wattroff(map_pad, COLOR_PAIR(map[selected->get_x()][selected->get_y()].terrain));
+								pnoutrefresh(map_pad, tile_y, tile_x, 0, 0, scr_y - 1, scr_x - 1);
+								delete selected;
+								break;
+							}
+							deselect();
+						}
+					}
+					move(pos_y, pos_x);
+					doupdate();
+				}
+			}
+			break;
+		case 'x':
+			deselect();
 			break;
 		}
 	}
-    deselect();
+	deselect();
 }
 
-//returns the tile at a specific (x,y)
+/* Returns the tile at a specific (x,y). */
 tile_pair_t *Map::get_tile(int x, int y)
 {
 	if (x >= map_x || y >= map_y)
 		return 0;
-    if (x < 0 || y < 0)
-        return 0;
+	if (x < 0 || y < 0)
+		return 0;
+
 	return &map[x][y];
 }
 
-//clears the selected unit and all related data
+/* Clears the selected unit and all related data. */
 void Map::deselect()
 {
-    selected = NULL;
-    delete pathfind;
-    pathfind = NULL;
+	selected = 0;
+	delete pathfind;
+	pathfind = 0;
 }
 
-
-
-//creates a road from one coordinate to another.
-void Map::createRoad(int orig_x, int orig_y, int dest_x, int dest_y){
-	if (orig_y < dest_y){	//Will swap points if origin is above destination
+/* Creates a road from one coordinate to another. */
+void Map::createRoad(int orig_x, int orig_y, int dest_x, int dest_y)
+{
+	// Swap points if origin is above destination
+	if (orig_y < dest_y)
+	{
 		int temp_x = orig_x;
 		orig_x = dest_x;
 		dest_x = temp_x;
@@ -616,100 +615,120 @@ void Map::createRoad(int orig_x, int orig_y, int dest_x, int dest_y){
 	}
 	int n = orig_x;
 	int m = orig_y;
-	if (orig_x > dest_x){ //Going left
+
+	// Going left
+	if (orig_x > dest_x)
+	{
 		int ups = 0;
 		int lefts = 0;
-		while (n-1 >= dest_x || m-1 >= dest_y){
-			if (n == dest_x){	//moved as left as possible
-				m--;
-				if (map[n][m].terrain != 5 && map[n][m].terrain != 6){
+		while (n - 1 >= dest_x || m - 1 >= dest_y)
+		{
+			// Moved as left as possible
+			if (n == dest_x)
+			{
+				--m;
+				if (map[n][m].terrain != 5 && map[n][m].terrain != 6)
 					map[n][m].terrain = 3;
-				}
 			}
-			else if (m == dest_y){	//moved as up as possible
-				n--;
-				if (map[n][m].terrain != 5 && map[n][m].terrain != 6){
+			// Moved as up as possible
+			else if (m == dest_y)
+			{
+				--n;
+				if (map[n][m].terrain != 5 && map[n][m].terrain != 6)
 					map[n][m].terrain = 3;
-				}
 			}
-			else if (ups > 0){
-				ups--;
-				m--;
-				if (map[n][m].terrain != 5 && map[n][m].terrain != 6){
+			else if (ups > 0)
+			{
+				--ups;
+				--m;
+				if (map[n][m].terrain != 5 && map[n][m].terrain != 6)
 					map[n][m].terrain = 3;
-				}
 			}
-			else if (lefts > 0){
-				lefts--;
-				n--;
-				if (map[n][m].terrain != 5 && map[n][m].terrain != 6){
+			else if (lefts > 0)
+			{
+				--lefts;
+				--n;
+				if (map[n][m].terrain != 5 && map[n][m].terrain != 6)
 					map[n][m].terrain = 3;
-				}
 			}
-			else {	//pick either up or left
-				int rnd = (int)(2 * (rand() / (RAND_MAX + 1.0)));
-				if (rnd == 1){ //up
+			else
+			{
+				// Pick either up or left
+				int rnd = rand() % 2;
+				// Up
+				if (rnd == 0)
+				{
 					ups = 3;
-						m--;
-					if (map[n][m].terrain != 5 && map[n][m].terrain != 6){
+					--m;
+					if (map[n][m].terrain != 5 && map[n][m].terrain != 6)
 						map[n][m].terrain = 3;
-					}
 				}
-				else { //left
+				// Left
+				else
+				{
 					lefts = 3;
-					n--;
-					if (map[n][m].terrain != 5 && map[n][m].terrain != 6){
+					--n;
+					if (map[n][m].terrain != 5 && map[n][m].terrain != 6)
 						map[n][m].terrain = 3;
-					}
 				}
 			}
 		}
 	}
-	else {	//Going right
+	
+	// Going right
+	else
+	{
 		int ups = 0;
 		int rights = 0;
-		while (n+1 <= dest_x || m-1 >= dest_y){
-			if (n == dest_x){	//moved as right as possible
-				m--;
-				if (map[n][m].terrain != 5 && map[n][m].terrain != 6){
+		while (n + 1 <= dest_x || m - 1 >= dest_y)
+		{
+			// Moved as right as possible
+			if (n == dest_x)
+			{
+				--m;
+				if (map[n][m].terrain != 5 && map[n][m].terrain != 6)
 					map[n][m].terrain = 3;
-				}
 			}
-			else if (m == dest_y){	//moved as up as possible
-				n++;
-				if (map[n][m].terrain != 5 && map[n][m].terrain != 6){
+			// Moved as up as possible
+			else if (m == dest_y)
+			{
+				++n;
+				if (map[n][m].terrain != 5 && map[n][m].terrain != 6)
 					map[n][m].terrain = 3;
-				}
 			}
-			else if (ups > 0){
-				ups--;
-				m--;
-				if (map[n][m].terrain != 5 && map[n][m].terrain != 6){
+			else if (ups > 0)
+			{
+				--ups;
+				--m;
+				if (map[n][m].terrain != 5 && map[n][m].terrain != 6)
 					map[n][m].terrain = 3;
-				}
 			}
-			else if (rights > 0){
-				rights--;
-				n++;
-				if (map[n][m].terrain != 5 && map[n][m].terrain != 6){
+			else if (rights > 0)
+			{
+				--rights;
+				++n;
+				if (map[n][m].terrain != 5 && map[n][m].terrain != 6)
 					map[n][m].terrain = 3;
-				}
 			}
-			else {	//pick either up or right
-				int rnd = (int)(2 * (rand() / (RAND_MAX + 1.0)));
-				if (rnd == 1){ //up
+			else
+			{
+				// Pick either up or right
+				int rnd = rand() % 2;
+				// Up
+				if (rnd == 0)
+				{
 					ups = 3;
-					m--;
-					if (map[n][m].terrain != 5 && map[n][m].terrain != 6){
+					--m;
+					if (map[n][m].terrain != 5 && map[n][m].terrain != 6)
 						map[n][m].terrain = 3;
-					}
 				}
-				else { //right
+				// Right
+				else
+				{
 					rights = 3;
-					n++;
-					if (map[n][m].terrain != 5 && map[n][m].terrain != 6){
+					++n;
+					if (map[n][m].terrain != 5 && map[n][m].terrain != 6)
 						map[n][m].terrain = 3;
-					}
 				}
 			}
 		}
