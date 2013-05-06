@@ -13,7 +13,7 @@
 /* Constructor for BuildPanel Class. */
 BuildPanel::BuildPanel(std::vector<UnitType *> const &unit_types, Player *play, int scr_x, int scr_y, int panel_size) :
 	types(unit_types),
-	win(NULL),
+	win(0),
 	pl(play),
 	size(panel_size),
 	opt(0),
@@ -36,7 +36,7 @@ void BuildPanel::resize(int scr_x, int scr_y)
 {
 	screen_y = scr_y;
 	// Check for existing wnidow
-	if (win != NULL)
+	if (win != 0)
 		delwin(win);
 	win = newwin(scr_y - 1, scr_x - size, 0, scr_x - size + 1);
 	wattron(win, COLOR_PAIR(15));
@@ -76,7 +76,7 @@ void BuildPanel::resize(int scr_x, int scr_y)
  */
 Unit *BuildPanel::use_panel(int x, int y)
 {
-	Unit *temp_ptr = NULL;
+	Unit *temp_ptr = 0;
 
 	curs_set(0);
 	wnoutrefresh(win);
@@ -140,7 +140,7 @@ Unit *BuildPanel::use_panel(int x, int y)
 			if (opt == types.size())
 			{
 				curs_set(1);
-				return NULL;
+				return 0;
 			}
 
 			temp_ptr = new Unit(types[opt], pl, x, y);
@@ -154,5 +154,5 @@ Unit *BuildPanel::use_panel(int x, int y)
 	}
 
 	curs_set(1);
-	return NULL;
+	return 0;
 }

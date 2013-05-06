@@ -4,7 +4,7 @@
 //Pathfind constructor, creates the pathmap to hold calculations used
 //for finding shortest distances
 Pathfind::Pathfind(int start_x, int start_y, Unit *unit_ptr, Map *map_ptr) :
-    path_map(NULL),
+    path_map(0),
     x_offset(start_x-MAX_PATH),
     y_offset(start_y-MAX_PATH),
     unit(unit_ptr),

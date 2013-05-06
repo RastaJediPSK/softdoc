@@ -17,7 +17,7 @@ Unit::Unit(UnitType *unit_type, Player *play, int x, int y) :
     mapx(x),
     mapy(y)
 {
-    if(play != NULL)
+    if(play != 0)
         place = play->add_unit(this);
 }
 
