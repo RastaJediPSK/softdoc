@@ -1,31 +1,28 @@
 /*
  * File:  menu.h
- * Authors:  Stephen Erikson, Michael Pomeranz, James Lenze, Kelly DeBarr
+ * Authors:  Stephen Erikson, Michael Pomeranz, Kelly DeBarr
  * Date:  28 March 2013
- * Description:  Main Menu class declaration file
+ * Description:  Main Menu class declaration file.
  */
 
-#ifndef MENU_H_
-#define MENU_H_
+#ifndef MENU_H
+#define MENU_H
 
-#include "game.h"
+class Game;
 
-//Menu class, creates the game and provides a starting interface
+/* Menu class, creates the game and provides a starting interface. */
 class Menu
 {
 	Game *game;
-	Menu(const Menu &);	/* declaring copy ctor as private to forbid use of it */
-	Menu &operator=(const Menu &);	/* same with assignment operator */
+	Menu(const Menu &);		// declaring copy ctor as private to forbid use of it
+	Menu &operator=(const Menu &);	// same with assignment operator
 
 public:
-	Menu() : game(0) { }
+	Menu() : game(0) { }		// ctor
 	~Menu();
-	void show();	/* display startup/pause menu on screen */
+	void show();
 	Game *new_game();
-	void continue_game();
-	void load_game(int);
-	void save_game(int);
 	void quit_game();
 };
 
-#endif
+#endif	/* MENU_H */
