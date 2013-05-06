@@ -19,8 +19,8 @@ class UnitType;
 /* Holds data for each tile on the map. */
 struct tile_pair_t
 {
-    int terrain;
-    Unit *unit;
+	int terrain;
+	Unit *unit;
 };
 
 /*
@@ -34,13 +34,15 @@ class Map
 	int map_x, map_y;	// total size of map
 	int scr_x, scr_y;	// total size of screen
 	int pos_x, pos_y;	// position of cursor on screen
-	Panel panel;
+	Panel *panel;
 	WINDOW *map_pad;	// pad to draw map on
 	std::vector<UnitType *> const &types;
 	Unit *selected;
 	Pathfind *pathfind;
 	int path_length;
 	
+	void deselect();
+
 	// Define blank copy ctor/assignment operator (for now)
 	Map(const Map &);
 	Map &operator=(const Map &);
@@ -48,10 +50,8 @@ class Map
 	// Define blank ctor to disallow use of default ctor
 	Map();
 
-    void deselect();
-
 public:
-	Map(int x, int y, int screen_x, int screen_y, Panel const &panel, std::vector<UnitType *> const &type, Player *p1, Player *p2);
+	Map(int x, int y, int screen_x, int screen_y, Panel *panel, std::vector<UnitType *> const &type, Player *p1, Player *p2);
 	~Map();
 	void redraw(int screen_x, int screen_y);
 	void map_loop(Player *player);
