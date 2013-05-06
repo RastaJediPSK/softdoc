@@ -10,12 +10,9 @@
 
 #include <vector>
 #include <curses.h>
-#include "build_panel.h"
 #include "panel.h"
-#include "pathfind.h"
-#include "player.h"
-#include "unit.h"
-#include "unit_type.h"
+
+class Pathfind;
 
 /* Holds data for each tile on the map. */
 struct tile_pair_t
