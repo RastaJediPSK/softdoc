@@ -13,7 +13,7 @@
 #include "panel.h"
 #include "unit.h"
 
-/* Main function, starts Ncurses and the menu. */
+/* Main function, starts ncurses and the menu. */
 int main()
 {
 	/* Start ncurses */
@@ -49,6 +49,7 @@ int main()
 	init_pair(17, COLOR_GREEN, COLOR_BLACK);
 	init_pair(18, COLOR_RED, COLOR_BLACK);
 	
+	/* Initialize menu */
 	Menu menu;
 	menu.show();
 

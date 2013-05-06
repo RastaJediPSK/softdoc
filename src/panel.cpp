@@ -36,29 +36,29 @@ void Panel::update(int terrain, Unit *unit, Unit *selected, int path_length)
 	switch(terrain)
 	{
 	case 1:
-		     	waddstr(panel_window, "Water");
-			break;
+		waddstr(panel_window, "Water");
+		break;
 	case 2:
-			waddstr(panel_window, "Grass");
-			break;
+		waddstr(panel_window, "Grass");
+		break;
 	case 3:
-			waddstr(panel_window, "Road");
-			break;
+		waddstr(panel_window, "Road");
+		break;
 	case 4:
-			waddstr(panel_window, "Mountain");
-			break;
+		waddstr(panel_window, "Mountain");
+		break;
 	case 5:
-			waddstr(panel_window, "P2 Base");
-			break;
+		waddstr(panel_window, "P2 Base");
+		break;
 	case 6:
-			waddstr(panel_window, "P1 Base");
-			break;
+		waddstr(panel_window, "P1 Base");
+		break;
 	}
 
 	int i;
 	getyx(panel_window, terrain, i);
 	for(; i < scr_x; ++i)
-		waddch(panel_window,' ');
+		waddch(panel_window, ' ');
 
 	wmove(panel_window, unit_name_pos, 11);
 	if (unit != 0)
@@ -68,13 +68,13 @@ void Panel::update(int terrain, Unit *unit, Unit *selected, int path_length)
 		if (unit->get_used())
 			waddstr(panel_window, "No ");
 		else
-			waddstr(panel_window,"Yes");
+			waddstr(panel_window, "Yes");
 	}
 	else
 	{
 		getyx(panel_window, terrain, i);
 		for(; i < scr_x; ++i)
-			waddch(panel_window,' ');
+			waddch(panel_window, ' ');
 		mvwprintw(panel_window, unit_name_pos + 2, 9, "   ");
 	}
 
@@ -84,7 +84,7 @@ void Panel::update(int terrain, Unit *unit, Unit *selected, int path_length)
 	else
 		getyx(panel_window, terrain, i);
         for(; i < scr_x; ++i)
-		waddch(panel_window,' ');
+		waddch(panel_window, ' ');
 	
 	wmove(panel_window, move_pos, 11);
 	if (selected != 0)
@@ -101,7 +101,7 @@ void Panel::update(int terrain, Unit *unit, Unit *selected, int path_length)
 /* Redraws and resizes the entire panel. */
 void Panel::resize(int screen_x, int screen_y, int terrain, Unit *unit, Unit *selected, int path)
 {
-	pos_x = screen_x - size +1 ;
+	pos_x = screen_x - size + 1;
 	unit_name_pos = screen_y / 4;
 	move_pos = screen_y / 2 + 2;
 	panel_window = newwin(scr_y, scr_x - size, 0, pos_x);

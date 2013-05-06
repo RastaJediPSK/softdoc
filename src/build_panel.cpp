@@ -49,7 +49,7 @@ void BuildPanel::resize(int scr_x, int scr_y)
 			wattroff(win, COLOR_PAIR(15));
 			wattron(win, COLOR_PAIR(16));
 		}
-		mvwprintw(win, 4 + 2*i, 0, types[i]->get_unit_name().c_str());
+		mvwprintw(win, 4 + 2 * i, 0, types[i]->get_unit_name().c_str());
 		if (opt == i)
 		{
 			wattroff(win, COLOR_PAIR(16));
@@ -77,7 +77,6 @@ void BuildPanel::resize(int scr_x, int scr_y)
 Unit *BuildPanel::use_panel(int x, int y)
 {
 	Unit *temp_ptr = 0;
-
 	curs_set(0);
 	wnoutrefresh(win);
 	doupdate();
@@ -95,7 +94,7 @@ Unit *BuildPanel::use_panel(int x, int y)
 			}
 			else
 			{
-				mvwprintw(win, 4 + 2*opt, 0, types[opt]->get_unit_name().c_str());
+				mvwprintw(win, 4 + 2 * opt, 0, types[opt]->get_unit_name().c_str());
 				++opt;
 			}
 
@@ -105,7 +104,7 @@ Unit *BuildPanel::use_panel(int x, int y)
 			if (opt == types.size())
 				mvwprintw(win, screen_y - 2, 0, "EXIT");
 			else
-				mvwprintw(win, 4 + 2*opt, 0, types[opt]->get_unit_name().c_str());
+				mvwprintw(win, 4 + 2 * opt, 0, types[opt]->get_unit_name().c_str());
 
 			wattroff(win, COLOR_PAIR(16));
 			wattron(win, COLOR_PAIR(15));
@@ -118,7 +117,7 @@ Unit *BuildPanel::use_panel(int x, int y)
 			}
 			else
 			{
-				mvwprintw(win, 4 + 2*opt, 0, types[opt]->get_unit_name().c_str());
+				mvwprintw(win, 4 + 2 * opt, 0, types[opt]->get_unit_name().c_str());
 				if (opt == 0)
 					opt = types.size();
 				else
@@ -131,7 +130,7 @@ Unit *BuildPanel::use_panel(int x, int y)
 			if (opt == types.size())
 				mvwprintw(win,screen_y - 2, 0, "EXIT");
 			else
-				mvwprintw(win, 4 + 2*opt, 0, types[opt]->get_unit_name().c_str());
+				mvwprintw(win, 4 + 2 * opt, 0, types[opt]->get_unit_name().c_str());
 
 			wattroff(win, COLOR_PAIR(16));
 			wattron(win, COLOR_PAIR(15));
