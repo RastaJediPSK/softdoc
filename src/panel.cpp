@@ -1,5 +1,7 @@
 #include "panel.h"
 
+#include "unit.h"
+
 //Panel constructor
 Panel::Panel(int screen_x, int screen_y, int panel_size) :
     scr_x(screen_x),
@@ -110,10 +112,4 @@ void Panel::resize(int screen_x, int screen_y, int terrain, Unit *unit, Unit *se
     mvwprintw(panel_window,move_pos,0,"Move Here: ");
     mvwprintw(panel_window,selected_unit_pos,0,"Held Unit: ");
     update(terrain,unit,selected,path);
-}
-
-//returns the width of the panel
-int Panel::get_size()
-{
-    return size;
 }
