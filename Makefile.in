@@ -147,6 +147,7 @@ sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 SUBDIRS = src
+EXTRA_DIST = CODING_STANDARDS
 all: all-recursive
 
 .SUFFIXES:
