@@ -42,7 +42,7 @@ Game::Game() : players(), types()
 	types.push_back(scissors);
 	int scr_x, scr_y;
 	getmaxyx(stdscr, scr_y, scr_x);
-	Panel panel(scr_x, scr_y, 20);
+	Panel *panel = new Panel(scr_x, scr_y, 20);
 	Map map(70, 70, scr_x - 20, scr_y, panel, types, players[0], players[1]);
 
 	/* Main game loop */
@@ -102,6 +102,9 @@ Game::Game() : players(), types()
 		// Redraw screen for Player 1
 		map.redraw(scr_x - 20, scr_y);
 	}
+
+	delete panel;
+	panel = 0;
 }
 
 /* Deconstructor for game, deletes players and unit types. */
