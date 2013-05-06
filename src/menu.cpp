@@ -6,6 +6,7 @@
  */
 
 #include <iostream>
+#include <curses.h>
 #include "menu.h"
 
 //Menu deconstructor, quits the game
