@@ -27,7 +27,7 @@ void Menu::show()
 	getmaxyx(stdscr, scr_y, scr_x);
 	title = newwin(scr_y, scr_x, 0, 0);
 	mvwprintw(title, scr_y / 3, (scr_x - 20) / 2, "Null Pointer's Game");
-	mvwprintw(title, 2 * scr_y / 3, (scr_x - 24) / 2, "Press any key to continue");
+	mvwprintw(title, scr_y / 3 + 3, (scr_x - 24) / 2, "Press any key to continue");
 
 	curs_set(0);
 	wrefresh(title);
