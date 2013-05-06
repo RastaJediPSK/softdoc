@@ -5,6 +5,34 @@ Don't dereference us!
 
 User Guide
 ==========
+To start a game:
+  1.  Open main.exe
+  2.  Select 'New Game' from the menu
+
+To build a unit:
+  1.  Select a free grass tile with arrow keys
+  2.  Press 'z' to enter Build Menu
+  3.  Highlight unit type choice with arrow keys
+  4.  Press 'z' to build desired unit
+
+To move a unit:  Units can move once per turn (including immediately after creation)
+  1.  Select a unit with arrow keys--make sure it is your color
+  2.  Press 'z'
+  3.  Use arrow keys to highlight desired destination tile 
+  4.  Ensure info panel says the unit can move to this tile ('Move here: no' indicates desired tile is too far or is a water tile)
+  5.  Press 'z' to move the unit to the new tile
+
+To end your turn:
+Player 1:
+  1.  Press 'q'
+  2.  Press '2' to switch to Player 2
+Player 2:
+  1.  Press 'q'
+  2.  Press '1' to switch to Player 1
+
+To end the game:
+  1.  Press 'q'
+  2.  Press 'q' again
 
 Developer Guide
 ===============
