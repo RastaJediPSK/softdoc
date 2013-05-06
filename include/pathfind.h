@@ -1,3 +1,10 @@
+/*
+ * File:  pathfind.h
+ * Authors:  Stephen Erikson, Michael Pomeranz, Kelly DeBarr
+ * Date:  31 March 2013
+ * Description:  Pathfind class declaration file.
+ */
+
 #ifndef PATHFIND_H
 #define PATHFIND_H
 
@@ -9,14 +16,16 @@
 class Map;
 
 /* Struct used to store data for pathfind. */
-struct position
+struct position_t
 {
-    int x;
-    int y;
+	int x;
+	int y;
 };
 
-//Class to calculate the minimum distance to a
-//tile, used to calculate unit movement
+/* 
+ * Class to calculate the minimum distance to a tile, used to calculate unit
+ * movement.
+ */
 class Pathfind
 {
     int **path_map;
@@ -27,7 +36,7 @@ class Pathfind
 
     int dist_est(int x0, int y0, int x, int y);
 
-    //unused operators to stop warnings
+    // Unused operators to stop warnings
     Pathfind(const Pathfind &p);
     void operator=(const Pathfind &p);
 
