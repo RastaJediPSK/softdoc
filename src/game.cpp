@@ -12,6 +12,7 @@
 #include <curses.h>
 #include "map.h"
 #include "panel.h"
+#include "player.h"
 
 /*
  * Constructs the game object and creates all of the needed objects to start
