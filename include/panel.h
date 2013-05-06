@@ -25,7 +25,8 @@ class Panel
 	WINDOW *panel_window;
 	
 	// Unsued constructors to stop warnings
-	void operator=(const Panel &p);
+	Panel(const Panel &);
+	void operator=(const Panel &);
 	
 public:
 	Panel(int screen_x, int screen_y, int panel_size);
