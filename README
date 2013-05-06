@@ -3,20 +3,19 @@ Team Null Pointer
 Don't dereference us!
 ---------------------
 
-
 User Guide
 ==========
 To start a game
 ---------------
-1. Run ./bin/main or ./bin/main.exe
-2. Press any key to start a new game
+ 1. Run ./bin/main or ./bin/main.exe
+ 2. Press any key to start a new game
 
 To build a unit
 ---------------
-1. Select a free base tile with arrow keys
-2. Press 'z' to enter Build Menu
-3. Highlight unit type choice with arrow keys
-4. Press 'z' to build desired unit
+ 1. Select a free base tile with arrow keys
+ 2. Press 'z' to enter Build Menu
+ 3. Highlight unit type choice with arrow keys
+ 4. Press 'z' to build desired unit
 
 To move a unit
 --------------
