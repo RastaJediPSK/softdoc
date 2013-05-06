@@ -13,6 +13,8 @@
 #include "panel.h"
 
 class Pathfind;
+class Player;
+class UnitType;
 
 /* Holds data for each tile on the map. */
 struct tile_pair_t
