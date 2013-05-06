@@ -13,6 +13,8 @@
 #include "map.h"
 #include "panel.h"
 #include "player.h"
+#include "unit.h"
+#include "unit_type.h"
 
 /*
  * Constructs the game object and creates all of the needed objects to start
@@ -58,7 +60,7 @@ Game::Game() : players(), types()
 		int taken_bases = 0;
 		for (int i = 0; i < num_bases; ++i)
 		{
-			Location base = players[1]->get_bases()[i];
+			location_t base = players[1]->get_bases()[i];
 			Unit *unit_ptr = map.get_tile(base.x, base.y)->unit;
 			if (unit_ptr && unit_ptr->get_player() != players[1])
 				++taken_bases;
@@ -84,7 +86,7 @@ Game::Game() : players(), types()
 		taken_bases = 0;
 		for (int i = 0; i < num_bases; ++i)
 		{
-			Location base = players[0]->get_bases()[i];
+			location_t base = players[0]->get_bases()[i];
 			Unit *unit_ptr = map.get_tile(base.x, base.y)->unit;
 			if (unit_ptr && unit_ptr->get_player() != players[0])
         			++taken_bases;
