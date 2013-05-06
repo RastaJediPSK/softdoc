@@ -9,8 +9,9 @@
 #define GAME_H
 
 #include <vector>
-#include "player.h"
-#include "unit_type.h"
+
+class Player;
+class UnitType;
 
 class Game
 {
