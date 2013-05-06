@@ -20,24 +20,24 @@ To build a unit
 To move a unit
 --------------
 Units can move once per turn (excluding immediately after creation)
-1. Select a unit with arrow keys--make sure it is your color
-2. Press 'z'
-3. Use arrow keys to highlight desired destination tile (can either be empty
-   or contain enemy's unit)
-4. Ensure info panel says the unit can move to this tile ('Move here: no'
-   indicates desired tile is too far or is a water tile)
-5. Press 'z' to move the unit to the new tile.  If an enemy unit is on this
-   tile, combat is initiated
+ 1. Select a unit with arrow keys--make sure it is your color
+ 2. Press 'z'
+ 3. Use arrow keys to highlight desired destination tile (can either be empty
+    or contain enemy's unit)
+ 4. Ensure info panel says the unit can move to this tile ('Move here: no'
+    indicates desired tile is too far or is a water tile)
+ 5. Press 'z' to move the unit to the new tile.  If an enemy unit is on this
+    tile, combat is initiated
 
 To end your turn
 ----------------
-1. Press 'q'
-2. Press any key besides 'q' to switch to the next Player
+ 1. Press 'q'
+ 2. Press any key besides 'q' to switch to the next Player
 
 To end the game
 ---------------
-1. Press 'q'
-2. Press 'q' again
+ 1. Press 'q'
+ 2. Press 'q' again
 
 Developer Guide
 ===============
