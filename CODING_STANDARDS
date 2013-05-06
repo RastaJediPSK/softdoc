@@ -1,0 +1,145 @@
+Coding Standards
+
+Comments:
+* At top of each file, have comments as such:
+
+  /*
+   * File:  foo.cpp
+   * Authors:  Foo, Bar
+   * Date:  1 January 2013
+   * Description:  foo
+   */
+
+* Use "/* ... */" above a class, funct., giving a brief description of the
+  class/function's purpose and for a funct. a brief overview of what the funct.
+  does.
+* Use "/* ... */" for comments you want to stand out--i.e., use them like
+  "headings", "strongly" separating logical sections of the program.
+* For /* ... */ comments that span multiple lines, format them as such:
+
+  /*
+   * ...
+   * ...
+   */
+
+* Use "// ..." for not as "strongly" separated logical sections, use to describe the
+  next few lines of code.  Use like "subheadings".
+* For even less important end-of-line comments, keep them brief and use "// ..."
+  and probably don't need to capitalize first letter if it's very insignificant
+* To comment out a line, do not use a space after "//", e.g.: "//int x = 1;"
+* Use "/* ... */" block comments to comment out a whole section, but only temporarily.
+  To leave in there more permanently,use "//..." on each line
+
+Include Guards:
+* For each header file, add include guards after the opening comment
+* If file is header_name.h, name the macro HEADER_NAME_H
+* Add comment after endif (/* HEADER_NAME_H */) letting user know what the #endif is for
+* e.g.:
+
+  /*
+   * File: ...
+   * Authors: ...
+   * ...
+   */
+   
+  #ifndef HEADER_NAME_H
+  #define HEADER_NAME_H
+
+  // rest of code
+  
+  #endif	/* HEADER_NAME_H */
+  
+Includes:
+* Include this classes header file (on its own line) first
+* Include standard C++ headers next (a-z order)
+* Include C++ versions of C headers (e.g., <cstdlib>) next (a-z order)
+* Include C headers next (a-z order)
+* Include system headers next (z-a order)
+* Include 3rd party library headers next (a-z order)
+* Include all necessary headers of this project (a-z order)
+* e.g.:
+
+  #include "myclass.h"
+
+  #include <iostream>
+  #include <vector>
+  #include <cstdlib>
+  #include <cstring>
+  #include <curses.h>
+  #include <sys/types.h>
+  #include "3rd-party-plugin.h"
+  #include "my_file1.h"
+  #include "my_file2.h"
+
+* Place them right after include guards if is header file, otherwise place after opening comment (File, Authors, etc.)
+* For headers, first try to just use a forward declaration of a class before including header (removes unnecessary overhead)
+* If a header is needed by a source file, include it only in that source file, not its header (unless it is also needed there)
+
+Defines:
+* Try not to use them, instead use const variables since the compiler optimizes them into hard-coded values (achieve same result as #define's)
+* If must use them, skip a line after #include's, place them there, then skip a line afterwards
+* e.g.:
+
+  #include <iostream>
+  
+  #define FOO 1
+  
+  // rest of code
+
+Parentheses, braces, tabs, and blank lines:
+* For function calls, do not include a space before or after parentheses
+* e.g.: printf("hello world\n");
+* For keywords, INCLUDE a space before opening parenthesis (if necessary)
+* (This is how the standard defines the usage of keywords. Keyword examples: for, if, while, sizeof, return, etc.)
+* Always place braces on their own line
+* Use a real, 8 column tab for indentation
+* Do not use braces if not necessary (if the block is only one line)
+* Try your hardest to not let lines go over 80 characters
+* e.g.:
+
+  x = sizeof my_variable;
+  x = sizeof (int);
+  x = sizeof (my_type_t);
+  
+  for (int i = 0; i < 10; ++i)
+  {
+          do_something();
+	  
+	  if (true)
+          {
+                  do_something_else();
+                  sleep(1);
+          }
+	  else
+		  sleep(1);
+  } 
+
+  return something;
+
+* Use blank lines to separate sections of code that flow together logically
+* e.g.:
+
+  initialize_stuff();
+  
+  do_stuff();
+  do_more_stuff();
+  if (stuff)
+          do_some_stuff();
+
+  do_some_unrelated_stuff();
+  if (something)
+          break;
+  
+  return return_var;
+
+* Use a blank line between function definitions
+* Place a blank line before and after function prototypes
+* Place a blank line before and after global variables
+
+Variable, function, and class naming:
+* For variables and functions, use the traditional lowercase syntax with underscores
+* For class names, use CamelCase
+* For type definitions, use lowercase and add _t, e.g. "struct my_type_t"
+* Use names that make sense, but aren't too long
+* Variable names should help self-comment code
+* For each source file (except for main), include an accompanying header file (usually one source/header per class)
