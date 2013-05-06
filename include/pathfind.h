@@ -6,9 +6,9 @@
 
 #define MAX_PATH 20
 
-class Map; //prototype
+class Map;
 
-//struct used to store data for pathfind
+/* Struct used to store data for pathfind. */
 struct position
 {
     int x;
@@ -31,10 +31,10 @@ class Pathfind
     Pathfind(const Pathfind &p);
     void operator=(const Pathfind &p);
 
-    public:
+public:
     Pathfind(int start_x, int start_y, Unit *unit_ptr, Map *map_ptr);
     ~Pathfind();
     int find_dist(int x, int y);
 };
 
-#endif
+#endif	/* PATHFIND_H */
