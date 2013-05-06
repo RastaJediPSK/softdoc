@@ -2,7 +2,7 @@
  * File:  game.h
  * Authors:  Stephen Erikson, Michael Pomeranz, Kelly DeBarr
  * Date:  28 March 2013
- * Description:  Game class declaration file
+ * Description:  Game class declaration file.
  */
 
 #ifndef GAME_H

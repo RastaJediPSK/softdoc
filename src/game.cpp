@@ -2,7 +2,7 @@
  * File:  game.cpp
  * Authors:  Stephen Erikson, Michael Pomeranz, Kelly DeBarr
  * Date:  28 March 2013
- * Description:  Game class definition file
+ * Description:  Game class definition file.
  */
 
 #include "game.h"
