@@ -9,6 +9,7 @@
 
 #include <sstream>
 #include <string>
+#include <cstddef>	// for std::size_t
 #include <curses.h>
 #include "map.h"
 #include "panel.h"
@@ -127,14 +128,14 @@ bool Game::end_turn(bool player)
 	ss << "End of Player " << player + 1 << "'s turn.";
 	std::string s = ss.str();
 	wmove(switch_win, LINES / 2 - 3, (COLS - s.length()) / 2);
-	size_t pos = s.find("Player");
+	std::size_t pos = s.find("Player");
 	std::string subs = s.substr(0, pos);
 	wprintw(switch_win, subs.c_str());
 
 	// Print "Player n's" in color and bold
 	// Player 1: green, 2: red
 	wattron(switch_win, COLOR_PAIR(17 + player) | A_BOLD);
-	size_t pos2 = s.find("turn") - 1;
+	std::size_t pos2 = s.find("turn") - 1;
 	subs = s.substr(pos, pos2 - pos);
 	wprintw(switch_win, subs.c_str());
 
