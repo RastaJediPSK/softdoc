@@ -32,7 +32,7 @@ Unit::~Unit()
 /* Returns the cost of moving over a specific terrain. */
 int Unit::terrain_cost(int terrain) const
 {
-	return type->get_terrain_cost()[terrain-1];
+	return type->get_terrain_cost()[terrain - 1];
 }
 
 /*
@@ -45,16 +45,16 @@ int Unit::attack(int label)
 {
 	int num = std::rand() % 10 + 1;
 	int *ptr = type->get_unit_attack();
-    if (num <= ptr[label*2])
-        return 0;
-    if (num <= ptr[label*2+1])
-        return 1;
-    return 2;
+	if (num <= ptr[label * 2])
+		return 0;
+	if (num <= ptr[label * 2 + 1])
+		return 1;
+	return 2;
 }
 
-//sets the unit to (x,y) to complete a move
+/* Sets the unit to (x,y) to complete a move. */
 void Unit::move(int x, int y)
 {
-    mapx = x;
-    mapy = y;
+	mapx = x;
+	mapy = y;
 }
