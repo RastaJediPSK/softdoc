@@ -2,7 +2,7 @@
  * File:  panel.h
  * Authors:  Stephen Erikson, Michael Pomeranz, Kelly DeBarr
  * Date:  16 March 2013
- * Description:  Panel class definition file.
+ * Description:  Panel class declaration file.
  */
 
 #ifndef PANEL_H
@@ -35,4 +35,4 @@ public:
 	int get_size() const { return size; }	// Returns width of panel
 };
 
-#endif
+#endif	/* PANEL_H */
