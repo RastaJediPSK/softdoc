@@ -9,6 +9,7 @@
 
 #include <iostream>
 #include <cstdlib>
+#include <stdio.h>
 
 /* Map constructor, generates, draws and displays the map. */
 Map::Map(int x, int y, int screen_x, int screen_y, Panel const &panel, std::vector<UnitType *> const &type, Player *p1, Player *p2) :
@@ -39,94 +40,105 @@ Map::Map(int x, int y, int screen_x, int screen_y, Panel const &panel, std::vect
 	
 	for (int i = 0; i < x; ++i)
 	{
-		map.push_back(vector<tile_pair_t>());	// add a row to map
+		// Add a row to map
+		map.push_back(vector<tile_pair_t>());
 		
-		// reserve y columns for this row to avoid reallocation
+		// Reserve y columns for this row to avoid reallocation
 		vector<tile_pair_t>::size_type sz = y;
 		map[i].reserve(sz);
 
 		for (int j = 0; j < y; ++j)
 		{
-			map[i].push_back(tile_pair_t());	// add column to row
+			// Add column to row
+			map[i].push_back(tile_pair_t());
 
 			map[i][j].unit = 0;
-			map[i][j].terrain = 2;	// initialize all as grass
-
+			// Initialize all as grass
+			map[i][j].terrain = 2;
 		}
 	}
 	
-	//Terrain Procedural Generator
-	
-	//Rivers
-	//Create a lake as an origin, 
-	//then send river from lake to a random side of the map
-	for(int n = 0; n < map_x/10; n++){
-	
-		//Makes a lake
-		int origin_x = (int) (map_x * ( std::rand() / (RAND_MAX + 1.0)));
-		int origin_y = (int) (map_y * ( std::rand() / (RAND_MAX + 1.0)));
-		int lake_size = ( (int) ((map_x/30) *(std::rand() / (RAND_MAX + 1.0) ) )) + 2;
-		for(int j = -lake_size; j < lake_size + 1; j++){
-			for(int i = abs(j) - lake_size; i < -abs(j) + lake_size + 1; i++){
-				if ( (i + origin_x >= 0) && (i + origin_x < map_x) && (j + origin_y >= 0) && (j + origin_y  < map_y) ){
+	/* Terrain procedural generator */
+
+	/*
+	 * Rivers:
+	 * Create a lake as an origin, then send river from lake to a random
+	 * side of the map.
+	 */
+	 for (int n = 0; n < map_x / 10; ++n)
+	 {
+		// Make a lake
+		int origin_x = map_x * (int)(std::rand() / (RAND_MAX + 1.0));
+		int origin_y = map_y * (int)(std::rand() / (RAND_MAX + 1.0));
+		int lake_size = (int)((map_x / 30) * (std::rand() / (RAND_MAX + 1.0))) + 2;
+		for (int j = -lake_size; j < lake_size + 1; ++j)
+			for (int i = std::abs(j) - lake_size; i < -std::abs(j) + lake_size + 1; ++i)
+				if (i + origin_x >= 0 && i + origin_x < map_x && j + origin_y >= 0 && j + origin_y < map_y)
 					map[i + origin_x][j + origin_y].terrain = 1;
-				}
-			}
-		}
 		
-		//Picks a diagonal and makes a river that heads out that way
-		int side = (int) (4 * ( std::rand() / (RAND_MAX + 1.0)));
-		if (side == 0){ //Up-left
-			while( origin_x > 0 && origin_y > 0 ){
-				//pick either up or left
-				int rand = (int) (2 * ( std::rand() / (RAND_MAX + 1.0)));
-				if (rand == 1){ //up
-					origin_y--;
-				}
-				else{ //left
-					origin_x--;
-				}
+		// Picks a diagonal and makes a river that heads out that way
+		int side = std::rand() % 4;
+		switch (side)
+		{
+		// Up-left
+		case 0:
+			while (origin_x > 0 && origin_y > 0){
+				// Pick either up or left
+				int rand = std::rand() % 2;
+				if (rand == 0)
+					// Move up
+					--origin_y;
+				else
+					// Move left
+					--origin_x;
 				map[origin_x][origin_y].terrain = 1;
 			}
-		}
-		else if (side == 1){ //Up-right
-			while( origin_x < map_x - 1 && origin_y > 0 ){
-				//pick either up or right
-				int rand = (int) (2 * ( std::rand() / (RAND_MAX + 1.0)));
-				if (rand == 1){ //up
-					origin_y--;
-				}
-				else{ //right
-					origin_x++;
-				}
+			break;
+		// Up-right
+		case 1:
+			while (origin_x < map_x - 1 && origin_y > 0)
+			{
+				// Pick either up or right
+				int rand = std::rand() % 2;
+				if (rand == 0)
+					// Move up
+					--origin_y;
+				else
+					// Move right
+					++origin_x;
 				map[origin_x][origin_y].terrain = 1;
 			}
-		}
-		else if (side == 2){ //Down-right
-			while( origin_x < map_x - 1 && origin_y < map_y - 1 ){
-				//pick either down or right
-				int rand = (int) (2 * ( std::rand() / (RAND_MAX + 1.0)));
-				if (rand == 1){ //down
-					origin_y++;
-				}
-				else{ //right
-					origin_x++;
-				}
+			break;
+		// Down-right
+		case 2:
+			while (origin_x < map_x - 1 && origin_y < map_y - 1)
+			{
+				// Pick either down or right
+				int rand = std::rand() % 2;
+				if (rand == 0)
+					// Move down
+					++origin_y;
+				else
+					// Move right
+					++origin_x;
 				map[origin_x][origin_y].terrain = 1;
 			}
-		}
-		else if (side == 3){ //Down-left
-			while( origin_x > 0 && origin_y < map_y - 1 ){
-				//pick either down or left
-				int rand = (int) (2 * ( std::rand() / (RAND_MAX + 1.0)));
-				if (rand == 1){ //down
-					origin_y++;
-				}
-				else{ //left
-					origin_x--;
-				}
+			break;
+		// Down-left
+		case 3:
+			while (origin_x > 0 && origin_y < map_y - 1)
+			{
+				// Pick either down or left
+				int rand = std::rand() % 2;
+				if (rand == 0)
+					// Move down
+					++origin_y;
+				else
+					// Move left
+					--origin_x;
 				map[origin_x][origin_y].terrain = 1;
 			}
+			break;
 		}
 	}
 	
@@ -147,7 +159,7 @@ Map::Map(int x, int y, int screen_x, int screen_y, Panel const &panel, std::vect
 			int mount_size = ( (int) ((map_x/20) *(std::rand() / (RAND_MAX + 1.0) ) )) + 3;
 			for(int j = -mount_size; j < mount_size + 1; j++){
 				for(int i = abs(j) - mount_size; i < -abs(j) + mount_size + 1; i++){
-					if ( (i + origin_x >= 0) && (i + origin_x < map_x) && (j + origin_y >= 0) && (j + origin_y  < map_y) ){
+					if ((i + origin_x >= 0) && (i + origin_x < map_x) && (j + origin_y >= 0) && (j + origin_y  < map_y)){
 						map[i + origin_x][j + origin_y].terrain = 4;
 					}
 				}
@@ -220,7 +232,7 @@ Map::Map(int x, int y, int screen_x, int screen_y, Panel const &panel, std::vect
 		}
 	}
 	n = (map_x/50) + 2;
-	while ( n > 0 ){
+	while ( n > 0){
 		//Player 2's
 		int rand_x = (int) (map_x * ( std::rand() / (RAND_MAX + 1.0)));
 		int rand_y = (int) (map_y * ( std::rand() / (RAND_MAX + 1.0)));
@@ -268,9 +280,9 @@ void Map::redraw(int screen_x, int screen_y)
 		pos_x = scr_x-1;
 	if (pos_y > scr_y-1)
 		pos_y = scr_y-1;
-    if(pos_x > map_x-1)
+    if (pos_x > map_x-1)
         pos_x = map_x-1;
-    if(pos_y > map_y-1)
+    if (pos_y > map_y-1)
         pos_y = map_y-1;
 	
 	pnoutrefresh(map_pad,tile_y,tile_x,0,0,scr_y-1,scr_x-1);
@@ -308,10 +320,10 @@ void Map::map_loop(Player *player)
 					(void)0;	// no-op
 				else
 					--tile_y;
-                if(pathfind == NULL)
+                if (pathfind == NULL)
                 {
                     path_length = -1;
-                }else{
+                }else {
                     path_length = pathfind->find_dist(pos_x+tile_x,pos_y+tile_y);
                 }
 				redraw(scr_x, scr_y);
@@ -319,10 +331,10 @@ void Map::map_loop(Player *player)
 			else
 			{
 				--pos_y;
-                if(pathfind == NULL)
+                if (pathfind == NULL)
                 {
                     path_length = -1;
-                }else{
+                }else {
                     path_length = pathfind->find_dist(pos_x+tile_x,pos_y+tile_y);
                 }
 				move(pos_y, pos_x);
@@ -340,23 +352,23 @@ void Map::map_loop(Player *player)
                     break;
                 }
 				++tile_y;
-                if(pathfind == NULL)
+                if (pathfind == NULL)
                 {
                     path_length = -1;
-                }else{
+                }else {
                     path_length = pathfind->find_dist(pos_x+tile_x,pos_y+tile_y);
                 }
 				redraw(scr_x, scr_y);
 			}
 			else
 			{
-                if(tile_y + pos_y + 1 >= map_y)
+                if (tile_y + pos_y + 1 >= map_y)
                     break;
 				++pos_y;
-                if(pathfind == NULL)
+                if (pathfind == NULL)
                 {
                     path_length = -1;
-                }else{
+                }else {
                     path_length = pathfind->find_dist(pos_x+tile_x,pos_y+tile_y);
                 }
 				move(pos_y, pos_x);
@@ -375,10 +387,10 @@ void Map::map_loop(Player *player)
 				else
 				{
 					--tile_x;
-                    if(pathfind == NULL)
+                    if (pathfind == NULL)
                     {
                         path_length = -1;
-                    }else{
+                    }else {
                         path_length = pathfind->find_dist(pos_x+tile_x,pos_y+tile_y);
                     }
 					redraw(scr_x, scr_y);
@@ -387,10 +399,10 @@ void Map::map_loop(Player *player)
 			else
 			{
 				--pos_x;
-                if(pathfind == NULL)
+                if (pathfind == NULL)
                 {
                     path_length = -1;
-                }else{
+                }else {
                     path_length = pathfind->find_dist(pos_x+tile_x,pos_y+tile_y);
                 }
 				move(pos_y, pos_x);
@@ -408,23 +420,23 @@ void Map::map_loop(Player *player)
                     break;
                 }
 				++tile_x;
-                if(pathfind == NULL)
+                if (pathfind == NULL)
                 {
                     path_length = -1;
-                }else{
+                }else {
                     path_length = pathfind->find_dist(pos_x+tile_x,pos_y+tile_y);
                 }
 				redraw(scr_x, scr_y);
 			}
 			else
 			{
-                if(tile_x+pos_x+1 >= map_x)
+                if (tile_x+pos_x+1 >= map_x)
                     break;
 				++pos_x;
-                if(pathfind == NULL)
+                if (pathfind == NULL)
                 {
                     path_length = -1;
-                }else{
+                }else {
                     path_length = pathfind->find_dist(pos_x+tile_x,pos_y+tile_y);
                 }
 				move(pos_y, pos_x);
@@ -435,11 +447,11 @@ void Map::map_loop(Player *player)
 			}
 			break;
         case 'z':
-            if(selected == NULL)
+            if (selected == NULL)
             {
-                if(map[pos_x+tile_x][pos_y+tile_y].unit == NULL)
+                if (map[pos_x+tile_x][pos_y+tile_y].unit == NULL)
                 {
-                    if(map[pos_x+tile_x][pos_y+tile_y].terrain == 6-player->get_id())
+                    if (map[pos_x+tile_x][pos_y+tile_y].terrain == 6-player->get_id())
                     {
                         //open the buildpanel to constuct a new unit
                         BuildPanel *bp;
@@ -447,7 +459,7 @@ void Map::map_loop(Player *player)
                         map[pos_x+tile_x][pos_y+tile_y].unit = bp->use_panel(pos_x+tile_x,pos_y+tile_y);
                         delete bp;
                         panel.resize(scr_x+panel.get_size(),scr_y,map[pos_x+tile_x][pos_y+tile_y].terrain,map[pos_x+tile_x][pos_y+tile_y].unit,selected,path_length);
-                        if(map[pos_x+tile_x][pos_y+tile_y].unit)
+                        if (map[pos_x+tile_x][pos_y+tile_y].unit)
                         {
                             wattron(map_pad,COLOR_PAIR(map[pos_x+tile_x][pos_y+tile_y].terrain+6*map[pos_x+tile_x][pos_y+tile_y].unit->get_player()->get_id()));
                             mvwaddch(map_pad,pos_y+tile_y,pos_x+tile_x,map[pos_x+tile_x][pos_y+tile_y].unit->symbol());
@@ -457,9 +469,9 @@ void Map::map_loop(Player *player)
                         move(pos_y, pos_x);
                         doupdate();
                     }
-                }else{
+                }else {
                     Unit *hovered_unit = map[pos_x+tile_x][pos_y+tile_y].unit;
-                    if(hovered_unit->get_player() == player && !hovered_unit->get_used())
+                    if (hovered_unit->get_player() == player && !hovered_unit->get_used())
                     {
                         //select the unit
                         selected = hovered_unit;
@@ -469,11 +481,11 @@ void Map::map_loop(Player *player)
                                 selected,path_length);
                     }
                 }
-            }else{
+            }else {
                 Unit *hovered_unit = map[pos_x+tile_x][pos_y+tile_y].unit;
-                if(path_length != -1 && path_length <= selected->get_move())
+                if (path_length != -1 && path_length <= selected->get_move())
                 {
-                    if(hovered_unit == NULL)
+                    if (hovered_unit == NULL)
                     {
                         //Move the unit
                         map[pos_x+tile_x][pos_y+tile_y].unit = selected;
@@ -488,8 +500,8 @@ void Map::map_loop(Player *player)
                         selected->move(pos_x+tile_x,pos_y+tile_y);
                         selected->set_used(true);
                         deselect();
-                    }else{
-                        if(hovered_unit->get_player() != player)
+                    }else {
+                        if (hovered_unit->get_player() != player)
                         {
                             //Unit combat
                             int result = selected->attack(hovered_unit->get_label());
@@ -556,7 +568,7 @@ tile_pair_t *Map::get_tile(int x, int y)
 {
 	if (x >= map_x || y >= map_y)
 		return 0;
-    if(x < 0 || y < 0)
+    if (x < 0 || y < 0)
         return 0;
 	return &map[x][y];
 }
@@ -586,95 +598,95 @@ void Map::createRoad(int orig_x, int orig_y, int dest_x, int dest_y){
 	if (orig_x > dest_x){ //Going left
 		int ups = 0;
 		int lefts = 0;
-		while ( n-1 >= dest_x || m-1 >= dest_y ){
-			if ( n == dest_x ){	//moved as left as possible
+		while ( n-1 >= dest_x || m-1 >= dest_y){
+			if (n == dest_x){	//moved as left as possible
 				m--;
-				if( map[n][m].terrain != 5 && map[n][m].terrain != 6){
+				if (map[n][m].terrain != 5 && map[n][m].terrain != 6){
 					map[n][m].terrain = 3;
 				}
 			}
-			else if ( m == dest_y ){	//moved as up as possible
+			else if (m == dest_y){	//moved as up as possible
 				n--;
-				if( map[n][m].terrain != 5 && map[n][m].terrain != 6){
+				if (map[n][m].terrain != 5 && map[n][m].terrain != 6){
 					map[n][m].terrain = 3;
 				}
 			}
-			else if ( ups > 0){
+			else if (ups > 0){
 				ups--;
 				m--;
-				if( map[n][m].terrain != 5 && map[n][m].terrain != 6){
+				if (map[n][m].terrain != 5 && map[n][m].terrain != 6){
 					map[n][m].terrain = 3;
 				}
 			}
-			else if ( lefts > 0 ){
+			else if (lefts > 0){
 				lefts--;
 				n--;
-				if( map[n][m].terrain != 5 && map[n][m].terrain != 6){
+				if (map[n][m].terrain != 5 && map[n][m].terrain != 6){
 					map[n][m].terrain = 3;
 				}
 			}
-			else{	//pick either up or left
+			else {	//pick either up or left
 				int rand = (int) (2 * ( std::rand() / (RAND_MAX + 1.0)));
 				if (rand == 1){ //up
 					ups = 3;
 						m--;
-					if( map[n][m].terrain != 5 && map[n][m].terrain != 6){
+					if (map[n][m].terrain != 5 && map[n][m].terrain != 6){
 						map[n][m].terrain = 3;
 					}
 				}
-				else{ //left
+				else { //left
 					lefts = 3;
 					n--;
-					if( map[n][m].terrain != 5 && map[n][m].terrain != 6){
+					if (map[n][m].terrain != 5 && map[n][m].terrain != 6){
 						map[n][m].terrain = 3;
 					}
 				}
 			}
 		}
 	}
-	else{	//Going right
+	else {	//Going right
 		int ups = 0;
 		int rights = 0;
-		while ( n+1 <= dest_x || m-1 >= dest_y ){
-			if ( n == dest_x ){	//moved as right as possible
+		while ( n+1 <= dest_x || m-1 >= dest_y){
+			if (n == dest_x){	//moved as right as possible
 				m--;
-				if( map[n][m].terrain != 5 && map[n][m].terrain != 6){
+				if (map[n][m].terrain != 5 && map[n][m].terrain != 6){
 					map[n][m].terrain = 3;
 				}
 			}
-			else if ( m == dest_y ){	//moved as up as possible
+			else if (m == dest_y){	//moved as up as possible
 				n++;
-				if( map[n][m].terrain != 5 && map[n][m].terrain != 6){
+				if (map[n][m].terrain != 5 && map[n][m].terrain != 6){
 					map[n][m].terrain = 3;
 				}
 			}
-			else if ( ups > 0){
+			else if (ups > 0){
 				ups--;
 				m--;
-				if( map[n][m].terrain != 5 && map[n][m].terrain != 6){
+				if (map[n][m].terrain != 5 && map[n][m].terrain != 6){
 					map[n][m].terrain = 3;
 				}
 			}
-			else if ( rights > 0 ){
+			else if (rights > 0){
 				rights--;
 				n++;
-				if( map[n][m].terrain != 5 && map[n][m].terrain != 6){
+				if (map[n][m].terrain != 5 && map[n][m].terrain != 6){
 					map[n][m].terrain = 3;
 				}
 			}
-			else{	//pick either up or right
+			else {	//pick either up or right
 				int rand = (int) (2 * ( std::rand() / (RAND_MAX + 1.0)));
 				if (rand == 1){ //up
 					ups = 3;
 					m--;
-					if( map[n][m].terrain != 5 && map[n][m].terrain != 6){
+					if (map[n][m].terrain != 5 && map[n][m].terrain != 6){
 						map[n][m].terrain = 3;
 					}
 				}
-				else{ //right
+				else { //right
 					rights = 3;
 					n++;
-					if( map[n][m].terrain != 5 && map[n][m].terrain != 6){
+					if (map[n][m].terrain != 5 && map[n][m].terrain != 6){
 						map[n][m].terrain = 3;
 					}
 				}
