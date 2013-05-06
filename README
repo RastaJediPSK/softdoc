@@ -17,6 +17,7 @@ To build a unit:
 4.  Press 'z' to build desired unit
 
 To move a unit:
+
 Units can move once per turn (excluding immediately after creation)
 
 1.  Select a unit with arrow keys--make sure it is your color
