@@ -19,12 +19,14 @@ AC_PROG_INSTALL
 # FIXME: Replace `main' with a function in `-lncurses':
 AC_CHECK_LIB([ncurses], [main])
 
+# Checks for header files.
+
 # Checks for typedefs, structures, and compiler characteristics.
 AC_HEADER_STDBOOL
 AC_C_CONST
+AC_TYPE_SIZE_T
 
 # Checks for library functions.
-AC_TYPE_SIGNAL
 
 AC_CONFIG_FILES([Makefile
                  src/Makefile])

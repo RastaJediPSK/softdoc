@@ -3482,6 +3482,8 @@ _ACEOF
 fi
 
 
+# Checks for header files.
+
 # Checks for typedefs, structures, and compiler characteristics.
 ac_ext=c
 ac_cpp='$CPP $CPPFLAGS'
@@ -4236,11 +4238,9 @@ _ACEOF
 
 fi
 
-
-# Checks for library functions.
-echo "$as_me:$LINENO: checking return type of signal handlers" >&5
-echo $ECHO_N "checking return type of signal handlers... $ECHO_C" >&6
-if test "${ac_cv_type_signal+set}" = set; then
+echo "$as_me:$LINENO: checking for size_t" >&5
+echo $ECHO_N "checking for size_t... $ECHO_C" >&6
+if test "${ac_cv_type_size_t+set}" = set; then
   echo $ECHO_N "(cached) $ECHO_C" >&6
 else
   cat >conftest.$ac_ext <<_ACEOF
@@ -4249,21 +4249,14 @@ _ACEOF
 cat confdefs.h >>conftest.$ac_ext
 cat >>conftest.$ac_ext <<_ACEOF
 /* end confdefs.h.  */
-#include <sys/types.h>
-#include <signal.h>
-#ifdef signal
-# undef signal
-#endif
-#ifdef __cplusplus
-extern "C" void (*signal (int, void (*)(int)))(int);
-#else
-void (*signal ()) ();
-#endif
-
+$ac_includes_default
 int
 main ()
 {
-int i;
+if ((size_t *) 0)
+  return 0;
+if (sizeof (size_t))
+  return 0;
   ;
   return 0;
 }
@@ -4290,23 +4283,29 @@ if { (eval echo "$as_me:$LINENO: \"$ac_compile\"") >&5
   ac_status=$?
   echo "$as_me:$LINENO: \$? = $ac_status" >&5
   (exit $ac_status); }; }; then
-  ac_cv_type_signal=void
+  ac_cv_type_size_t=yes
 else
   echo "$as_me: failed program was:" >&5
 sed 's/^/| /' conftest.$ac_ext >&5
 
-ac_cv_type_signal=int
+ac_cv_type_size_t=no
 fi
 rm -f conftest.err conftest.$ac_objext conftest.$ac_ext
 fi
-echo "$as_me:$LINENO: result: $ac_cv_type_signal" >&5
-echo "${ECHO_T}$ac_cv_type_signal" >&6
+echo "$as_me:$LINENO: result: $ac_cv_type_size_t" >&5
+echo "${ECHO_T}$ac_cv_type_size_t" >&6
+if test $ac_cv_type_size_t = yes; then
+  :
+else
 
 cat >>confdefs.h <<_ACEOF
-#define RETSIGTYPE $ac_cv_type_signal
+#define size_t unsigned
 _ACEOF
 
+fi
 
+
+# Checks for library functions.
 
                     ac_config_files="$ac_config_files Makefile src/Makefile"
 
