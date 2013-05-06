@@ -3,7 +3,7 @@
 
 AC_PREREQ(2.59)
 #AC_INIT(FULL-PACKAGE-NAME, VERSION, BUG-REPORT-ADDRESS)
-AC_INIT(main, 1.0.0)
+AC_INIT([nullptr-game], [1.0.0])
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([src/main.cpp])
 AC_CONFIG_HEADER([include/config.h])
