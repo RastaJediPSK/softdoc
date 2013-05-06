@@ -1,8 +1,8 @@
 /*
  * File:  map.h
- * Authors:  Stephen Erikson, Michael Pomeranz, James Lenze, Kelly DeBarr
+ * Authors:  Stephen Erikson, Michael Pomeranz, Kelly DeBarr
  * Date:  24 March 2013
- * Description:  Map class declaration file
+ * Description:  Map class declaration file.
  */
 
 #ifndef MAP_H
@@ -17,15 +17,17 @@
 #include "unit.h"
 #include "unit_type.h"
 
-//Holds data for each tile on the map
+/* Holds data for each tile on the map. */
 struct tile_pair_t
 {
     int terrain;
     Unit *unit;
 };
 
-//main map class, handels displaying the map,
-//the cursor and interacting with units
+/*
+ * Main Map class.
+ * Handles displaying the map, the cursor and interacting with units.
+ */
 class Map
 {
 	std::vector<std::vector<tile_pair_t> > map;
@@ -35,7 +37,7 @@ class Map
 	int pos_x, pos_y;	// position of cursor on screen
 	Panel panel;
 	WINDOW *map_pad;	// pad to draw map on
-	std::vector<UnitType *> &types;
+	std::vector<UnitType *> const &types;
 	Unit *selected;
 	Pathfind *pathfind;
 	int path_length;
@@ -50,7 +52,7 @@ class Map
     void deselect();
 
 public:
-	Map(int x, int y, int screen_x, int screen_y, Panel &panel, std::vector<UnitType *> &type, Player *p1, Player *p2);
+	Map(int x, int y, int screen_x, int screen_y, Panel const &panel, std::vector<UnitType *> const &type, Player *p1, Player *p2);
 	~Map();
 	void redraw(int screen_x, int screen_y);
 	void map_loop(Player *player);
@@ -58,4 +60,4 @@ public:
 	tile_pair_t *get_tile(int x, int y);
 };
 
-#endif
+#endif	/* MAP_H */

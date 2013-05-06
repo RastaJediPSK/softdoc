@@ -1,16 +1,17 @@
 /*
  * File:  map.cpp
- * Authors:  Stephen Erikson, Michael Pomeranz, James Lenze, Kelly DeBarr
+ * Authors:  Stephen Erikson, Michael Pomeranz, Kelly DeBarr
  * Date:  24 February 2013
- * Description:  Map class definition file
+ * Description:  Map class definition file.
  */
 
-#include <cstdlib>
-#include <iostream>
 #include "map.h"
 
-//Map constructor, generates, draws and displays the map
-Map::Map(int x, int y, int screen_x, int screen_y, Panel &panel, std::vector<UnitType *> &type, Player *p1, Player *p2) :
+#include <iostream>
+#include <cstdlib>
+
+/* Map constructor, generates, draws and displays the map. */
+Map::Map(int x, int y, int screen_x, int screen_y, Panel const &panel, std::vector<UnitType *> const &type, Player *p1, Player *p2) :
  	map(),
 	tile_x(0),
 	tile_y(0),
@@ -22,18 +23,17 @@ Map::Map(int x, int y, int screen_x, int screen_y, Panel &panel, std::vector<Uni
 	pos_y(screen_y/2),
 	panel(panel),
 	map_pad(0),
-    types(type),
-    selected(NULL),
-    pathfind(NULL),
-    path_length(-1)
+	types(type),
+	selected(NULL),
+	pathfind(NULL),
+	path_length(-1)
 {
-
+	// Reserve x map rows to avoid reallocation
 	using std::vector;
-	// reserve x map rows to avoid reallocation
 	vector<vector<tile_pair_t> >::size_type sz = x;
 	map.reserve(sz);
 
-	srand(time(NULL));
+	std::srand(std::time(NULL));
 	int center_x = map_x/2;
 	int center_y = map_y/2;
 	
