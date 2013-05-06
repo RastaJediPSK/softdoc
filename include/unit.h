@@ -1,51 +1,47 @@
 /*
  * File:  unit.h
- * Authors:  Steve Erikson, Michael, Kelly, James
+ * Authors:  Steve Erikson, Michael Pomeranz, Kelly DeBarr
  * Date:  14 February 2013
  * Description:  Parent Unit class declaration file.
  */
 
-#ifndef UNIT_H_
-#define UNIT_H_
+#ifndef UNIT_H
+#define UNIT_H
 
-#include <string>
 #include <list>
-#include <curses.h>
-#include <cstdlib>
+#include <string>
 #include "unit_type.h"
 
-class Player; //prototype to avoid dependency
+class Player;
 
-//Class for each individual unit object
+/* Class for each individual unit object. */
 class Unit
 {
-    UnitType *type;
-    Player *player;
-    bool used;
-    std::list<Unit *>::iterator place;
-    int mapx,mapy;
+	UnitType *type;
+	Player *player;
+	bool used;
+	std::list<Unit *>::iterator place;
+	int mapx, mapy;
 
-    //unused constructors to stop warnings
-    Unit(const Unit &u);
-    void operator=(const Unit &u);
+	// Unused constructors to stop warnings
+	Unit(const Unit &u);
+	void operator=(const Unit &u);
 
-    public:
-    Unit(UnitType *unit_type, Player *play, int x, int y);
-    ~Unit();
-    int terrain_cost(int terrain);
-    int attack(int label);
-    int get_label() { return type->get_unit_label(); }
-    int symbol() { return type->get_unit_symbol(); }
-    std::string get_name() { return type->get_unit_name(); }
-    bool get_used() { return used; }
-    void set_used(bool b) { used = b; }
-    int get_move() { return type->get_unit_move(); }
-    void move(int x, int y);
-    int get_x() { return mapx; }
-    int get_y() { return mapy; }
-    Player *get_player() { return player; }
+public:
+	Unit(UnitType *unit_type, Player *play, int x, int y);
+	~Unit();
+	int terrain_cost(int terrain) const;
+	int attack(int label);
+	int get_label() const { return type->get_unit_label(); }
+	int symbol() const { return type->get_unit_symbol(); }
+	std::string get_name() const { return type->get_unit_name(); }
+	bool get_used() const { return used; }
+	void set_used(bool b) { used = b; }
+	int get_move() const { return type->get_unit_move(); }
+	void move(int x, int y);
+	int get_x() const { return mapx; }
+	int get_y() const { return mapy; }
+	Player *get_player() const { return player; }
 };
 
-
-
-#endif
+#endif	/* UNIT_H */
