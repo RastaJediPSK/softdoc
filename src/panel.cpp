@@ -54,12 +54,10 @@ void Panel::update(int terrain, Unit *unit, Unit *selected, int path_length)
 		waddstr(panel_window, "P1 Base");
 		break;
 	}
-
 	int i;
 	getyx(panel_window, terrain, i);
 	for(; i < scr_x; ++i)
 		waddch(panel_window, ' ');
-
 	wmove(panel_window, unit_name_pos, 11);
 	if (unit != 0)
 	{
@@ -88,7 +86,7 @@ void Panel::update(int terrain, Unit *unit, Unit *selected, int path_length)
 	
 	wmove(panel_window, move_pos, 11);
 	if (selected != 0)
-		if (path_length != -1 && path_length <= selected->get_move())
+		if (path_length != -1 && path_length <= selected->get_move() && (!unit || unit->get_player() != selected->get_player()))
 			waddstr(panel_window, "yes");
 		else
 			waddstr(panel_window, "no ");
