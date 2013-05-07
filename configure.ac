@@ -3,7 +3,7 @@
 
 AC_PREREQ(2.59)
 #AC_INIT(FULL-PACKAGE-NAME, VERSION, BUG-REPORT-ADDRESS)
-AC_INIT(main, 0.1.0)
+AC_INIT([nullptr-game], [1.0.0])
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([src/main.cpp])
 AC_CONFIG_HEADER([include/config.h])
@@ -19,12 +19,14 @@ AC_PROG_INSTALL
 # FIXME: Replace `main' with a function in `-lncurses':
 AC_CHECK_LIB([ncurses], [main])
 
+# Checks for header files.
+
 # Checks for typedefs, structures, and compiler characteristics.
 AC_HEADER_STDBOOL
 AC_C_CONST
+AC_TYPE_SIZE_T
 
 # Checks for library functions.
-AC_TYPE_SIGNAL
 
 AC_CONFIG_FILES([Makefile
                  src/Makefile])
