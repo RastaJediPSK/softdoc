@@ -82,7 +82,7 @@ void Panel::update(int terrain, Unit *unit, Unit *selected, int path_length)
     wmove(panel_window,move_pos,11);
     if(selected != NULL)
     {
-        if(path_length != -1 && path_length <= selected->get_move())
+        if(path_length != -1 && path_length <= selected->get_move() && (!unit || unit->get_player() != selected->get_player()))
         {
             waddstr(panel_window,"yes");
         }else{
