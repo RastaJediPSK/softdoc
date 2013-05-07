@@ -55,10 +55,75 @@ void Panel::update(int terrain, Unit *unit, Unit *selected, int path_length)
 		break;
 	}
 
+<<<<<<< HEAD
 	int i;
 	getyx(panel_window, terrain, i);
 	for(; i < scr_x; ++i)
 		waddch(panel_window, ' ');
+=======
+    wmove(panel_window,terrain_pos,9);
+    switch(terrain)
+    {
+        case 1:
+            waddstr(panel_window,"Water");
+            break;
+        case 2:
+            waddstr(panel_window,"Grass");
+            break;
+        case 3:
+            waddstr(panel_window,"Road");
+            break;
+        case 4:
+            waddstr(panel_window,"Mountain");
+            break;
+        case 5:
+            waddstr(panel_window,"P2 Base");
+            break;
+        case 6:
+            waddstr(panel_window,"P1 Base");
+            break;
+        default:
+            break;
+    }
+    getyx(panel_window,terrain,i);
+    for(;i<scr_x;i++)
+        waddch(panel_window,' ');
+    wmove(panel_window,unit_name_pos,11);
+    if(unit != NULL)
+    {
+        waddstr(panel_window,unit->get_name().c_str());
+        wmove(panel_window,unit_name_pos+2,9);
+        if(unit->get_used())
+        {
+            waddstr(panel_window,"No ");
+        }else{
+            waddstr(panel_window,"Yes");
+        }
+    }else{
+        getyx(panel_window,terrain,i);
+        for(;i<scr_x;i++)
+            waddch(panel_window,' ');
+        mvwprintw(panel_window,unit_name_pos+2,9,"   ");
+    }
+    wmove(panel_window,selected_unit_pos,11);
+    if(selected != NULL)
+    {
+        waddstr(panel_window,selected->get_name().c_str());
+    }else{
+        getyx(panel_window,terrain,i);
+        for(;i<scr_x;i++)
+            waddch(panel_window,' ');
+    }
+    wmove(panel_window,move_pos,11);
+    if(selected != NULL)
+    {
+        if(path_length != -1 && path_length <= selected->get_move() && (!unit || unit->get_player() != selected->get_player()))
+        {
+            waddstr(panel_window,"yes");
+        }else{
+            waddstr(panel_window,"no ");
+        }
+>>>>>>> working
 
 	wmove(panel_window, unit_name_pos, 11);
 	if (unit != 0)
