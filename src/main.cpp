@@ -7,7 +7,6 @@
 
 #include <iostream>
 #include <curses.h>
-#include <signal.h>
 #include "map.h"
 #include "menu.h"
 #include "panel.h"
