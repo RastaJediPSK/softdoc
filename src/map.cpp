@@ -9,6 +9,7 @@
 
 #include <iostream>
 #include <cstdlib>
+#include <ctime>
 #include "build_panel.h"
 #include "pathfind.h"
 #include "player.h"
