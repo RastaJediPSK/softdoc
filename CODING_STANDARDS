@@ -143,3 +143,15 @@ Variable, function, and class naming:
 * Use names that make sense, but aren't too long
 * Variable names should help self-comment code
 * For each source file (except for main), include an accompanying header file (usually one source/header per class)
+
+Operators:
+* Use prefix unless postfix is required (postfix returns a copy that might not
+  be needed)
+* Insert a space before and after each operator
+* E.g.:
+
+  for (int i = 0; i < n; ++i)
+	  sleep(1);
+
+  int x = 3 + 5 / 4;		// x = 3 + (5/4)
+  int y = 2 + 5 / 4 * 3;	// y = 2 + (5/(4*3))
