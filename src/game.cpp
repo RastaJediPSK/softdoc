@@ -156,5 +156,5 @@ bool Game::end_turn(bool player)
 	delwin(switch_win);
 
 	// Was 'q' pressed?
-	return (c == 'q') ? true : false;
+	return c == 'q';
 }
